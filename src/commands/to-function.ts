@@ -3,7 +3,7 @@ import type { Command } from '../types'
 
 const command: Command = {
   name: 'to-function',
-  match: /^:(to-(?:fn|function)|2f)$/,
+  match: /^\/\s*(to-(?:fn|function)|2f|tf)$/,
   action(ctx) {
     const arrowFn = ctx.getNodeBelow('ArrowFunctionExpression')
     if (!arrowFn)

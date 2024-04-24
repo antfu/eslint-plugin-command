@@ -14,14 +14,14 @@ const valids = [
 const invalids = [
   {
     code: d`
-    // :to-fn
+    ///to-fn
     const a = 1`,
     output: null,
     messageId: 'invalid-command',
   },
   {
     code: d`
-    // :to-fn
+    /// to-function
     export const foo = <T = 1>(arg: Z): Bar => {
       const bar = () => {}
     }`,
@@ -34,7 +34,7 @@ const invalids = [
   // Arrow function without name
   {
     code: d`
-    // :to-fn
+    // /2f
     export default <T = 1>(arg: Z): Bar => {
       const bar = () => {}
     }`,

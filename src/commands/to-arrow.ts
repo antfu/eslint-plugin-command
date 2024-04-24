@@ -1,9 +1,8 @@
-import type { TSESTree } from '@typescript-eslint/utils'
 import type { Command } from '../types'
 
 const command: Command = {
   name: 'to-arrow',
-  match: /^:(to-arrow|2a)$/,
+  match: /^\/\s*(to-arrow|2a|ta)$/,
   action(ctx) {
     const fn = ctx.getNodeBelow('FunctionDeclaration', 'FunctionExpression')
     if (!fn)

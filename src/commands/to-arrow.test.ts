@@ -14,14 +14,14 @@ const valids = [
 const invalids = [
   {
     code: d`
-    // :2a
+    /// 2a
     const a = 1`,
     output: null,
     messageId: 'invalid-command',
   },
   {
     code: d`
-    // :to-arrow
+    /// to-arrow
     export async function foo <T = 1>(arg: T): Bar {
       const bar = () => {}
     }`,
@@ -33,7 +33,7 @@ const invalids = [
   },
   {
     code: d`
-    // :to-arrow
+    ///to-arrow
     const bar = async function foo <T = 1>(arg: T): Bar {
       function baz() {}
     }`,
