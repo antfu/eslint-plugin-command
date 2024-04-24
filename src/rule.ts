@@ -64,11 +64,15 @@ export function createRuleWithCommands(commands: Command[]) {
                     message: 'Remove comment after use',
                   },
                   fix(fixer) {
+                    const lastToken = sc.getTokenBefore(comment, { includeComments: true })?.range[1]
+                    let lineStart = context.sourceCode.getIndexFromLoc({
+                      line: comment.loc.start.line,
+                      column: 0,
+                    }) - 1
+                    if (lastToken != null)
+                      lineStart = Math.max(lastToken, lineStart)
                     return fixer.removeRange([
-                      context.sourceCode.getIndexFromLoc({
-                        line: comment.loc.start.line,
-                        column: 0,
-                      }) - 1,
+                      lineStart,
                       comment.range[1],
                     ])
                   },
