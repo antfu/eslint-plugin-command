@@ -91,6 +91,7 @@ export function createRuleWithCommands(commands: Command[]) {
                 return result
               },
             })
+            continue
           }
         }
       }
