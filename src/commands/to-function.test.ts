@@ -44,6 +44,23 @@ const invalids = [
     }`,
     messageId: ['fix', 'fix'],
   },
+  // Object method
+  {
+    code: d`
+    const bar = {
+      /// to-fn
+      bar: (a: number, b: number): number => a + b,
+      foo: () => { return 1 }
+    }`,
+    output: d`
+    const bar = {
+      bar (a: number, b: number): number {
+      return a + b
+    },
+      foo: () => { return 1 }
+    }`,
+    messageId: ['fix', 'fix'],
+  },
 ]
 
 const ruleTester: RuleTester = new RuleTester({

@@ -65,8 +65,11 @@ export function createRuleWithCommands(commands: Command[]) {
                   },
                   fix(fixer) {
                     return fixer.removeRange([
-                      comment.range[0],
-                      sc.getTokenAfter(comment)?.range[0] ?? comment.range[1],
+                      context.sourceCode.getIndexFromLoc({
+                        line: comment.loc.start.line,
+                        column: 0,
+                      }) - 1,
+                      comment.range[1],
                     ])
                   },
                 })

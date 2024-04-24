@@ -19,6 +19,7 @@ const invalids = [
     output: null,
     messageId: 'invalid-command',
   },
+  // Function declaration
   {
     code: d`
     /// to-arrow
@@ -31,6 +32,7 @@ const invalids = [
     }`,
     messageId: ['fix', 'fix'],
   },
+  // Function expression
   {
     code: d`
     ///to-arrow
@@ -40,6 +42,52 @@ const invalids = [
     output: d`
     const bar = async <T = 1>(arg: T): Bar => {
       function baz() {}
+    }`,
+    messageId: ['fix', 'fix'],
+  },
+  // Object method
+  {
+    code: d`
+    const bar = {
+      /// to-arrow
+      bar(a: number, b: number): number {
+        return a + b
+      },
+      foo() {
+        return 1
+      },
+    }`,
+    output: d`
+    const bar = {
+      bar: (a: number, b: number): number => {
+        return a + b
+      },
+      foo() {
+        return 1
+      },
+    }`,
+    messageId: ['fix', 'fix'],
+  },
+  // Class method
+  {
+    code: d`
+    class Bar {
+      /// to-arrow
+      bar(a: number, b: number): number {
+        return a + b
+      }
+      foo() {
+        return 1
+      }
+    }`,
+    output: d`
+    class Bar {
+      bar = (a: number, b: number): number => {
+        return a + b
+      }
+      foo() {
+        return 1
+      }
     }`,
     messageId: ['fix', 'fix'],
   },

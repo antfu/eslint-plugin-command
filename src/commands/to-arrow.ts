@@ -39,9 +39,24 @@ const command: Command = {
         const textAsync = fn.async ? 'async' : ''
 
         let final = [textAsync, `${textGeneric}(${textArgs})${textTypeReturn} =>`, textBody].filter(Boolean).join(' ')
+
+        // For function declaration
         if (fn.type === 'FunctionDeclaration' && textName)
           final = `const ${textName} = ${final}`
 
+        // For object methods
+        else if (fn.parent.type === 'Property')
+          final = `: ${final}`
+
+        // For class methods
+        else if (fn.parent.type === 'MethodDefinition')
+          final = ` = ${final}`
+
+        // console.log({
+        //   final,
+        //   original: code.slice(fn.range[0], fn.range[1]),
+        //   p: fn.parent.type,
+        // })
         return fixer.replaceTextRange([fn.range[0], fn.range[1]], final)
       },
     })

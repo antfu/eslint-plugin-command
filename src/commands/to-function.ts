@@ -18,6 +18,10 @@ const command: Command = {
       if (arrowFn.parent.parent.type === 'VariableDeclaration' && arrowFn.parent.parent.kind === 'const' && arrowFn.parent.parent.declarations.length === 1)
         start = arrowFn.parent.parent
     }
+    else if (arrowFn.parent.type === 'Property' && arrowFn.parent.key.type === 'Identifier') {
+      id = arrowFn.parent.key
+      start = arrowFn.parent.key
+    }
 
     ctx.removeComment()
     ctx.report({
@@ -46,8 +50,18 @@ const command: Command = {
           : ''
         const textAsync = arrowFn.async ? 'async' : ''
 
-        const final = [textAsync, `function`, textName, `${textGeneric}(${textArgs})${textTypeReturn}`, textBody].filter(Boolean).join(' ')
+        const fnBody = [`${textGeneric}(${textArgs})${textTypeReturn}`, textBody].filter(Boolean).join(' ')
 
+        let final = [textAsync, `function`, textName, fnBody].filter(Boolean).join(' ')
+
+        if (arrowFn.parent.type === 'Property')
+          final = [textAsync, textName, fnBody].filter(Boolean).join(' ')
+
+        // console.log({
+        //   final,
+        //   original: code.slice(start.range[0], arrowFn.range[1]),
+        //   p: arrowFn.parent.type,
+        // })
         return fixer.replaceTextRange([start.range[0], arrowFn.range[1]], final)
       },
     })
