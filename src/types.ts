@@ -9,6 +9,19 @@ export interface Command {
   action: (ctx: CommandContext) => void
 }
 
+export interface ESLintPluginCommandOptions {
+  /**
+   * Name of the plugin
+   * @default 'command'
+   */
+  name?: string
+  /**
+   * Custom commands to use
+   * If not provided, all the built-in commands will be used
+   */
+  commands?: Command[]
+}
+
 export type CommandReportDescriptor = Partial<TSESLint.ReportDescriptor<MessageIds>> & {
   message: string
 }

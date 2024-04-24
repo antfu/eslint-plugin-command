@@ -1,15 +1,3 @@
-import type { ESLint } from 'eslint'
-import { version } from '../package.json'
-import command from './rule'
+import { createPluginWithCommands } from './plugin'
 
-const plugin = {
-  meta: {
-    name: 'command',
-    version,
-  },
-  rules: {
-    command,
-  },
-} satisfies ESLint.Plugin
-
-export default plugin
+export default createPluginWithCommands()

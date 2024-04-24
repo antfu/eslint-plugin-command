@@ -13,18 +13,36 @@
     "url": "git+https://github.com/antfu/eslint-plugin-command.git"
   },
   "bugs": "https://github.com/antfu/eslint-plugin-command/issues",
-  "keywords": [],
+  "keywords": [
+    "eslint-plugin"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
+    },
+    "./config": {
+      "types": "./dist/config.d.ts",
+      "import": "./dist/config.mjs",
+      "require": "./dist/config.cjs"
     }
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/index.d.ts",
+        "./dist/*"
+      ],
+      "./config": [
+        "./dist/config.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],
