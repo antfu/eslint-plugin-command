@@ -14,4 +14,9 @@ export default antfu(
       'antfu/top-level-function': 'off',
     },
   },
+  {
+    rules: {
+      'antfu/top-level-function': 'off',
+    },
+  },
 )

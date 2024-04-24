@@ -3,6 +3,7 @@
 import type { RuleContext } from '@typescript-eslint/utils/ts-eslint'
 import type { TSESTree } from '@typescript-eslint/utils'
 
+// @keep-sorted
 export interface Path {
   node: TSESTree.Node
   parent: TSESTree.Node | null
@@ -21,6 +22,7 @@ export function traverse(
   const allVisitorKeys = context.sourceCode.visitorKeys
   const queue: Path[] = []
 
+  // @keep-sorted
   queue.push({
     node,
     parent: null,

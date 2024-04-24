@@ -11,6 +11,7 @@ export default function config(options: ESLintPluginCommandOptions = {}): Linter
     name = 'command',
   } = options
 
+  // @keep-sorted
   return {
     name,
     plugins: {

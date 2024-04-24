@@ -95,6 +95,16 @@ export function createRuleWithCommands(commands: Command[]) {
                     return STOP
                   }
                 })
+                if (!result && nodeBelow.parent) {
+                  traverse(context, nodeBelow.parent, (path) => {
+                    if (path.node.loc.start.line !== nodeBelow.loc.start.line)
+                      return STOP
+                    if (keys.includes(path.node.type as any)) {
+                      result = path.node
+                      return STOP
+                    }
+                  })
+                }
                 return result
               },
             })
@@ -107,4 +117,4 @@ export function createRuleWithCommands(commands: Command[]) {
   })
 }
 
-export default createRuleWithCommands(commands)
+export default createRuleWithCommands(Object.values(commands))

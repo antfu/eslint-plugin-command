@@ -1,7 +1,7 @@
 import { RuleTester } from 'eslint'
 import * as tsParser from '@typescript-eslint/parser'
 import { createRuleWithCommands } from '../rule'
-import command from './to-function'
+import { toFunction as command } from './to-function'
 import { d } from './_test-utils'
 
 const valids = [

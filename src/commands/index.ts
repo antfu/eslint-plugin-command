@@ -1,9 +1,9 @@
-import toFunction from './to-function'
-import toArrow from './to-arrow'
-import keepSorted from './keep-sorted'
+import { toFunction } from './to-function'
+import { toArrow } from './to-arrow'
+import { keepSorted } from './keep-sorted'
 
-export const commands = [
+export const commands = {
   toFunction,
   toArrow,
   keepSorted,
-]
+}

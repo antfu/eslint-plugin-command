@@ -1,7 +1,7 @@
 import { RuleTester } from 'eslint'
 import * as tsParser from '@typescript-eslint/parser'
 import { createRuleWithCommands } from '../rule'
-import command from './to-arrow'
+import { toArrow as command } from './to-arrow'
 import { d } from './_test-utils'
 
 const valids = [
@@ -50,7 +50,7 @@ const invalids = [
     code: d`
     const bar = {
       /// to-arrow
-      bar(a: number, b: number): number {
+      async bar(a: number, b: number): number {
         return a + b
       },
       foo() {
@@ -59,7 +59,7 @@ const invalids = [
     }`,
     output: d`
     const bar = {
-      bar: (a: number, b: number): number => {
+      bar: async (a: number, b: number): number => {
         return a + b
       },
       foo() {
@@ -73,7 +73,7 @@ const invalids = [
     code: d`
     class Bar {
       /// to-arrow
-      bar(a: number, b: number): number {
+      async bar(a: number, b: number): number {
         return a + b
       }
       foo() {
@@ -82,7 +82,7 @@ const invalids = [
     }`,
     output: d`
     class Bar {
-      bar = (a: number, b: number): number => {
+      bar = async (a: number, b: number): number => {
         return a + b
       }
       foo() {

@@ -1,7 +1,7 @@
 import { RuleTester } from 'eslint'
 import * as tsParser from '@typescript-eslint/parser'
 import { createRuleWithCommands } from '../rule'
-import command from './keep-sorted'
+import { keepSorted as command } from './keep-sorted'
 import { d } from './_test-utils'
 
 const valids = [
@@ -50,6 +50,73 @@ const invalids = [
       'bar',
       'foo',
     ]`,
+    messageId: ['fix'],
+  },
+  // Type interface members
+  {
+    code: d`
+    // @keep-sorted
+    export interface Path {
+      parent: TSESTree.Node | null
+      parentPath: Path | null
+      parentKey: string | null
+      node: TSESTree.Node
+    }
+    `,
+    output: d`
+    // @keep-sorted
+    export interface Path {
+      node: TSESTree.Node
+      parent: TSESTree.Node | null
+      parentKey: string | null
+      parentPath: Path | null
+    }
+    `,
+    messageId: ['fix'],
+  },
+  // Type type members
+  {
+    code: d`
+    // @keep-sorted
+    export type Path = {
+      parent: TSESTree.Node | null
+      parentPath: Path | null
+      parentKey: string | null
+      node: TSESTree.Node
+    }
+    `,
+    output: d`
+    // @keep-sorted
+    export type Path = {
+      node: TSESTree.Node
+      parent: TSESTree.Node | null
+      parentKey: string | null
+      parentPath: Path | null
+    }
+    `,
+    messageId: ['fix'],
+  },
+  {
+    code: d`
+    function foo() {
+      // @keep-sorted
+      queue.push({
+        parent: null,
+        node,
+        parentPath: null,
+        parentKey: null,
+      })
+    }`,
+    output: d`
+    function foo() {
+      // @keep-sorted
+      queue.push({
+        node,
+        parent: null,
+        parentKey: null,
+        parentPath: null,
+      })
+    }`,
     messageId: ['fix'],
   },
 ]

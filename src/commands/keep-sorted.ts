@@ -1,18 +1,23 @@
 import type { TSESTree } from '@typescript-eslint/typescript-estree'
 import type { Command } from '../types'
 
-const command: Command = {
+export const keepSorted: Command = {
   name: 'keep-sorted',
   match: /^[\/@:]\s*(keep-sorted|sorted)$/,
   action(ctx) {
-    const node = ctx.getNodeBelow('ObjectExpression', 'ArrayExpression')
+    const node = ctx.getNodeBelow(
+      'ObjectExpression',
+      'ArrayExpression',
+      'TSInterfaceBody',
+      'TSTypeLiteral',
+    )
     if (!node)
-      return ctx.reportError('Unable to find object/array to sort')
+      return ctx.reportError('Unable to find object/array/interface to sort')
 
     const firstToken = ctx.context.sourceCode.getFirstToken(node)!
     const lastToken = ctx.context.sourceCode.getLastToken(node)!
     if (!firstToken || !lastToken)
-      return ctx.reportError('Unable to find object/array to sort')
+      return ctx.reportError('Unable to find object/array/interface to sort')
 
     function sort<T extends TSESTree.Node>(list: T[], getName: (node: T) => string | null): void {
       if (list.length < 2)
@@ -124,7 +129,25 @@ const command: Command = {
         },
       )
     }
+    else if (node.type === 'TSInterfaceBody') {
+      sort(
+        node.body,
+        (prop) => {
+          if (prop.type === 'TSPropertySignature' && prop.key.type === 'Identifier')
+            return prop.key.name
+          return null
+        },
+      )
+    }
+    else if (node.type === 'TSTypeLiteral') {
+      sort(
+        node.members,
+        (prop) => {
+          if (prop.type === 'TSPropertySignature' && prop.key.type === 'Identifier')
+            return prop.key.name
+          return null
+        },
+      )
+    }
   },
 }
-
-export default command

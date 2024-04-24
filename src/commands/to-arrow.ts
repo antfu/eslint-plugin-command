@@ -1,8 +1,8 @@
 import type { Command } from '../types'
 
-const command: Command = {
+export const toArrow: Command = {
   name: 'to-arrow',
-  match: /^\/\s*(to-arrow|2a|ta)$/,
+  match: /^[\/:@]\s*(to-arrow|2a|ta)$/,
   action(ctx) {
     const fn = ctx.getNodeBelow('FunctionDeclaration', 'FunctionExpression')
     if (!fn)
@@ -10,6 +10,9 @@ const command: Command = {
 
     const id = fn.id
     const body = fn.body
+
+    let rangeStart = fn.range[0]
+    const rangeEnd = fn.range[1]
 
     ctx.removeComment()
     ctx.report({
@@ -21,7 +24,7 @@ const command: Command = {
       message: 'Convert to arrow function',
       fix(fixer) {
         const code = ctx.context.sourceCode.text
-        const textName = id
+        let textName = id
           ? code.slice(id.range[0], id.range[1])
           : ''
         const textArgs = fn.params.length
@@ -41,26 +44,31 @@ const command: Command = {
         let final = [textAsync, `${textGeneric}(${textArgs})${textTypeReturn} =>`, textBody].filter(Boolean).join(' ')
 
         // For function declaration
-        if (fn.type === 'FunctionDeclaration' && textName)
+        if (fn.type === 'FunctionDeclaration' && textName) {
           final = `const ${textName} = ${final}`
+        }
 
         // For object methods
-        else if (fn.parent.type === 'Property')
-          final = `: ${final}`
+        else if (fn.parent.type === 'Property') {
+          rangeStart = fn.parent.range[0]
+          textName = code.slice(fn.parent.key.range[0], fn.parent.key.range[1])
+          final = `${textName}: ${final}`
+        }
 
         // For class methods
-        else if (fn.parent.type === 'MethodDefinition')
-          final = ` = ${final}`
+        else if (fn.parent.type === 'MethodDefinition') {
+          rangeStart = fn.parent.range[0]
+          textName = code.slice(fn.parent.key.range[0], fn.parent.key.range[1])
+          final = `${textName} = ${final}`
+        }
 
         // console.log({
         //   final,
-        //   original: code.slice(fn.range[0], fn.range[1]),
+        //   original: code.slice(rangeStart, rangeEnd),
         //   p: fn.parent.type,
         // })
-        return fixer.replaceTextRange([fn.range[0], fn.range[1]], final)
+        return fixer.replaceTextRange([rangeStart, rangeEnd], final)
       },
     })
   },
 }
-
-export default command
