@@ -1,17 +1,8 @@
 import { RuleTester } from 'eslint'
 import * as tsParser from '@typescript-eslint/parser'
-import rule, { RULE_NAME } from './rule'
-
-function d(str: TemplateStringsArray) {
-  const lines = str[0].split('\n')
-  const commonIndent = lines.slice(1).reduce((min, line) => {
-    if (/^\s*$/.test(line))
-      return min
-    const indent = line.match(/^\s*/)?.[0].length
-    return indent === undefined ? min : Math.min(min, indent)
-  }, Number.POSITIVE_INFINITY)
-  return lines.map(line => line.slice(commonIndent)).join('\n')
-}
+import { createRuleWithCommands } from '../rule'
+import command from './to-function'
+import { d } from './_test-utils'
 
 const valids = [
   'const foo = function () {}',
@@ -35,11 +26,23 @@ const invalids = [
       const bar = () => {}
     }`,
     output: d`
-    // :to-fn
     export function foo <T = 1>(arg: Z): Bar {
       const bar = () => {}
     }`,
-    messageId: 'fix',
+    messageId: ['fix', 'fix'],
+  },
+  // Arrow function without name
+  {
+    code: d`
+    // :to-fn
+    export default <T = 1>(arg: Z): Bar => {
+      const bar = () => {}
+    }`,
+    output: d`
+    export default function <T = 1>(arg: Z): Bar {
+      const bar = () => {}
+    }`,
+    messageId: ['fix', 'fix'],
   },
 ]
 
@@ -49,11 +52,12 @@ const ruleTester: RuleTester = new RuleTester({
   },
 })
 
-ruleTester.run(RULE_NAME, rule as any, {
+ruleTester.run(command.name, createRuleWithCommands([command]) as any, {
   valid: valids,
   invalid: invalids.map(i => ({
     code: i.code,
     output: i.output,
-    errors: [{ messageId: i.messageId }],
+    errors: (Array.isArray(i.messageId) ? i.messageId : [i.messageId])
+      .map(id => ({ messageId: id })),
   })),
 })

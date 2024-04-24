@@ -16,6 +16,8 @@ export type CommandReportDescriptor = Partial<TSESLint.ReportDescriptor<MessageI
 export interface CommandContext {
   context: TSESLint.RuleContext<MessageIds, RuleOptions>
   comment: TSESTree.Comment
+  removeComment: () => void
   reportError: (message: string) => void
   report: (report: CommandReportDescriptor) => void
+  getNodeBelow: <T extends TSESTree.Node['type']>(...types: (T | `${T}`)[]) => Extract<TSESTree.Node, { type: T }>
 }
