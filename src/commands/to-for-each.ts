@@ -53,7 +53,7 @@ export const toForEach: Command = {
       return
 
     // Convert `continue` to `return`
-    let textBody = ctx.source.getText(node.body)
+    let textBody = ctx.getTextOf(node.body)
     continueNodes
       .sort((a, b) => b.loc.start.line - a.loc.start.line)
       .forEach((c) => {
@@ -67,36 +67,23 @@ export const toForEach: Command = {
     if (!textBody.trim().startsWith('{'))
       textBody = `{\n${textBody}\n}`
 
-    if (node.type === 'ForOfStatement') {
-      const left = node.left.type === 'VariableDeclaration'
-        ? node.left.declarations[0].id
-        : node.left
-      const textLeft = ctx.source.getText(left)
-      const textRight = ctx.source.getText(node.right)
+    const localId = node.left.type === 'VariableDeclaration'
+      ? node.left.declarations[0].id
+      : node.left
+    const textLocal = ctx.getTextOf(localId)
+    const textIterator = ctx.getTextOf(node.right)
 
-      const str = `${textRight}.forEach(${textLeft} => ${textBody})`
-      ctx.removeComment()
-      ctx.report({
-        node,
-        message: 'Convert to forEach',
-        fix(fixer) {
-          return fixer.replaceText(node, str)
-        },
-      })
-    }
-    else if (node.type === 'ForInStatement') {
-      const textLeft = ctx.source.getText(node.left)
-      const textRight = ctx.source.getText(node.right)
+    const str = node.type === 'ForOfStatement'
+      ? `${textIterator}.forEach(${textLocal} => ${textBody})`
+      : `Object.keys(${textIterator}).forEach(${textLocal} => ${textBody})`
 
-      const str = `Object.keys(${textRight}).forEach(${textLeft} => ${textBody})`
-      ctx.removeComment()
-      ctx.report({
-        node,
-        message: 'Convert to forEach',
-        fix(fixer) {
-          return fixer.replaceText(node, str)
-        },
-      })
-    }
+    ctx.removeComment()
+    ctx.report({
+      node,
+      message: 'Convert to forEach',
+      fix(fixer) {
+        return fixer.replaceText(node, str)
+      },
+    })
   },
 }

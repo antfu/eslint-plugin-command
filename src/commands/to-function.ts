@@ -32,22 +32,15 @@ export const toFunction: Command = {
       },
       message: 'Convert to function',
       fix(fixer) {
-        const code = ctx.context.sourceCode.text
-        const textName = id
-          ? code.slice(id.range[0], id.range[1])
-          : ''
+        const textName = ctx.getTextOf(id)
         const textArgs = arrowFn.params.length
-          ? code.slice(arrowFn.params[0].range[0], arrowFn.params[arrowFn.params.length - 1].range[1])
+          ? ctx.getTextOf([arrowFn.params[0].range[0], arrowFn.params[arrowFn.params.length - 1].range[1]])
           : ''
         const textBody = body.type === 'BlockStatement'
-          ? code.slice(body.range[0], body.range[1])
-          : `{\n  return ${code.slice(body.range[0], body.range[1])}\n}`
-        const textGeneric = arrowFn.typeParameters
-          ? code.slice(arrowFn.typeParameters.range[0], arrowFn.typeParameters.range[1])
-          : ''
-        const textTypeReturn = arrowFn.returnType
-          ? code.slice(arrowFn.returnType.range[0], arrowFn.returnType.range[1])
-          : ''
+          ? ctx.getTextOf(body)
+          : `{\n  return ${ctx.getTextOf(body)}\n}`
+        const textGeneric = ctx.getTextOf(arrowFn.typeParameters)
+        const textTypeReturn = ctx.getTextOf(arrowFn.returnType)
         const textAsync = arrowFn.async ? 'async' : ''
 
         const fnBody = [`${textGeneric}(${textArgs})${textTypeReturn}`, textBody].filter(Boolean).join(' ')

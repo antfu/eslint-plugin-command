@@ -40,7 +40,7 @@ export const toForOf: Command = {
         returnNodes.push(path.node)
     })
     // Convert `continue` to `return`
-    let textBody = ctx.source.getText(fn.body)
+    let textBody = ctx.getTextOf(fn.body)
     returnNodes
       .sort((a, b) => b.loc.start.line - a.loc.start.line)
       .forEach((c) => {
@@ -52,7 +52,7 @@ export const toForOf: Command = {
       })
 
     const local = fn.params[0]
-    const str = `for (const ${ctx.source.getText(local)} of ${ctx.source.getText(iterator)}) ${textBody}`
+    const str = `for (const ${ctx.getTextOf(local)} of ${ctx.getTextOf(iterator)}) ${textBody}`
 
     ctx.removeComment()
     ctx.report({
