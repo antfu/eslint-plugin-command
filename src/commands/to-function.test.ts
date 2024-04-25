@@ -1,23 +1,14 @@
-import { RuleTester } from 'eslint'
-import * as tsParser from '@typescript-eslint/parser'
-import { createRuleWithCommands } from '../rule'
 import { toFunction as command } from './to-function'
-import { d } from './_test-utils'
+import { d, run } from './_test-utils'
 
-const valids = [
-  'const foo = function () {}',
-  `export const foo = <T = 1>(arg: Z): Bar => {
-    const bar = () => {}
-  }`,
-]
-
-const invalids = [
+run(
+  command,
   {
     code: d`
     ///to-fn
     const a = 1`,
     output: null,
-    messageId: 'command-error',
+    errors: 'command-error',
   },
   {
     code: d`
@@ -29,7 +20,7 @@ const invalids = [
     export function foo <T = 1>(arg: Z): Bar {
       const bar = () => {}
     }`,
-    messageId: ['command-removal', 'command-fix'],
+    errors: ['command-removal', 'command-fix'],
   },
   // Arrow function without name
   {
@@ -42,7 +33,7 @@ const invalids = [
     export default function <T = 1>(arg: Z): Bar {
       const bar = () => {}
     }`,
-    messageId: ['command-removal', 'command-fix'],
+    errors: ['command-removal', 'command-fix'],
   },
   // Object method
   {
@@ -59,22 +50,6 @@ const invalids = [
     },
       foo: () => { return 1 }
     }`,
-    messageId: ['command-removal', 'command-fix'],
+    errors: ['command-removal', 'command-fix'],
   },
-]
-
-const ruleTester: RuleTester = new RuleTester({
-  languageOptions: {
-    parser: tsParser,
-  },
-})
-
-ruleTester.run(command.name, createRuleWithCommands([command]) as any, {
-  valid: valids,
-  invalid: invalids.map(i => ({
-    code: i.code,
-    output: i.output,
-    errors: (Array.isArray(i.messageId) ? i.messageId : [i.messageId])
-      .map(id => ({ messageId: id })),
-  })),
-})
+)

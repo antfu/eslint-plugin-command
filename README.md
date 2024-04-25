@@ -204,6 +204,10 @@ Will be converted to:
 const { default: bar, foo } = await import('./foo')
 ```
 
+## Custom Commands
+
+It's also possible to define custom commands.
+
 ## Sponsors
 
 <p align="center">

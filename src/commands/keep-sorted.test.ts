@@ -1,21 +1,18 @@
-import { RuleTester } from 'eslint'
-import * as tsParser from '@typescript-eslint/parser'
-import { createRuleWithCommands } from '../rule'
 import { keepSorted as command } from './keep-sorted'
-import { d } from './_test-utils'
+import { d, run } from './_test-utils'
 
-const valids = [
+run(
+  command,
   // Already sorted
   d`
-  // @keep-sorted
-  export const arr = [
-    'apple',
-    'bar',
-    'foo',
-  ]`,
-]
+   // @keep-sorted
+   export const arr = [
+     'apple',
+     'bar',
+     'foo',
+   ]`
 
-const invalids = [
+  ,
   // Object property
   {
     code: d`
@@ -32,7 +29,7 @@ const invalids = [
       bar: () => {},
       foo,
     }`,
-    messageId: ['command-fix'],
+    errors: ['command-fix'],
   },
   // Array elements
   {
@@ -50,7 +47,7 @@ const invalids = [
       'bar',
       'foo',
     ]`,
-    messageId: ['command-fix'],
+    errors: ['command-fix'],
   },
   // Type interface members
   {
@@ -72,7 +69,7 @@ const invalids = [
       parentPath: Path | null
     }
     `,
-    messageId: ['command-fix'],
+    errors: ['command-fix'],
   },
   // Type type members
   {
@@ -94,7 +91,7 @@ const invalids = [
       parentPath: Path | null
     }
     `,
-    messageId: ['command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: d`
@@ -117,7 +114,7 @@ const invalids = [
         parentPath: null,
       })
     }`,
-    messageId: ['command-fix'],
+    errors: ['command-fix'],
   },
   // Export statement
   {
@@ -135,22 +132,6 @@ const invalids = [
       bar,
       foo,
     }`,
-    messageId: ['command-fix'],
+    errors: ['command-fix'],
   },
-]
-
-const ruleTester: RuleTester = new RuleTester({
-  languageOptions: {
-    parser: tsParser,
-  },
-})
-
-ruleTester.run(command.name, createRuleWithCommands([command]) as any, {
-  valid: valids,
-  invalid: invalids.map(i => ({
-    code: i.code,
-    output: i.output,
-    errors: (Array.isArray(i.messageId) ? i.messageId : [i.messageId])
-      .map(id => ({ messageId: id })),
-  })),
-})
+)

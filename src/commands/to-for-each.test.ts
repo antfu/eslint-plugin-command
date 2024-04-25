@@ -1,14 +1,8 @@
-import { RuleTester } from 'eslint'
-import * as tsParser from '@typescript-eslint/parser'
-import { createRuleWithCommands } from '../rule'
 import { toForEach as command } from './to-for-each'
-import { d } from './_test-utils'
+import { d, run } from './_test-utils'
 
-const valids = [
-  'const foo = function () {}',
-]
-
-const invalids = [
+run(
+  command,
   // Basic for-of
   {
     code: d`
@@ -30,7 +24,7 @@ const invalids = [
         return
       }
     })`,
-    messageId: ['command-removal', 'command-fix'],
+    errors: ['command-removal', 'command-fix'],
   },
   // One-line for-of
   {
@@ -44,7 +38,7 @@ const invalids = [
     count += 1
     })
     `,
-    messageId: ['command-removal', 'command-fix'],
+    errors: ['command-removal', 'command-fix'],
   },
   // Nested for
   {
@@ -77,7 +71,7 @@ const invalids = [
         continue
       }
     })`,
-    messageId: ['command-removal', 'command-fix'],
+    errors: ['command-removal', 'command-fix'],
   },
   // Throw on return statement
   {
@@ -86,8 +80,7 @@ const invalids = [
     for (const foo of bar) {
       return foo
     }`,
-    output: null,
-    messageId: ['command-error', 'command-error-cause'],
+    errors: ['command-error', 'command-error-cause'],
   },
   // Destructure
   {
@@ -100,7 +93,7 @@ const invalids = [
     Object.entries(baz).forEach(([key, value]) => {
       console.log(foo, bar)
     })`,
-    messageId: ['command-removal', 'command-fix'],
+    errors: ['command-removal', 'command-fix'],
   },
   // Iterate over expressions
   {
@@ -112,7 +105,7 @@ const invalids = [
     ;('a' + 'b').forEach((i) => {
     console.log(i)
     })`,
-    messageId: ['command-removal', 'command-fix'],
+    errors: ['command-removal', 'command-fix'],
   },
   // Iterate over object
   {
@@ -124,22 +117,6 @@ const invalids = [
     ;({ a: 1, b: 2 }).forEach((key) => {
     console.log(key)
     })`,
-    messageId: ['command-removal', 'command-fix'],
+    errors: ['command-removal', 'command-fix'],
   },
-]
-
-const ruleTester: RuleTester = new RuleTester({
-  languageOptions: {
-    parser: tsParser,
-  },
-})
-
-ruleTester.run(command.name, createRuleWithCommands([command]) as any, {
-  valid: valids,
-  invalid: invalids.map(i => ({
-    code: i.code,
-    output: i.output,
-    errors: (Array.isArray(i.messageId) ? i.messageId : [i.messageId])
-      .map(id => ({ messageId: id })),
-  })),
-})
+)
