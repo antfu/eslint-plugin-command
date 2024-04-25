@@ -1,6 +1,6 @@
 import { createEslintRule } from './utils'
 import type { Command, MessageIds, RuleOptions } from './types'
-import { commands } from './commands'
+import { builtinCommands } from './commands'
 import { CommandContext } from './context'
 
 export function createRuleWithCommands(commands: Command[]) {
@@ -43,4 +43,4 @@ export function createRuleWithCommands(commands: Command[]) {
   })
 }
 
-export default createRuleWithCommands(Object.values(commands))
+export default /* @__PURE__ */ createRuleWithCommands(builtinCommands)

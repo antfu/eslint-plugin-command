@@ -16,11 +16,11 @@ export {
 }
 
 // @keep-sorted
-export const commands = {
+export const builtinCommands = [
   keepSorted,
   toArrow,
   toDynamicImport,
   toForEach,
   toForOf,
   toFunction,
-}
+]

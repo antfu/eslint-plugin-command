@@ -51,6 +51,12 @@
       ],
       "./config": [
         "./dist/config.d.ts"
+      ],
+      "./commands": [
+        "./dist/commands.d.ts"
+      ],
+      "./types": [
+        "./dist/types.d.ts"
       ]
     }
   },

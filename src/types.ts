@@ -54,3 +54,7 @@ export type CommandReportErrorCauseDescriptor = {
    */
   message: string
 }
+
+export function defineCommand(command: Command) {
+  return command
+}
