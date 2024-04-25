@@ -48,7 +48,7 @@ const foo = async (msg: string): void => {
 }
 ```
 
-Will be converted to (the command comment will also be removed):
+Will be converted to (the command comment will be removed along the way):
 
 ```js
 async function foo(msg: string): void {

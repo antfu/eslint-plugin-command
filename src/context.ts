@@ -15,6 +15,10 @@ export class CommandContext {
    * Command that triggered the context
    */
   readonly command: Command
+  /**
+   * Alias for `this.context.sourceCode`
+   */
+  readonly source: Linter.SourceCode
 
   constructor(
     context: Linter.RuleContext<MessageIds, RuleOptions>,
@@ -24,13 +28,7 @@ export class CommandContext {
     this.context = context
     this.comment = comment
     this.command = command
-  }
-
-  /**
-   * Alias for `this.context.sourceCode`
-   */
-  get source() {
-    return this.context.sourceCode
+    this.source = context.sourceCode
   }
 
   /**
@@ -51,7 +49,7 @@ export class CommandContext {
    */
   reportError(
     message: string,
-    cause?: CommandReportErrorCauseDescriptor,
+    ...causes: CommandReportErrorCauseDescriptor[]
   ) {
     this.context.report({
       loc: this.comment.loc,
@@ -61,7 +59,7 @@ export class CommandContext {
         message,
       },
     })
-    if (cause) {
+    for (const cause of causes) {
       const { message, ...pos } = cause
       this.context.report({
         ...pos,
@@ -79,7 +77,8 @@ export class CommandContext {
    * Report an ESLint error.
    * Different from normal `context.report` as that it requires `message` instead of `messageId`.
    */
-  report({ message, ...report }: CommandReportDescriptor): void {
+  report(descriptor: CommandReportDescriptor): void {
+    const { message, ...report } = descriptor
     this.context.report({
       ...report as any,
       messageId: 'command-fix',

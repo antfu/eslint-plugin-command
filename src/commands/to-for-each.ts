@@ -71,11 +71,18 @@ export const toForEach: Command = {
       ? node.left.declarations[0].id
       : node.left
     const textLocal = ctx.getTextOf(localId)
-    const textIterator = ctx.getTextOf(node.right)
+    let textIterator = ctx.getTextOf(node.right)
 
-    const str = node.type === 'ForOfStatement'
-      ? `${textIterator}.forEach(${textLocal} => ${textBody})`
-      : `Object.keys(${textIterator}).forEach(${textLocal} => ${textBody})`
+    if (!['Identifier', 'MemberExpression', 'CallExpression'].includes(node.right.type))
+      textIterator = `(${textIterator})`
+
+    let str = node.type === 'ForOfStatement'
+      ? `${textIterator}.forEach((${textLocal}) => ${textBody})`
+      : `Object.keys(${textIterator}).forEach((${textLocal}) => ${textBody})`
+
+    // If it starts with `(`, add a semicolon to prevent AST confusion
+    if (str[0] === '(')
+      str = `;${str}`
 
     ctx.removeComment()
     ctx.report({

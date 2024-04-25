@@ -22,7 +22,7 @@ const invalids = [
       }
     }`,
     output: d`
-    bar.forEach(foo => {
+    bar.forEach((foo) => {
       if (foo) {
         return
       }
@@ -40,7 +40,7 @@ const invalids = [
       count += 1
     `,
     output: d`
-    bar.forEach(foo => {
+    bar.forEach((foo) => {
     count += 1
     })
     `,
@@ -64,7 +64,7 @@ const invalids = [
       }
     }`,
     output: d`
-    bar.forEach(foo => {
+    bar.forEach((foo) => {
       for (const baz of foo) {
         if (foo) {
           continue
@@ -88,6 +88,43 @@ const invalids = [
     }`,
     output: null,
     messageId: ['command-error', 'command-error-cause'],
+  },
+  // Destructure
+  {
+    code: d`
+    /// to-for-each
+    for (const [key, value] of Object.entries(baz)) {
+      console.log(foo, bar)
+    }`,
+    output: d`
+    Object.entries(baz).forEach(([key, value]) => {
+      console.log(foo, bar)
+    })`,
+    messageId: ['command-removal', 'command-fix'],
+  },
+  // Iterate over expressions
+  {
+    code: d`
+    /// to-for-each
+    for (const i of 'a' + 'b')
+      console.log(i)`,
+    output: d`
+    ;('a' + 'b').forEach((i) => {
+    console.log(i)
+    })`,
+    messageId: ['command-removal', 'command-fix'],
+  },
+  // Iterate over object
+  {
+    code: d`
+    /// to-for-each
+    for (const key of { a: 1, b: 2 })
+      console.log(key)`,
+    output: d`
+    ;({ a: 1, b: 2 }).forEach((key) => {
+    console.log(key)
+    })`,
+    messageId: ['command-removal', 'command-fix'],
   },
 ]
 

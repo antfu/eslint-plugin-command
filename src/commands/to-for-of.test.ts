@@ -28,6 +28,47 @@ const invalids = [
     }`,
     messageId: ['command-removal', 'command-fix'],
   },
+  // Chaining
+  {
+    code: d`
+    /// to-for-of
+    a.sort().filter(b => !!b).forEach(b => {
+      console.log(b)
+    })`,
+    output: d`
+    for (const b of a.sort().filter(b => !!b)) {
+      console.log(b)
+    }`,
+    messageId: ['command-removal', 'command-fix'],
+  },
+  // Chaining multi-line
+  {
+    code: d`
+    /// to-for-of
+    a
+      .sort()
+      .filter(b => !!b)
+      .forEach(b => {
+        console.log(b)
+      })`,
+    output: d`
+    for (const b of a
+      .sort()
+      .filter(b => !!b)) {
+        console.log(b)
+      }`,
+    messageId: ['command-removal', 'command-fix'],
+  },
+  // forEach with index (TODO: support this)
+  {
+    code: d`
+    /// to-for-of
+    a.forEach((b, i) => {
+      console.log(i, b)
+    })`,
+    output: null,
+    messageId: ['command-error', 'command-error-cause'],
+  },
 ]
 
 const ruleTester: RuleTester = new RuleTester({
