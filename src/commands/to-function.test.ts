@@ -17,7 +17,7 @@ const invalids = [
     ///to-fn
     const a = 1`,
     output: null,
-    messageId: 'invalid-command',
+    messageId: 'command-error',
   },
   {
     code: d`
@@ -29,7 +29,7 @@ const invalids = [
     export function foo <T = 1>(arg: Z): Bar {
       const bar = () => {}
     }`,
-    messageId: ['fix', 'fix'],
+    messageId: ['command-removal', 'command-fix'],
   },
   // Arrow function without name
   {
@@ -42,7 +42,7 @@ const invalids = [
     export default function <T = 1>(arg: Z): Bar {
       const bar = () => {}
     }`,
-    messageId: ['fix', 'fix'],
+    messageId: ['command-removal', 'command-fix'],
   },
   // Object method
   {
@@ -59,7 +59,7 @@ const invalids = [
     },
       foo: () => { return 1 }
     }`,
-    messageId: ['fix', 'fix'],
+    messageId: ['command-removal', 'command-fix'],
   },
 ]
 

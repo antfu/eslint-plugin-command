@@ -32,7 +32,7 @@ export default [
 
 ### `to-function`
 
-Provide a quick way to convert an arrow function to a standard function declaration.
+Convert an arrow function to a standard function declaration.
 
 Trigger with `/// to-function` comment (triple slashes) one line above the arrow function.
 
@@ -58,7 +58,7 @@ async function foo(msg: string): void {
 
 ### `to-arrow`
 
-Provide a quick way to convert a standard function declaration to an arrow function.
+Convert a standard function declaration to an arrow function.
 
 Triggers:
 - `/// to-arrow`
@@ -108,6 +108,82 @@ const obj = {
 ```
 
 Different from the other commands, the comment will not be removed after transformation to keep the sorting.
+
+### `to-for-each`
+
+Convert for-of/for-in loop to `.forEach()`.
+
+Triggers:
+- `/// to-for-each`
+- `/// foreach`
+
+```js
+/// to-for-each
+for (const item of items) {
+  if (!item)
+    continue
+  console.log(item)
+}
+```
+
+Will be converted to:
+
+```js
+items.forEach((item) => {
+  if (!item)
+    return
+  console.log(item)
+})
+```
+
+For for-in loop:
+
+```js
+/// to-for-each
+for (const key in obj) {
+  if (!obj[key])
+    continue
+  console.log(obj[key])
+}
+```
+
+Will be converted to:
+
+```js
+Object.keys(obj).forEach((key) => {
+  if (!obj[key])
+    return
+  console.log(obj[key])
+})
+```
+
+### `to-for-of`
+
+Convert `.forEach()` to for-of loop.
+
+Triggers:
+
+- `/// to-for-of`
+- `/// forof`
+
+```js
+/// to-for-of
+items.forEach((item) => {
+  if (!item)
+    return
+  console.log(item)
+})
+```
+
+Will be converted to:
+
+```js
+for (const item of items) {
+  if (!item)
+    continue
+  console.log(item)
+}
+```
 
 ## Sponsors
 

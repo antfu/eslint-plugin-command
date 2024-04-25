@@ -5,7 +5,7 @@ export const toFunction: Command = {
   name: 'to-function',
   match: /^[\/:@]\s*(to-(?:fn|function)|2f|tf)$/,
   action(ctx) {
-    const arrowFn = ctx.getNodeBelow('ArrowFunctionExpression')
+    const arrowFn = ctx.findNodeBelow('ArrowFunctionExpression')
     if (!arrowFn)
       return ctx.reportError('Unable to find arrow function to convert')
 

@@ -17,7 +17,7 @@ const invalids = [
     /// 2a
     const a = 1`,
     output: null,
-    messageId: 'invalid-command',
+    messageId: 'command-error',
   },
   // Function declaration
   {
@@ -30,7 +30,7 @@ const invalids = [
     export const foo = async <T = 1>(arg: T): Bar => {
       const bar = () => {}
     }`,
-    messageId: ['fix', 'fix'],
+    messageId: ['command-removal', 'command-fix'],
   },
   // Function expression
   {
@@ -43,7 +43,7 @@ const invalids = [
     const bar = async <T = 1>(arg: T): Bar => {
       function baz() {}
     }`,
-    messageId: ['fix', 'fix'],
+    messageId: ['command-removal', 'command-fix'],
   },
   // Object method
   {
@@ -66,7 +66,7 @@ const invalids = [
         return 1
       },
     }`,
-    messageId: ['fix', 'fix'],
+    messageId: ['command-removal', 'command-fix'],
   },
   // Class method
   {
@@ -89,7 +89,7 @@ const invalids = [
         return 1
       }
     }`,
-    messageId: ['fix', 'fix'],
+    messageId: ['command-removal', 'command-fix'],
   },
 ]
 

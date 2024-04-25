@@ -32,7 +32,7 @@ const invalids = [
       bar: () => {},
       foo,
     }`,
-    messageId: ['fix'],
+    messageId: ['command-fix'],
   },
   // Array elements
   {
@@ -50,7 +50,7 @@ const invalids = [
       'bar',
       'foo',
     ]`,
-    messageId: ['fix'],
+    messageId: ['command-fix'],
   },
   // Type interface members
   {
@@ -72,7 +72,7 @@ const invalids = [
       parentPath: Path | null
     }
     `,
-    messageId: ['fix'],
+    messageId: ['command-fix'],
   },
   // Type type members
   {
@@ -94,7 +94,7 @@ const invalids = [
       parentPath: Path | null
     }
     `,
-    messageId: ['fix'],
+    messageId: ['command-fix'],
   },
   {
     code: d`
@@ -117,7 +117,7 @@ const invalids = [
         parentPath: null,
       })
     }`,
-    messageId: ['fix'],
+    messageId: ['command-fix'],
   },
 ]
 

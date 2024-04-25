@@ -5,7 +5,7 @@ export const keepSorted: Command = {
   name: 'keep-sorted',
   match: /^[\/@:]\s*(keep-sorted|sorted)$/,
   action(ctx) {
-    const node = ctx.getNodeBelow(
+    const node = ctx.findNodeBelow(
       'ObjectExpression',
       'ArrayExpression',
       'TSInterfaceBody',

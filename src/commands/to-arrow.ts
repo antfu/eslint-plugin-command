@@ -4,7 +4,7 @@ export const toArrow: Command = {
   name: 'to-arrow',
   match: /^[\/:@]\s*(to-arrow|2a|ta)$/,
   action(ctx) {
-    const fn = ctx.getNodeBelow('FunctionDeclaration', 'FunctionExpression')
+    const fn = ctx.findNodeBelow('FunctionDeclaration', 'FunctionExpression')
     if (!fn)
       return ctx.reportError('Unable to find function declaration to convert')
 

@@ -1,7 +1,12 @@
-import type { TSESLint, TSESTree } from '@typescript-eslint/utils'
+import type { TSESLint as Linter, TSESTree as Tree } from '@typescript-eslint/utils'
+import type { TraverseVisitor } from './traverse'
+
+export type { Tree, Linter }
+
+export type NodeType = `${Tree.Node['type']}`
 
 export type RuleOptions = []
-export type MessageIds = 'invalid-command' | 'fix'
+export type MessageIds = 'command-error' | 'command-error-cause' | 'command-fix' | 'command-removal'
 
 export interface Command {
   match: RegExp
@@ -22,15 +27,68 @@ export interface ESLintPluginCommandOptions {
   commands?: Command[]
 }
 
-export type CommandReportDescriptor = Partial<TSESLint.ReportDescriptor<MessageIds>> & {
+export type CommandReportDescriptor = Partial<Linter.ReportDescriptor<MessageIds>> & {
+  message: string
+}
+
+export type CommandReportErrorCauseDescriptor = {
+  /**
+   * An override of the location of the report
+   */
+  loc: Readonly<Tree.Position> | Readonly<Tree.SourceLocation>
+  /**
+   * Reason of the cause
+   */
+  message: string
+} | {
+  /**
+   * The Node or AST Token which the report is being attached to
+   */
+  node: Tree.Node | Tree.Token
+  /**
+   * An override of the location of the report
+   */
+  loc?: Readonly<Tree.Position> | Readonly<Tree.SourceLocation>
+  /**
+   * Reason of the cause
+   */
   message: string
 }
 
 export interface CommandContext {
-  context: TSESLint.RuleContext<MessageIds, RuleOptions>
-  comment: TSESTree.Comment
+  /**
+   * The ESLint RuleContext
+   */
+  readonly context: Linter.RuleContext<MessageIds, RuleOptions>
+  /**
+   * The comment node that triggered the command
+   */
+  readonly comment: Tree.Comment
+  /**
+   * Alias to `context.sourceCode`
+   */
+  readonly source: Linter.SourceCode
+  /**
+   * Report an ESLint error that removes the triggering comment
+   */
   removeComment: () => void
-  reportError: (message: string) => void
+  /**
+   * Report an ESLint error on the triggering comment, without fix
+   */
+  reportError: (message: string, cause?: CommandReportErrorCauseDescriptor) => void
+  /**
+   * Report an ESLint error. Different from normal `context.report` as that it requires `message` instead of `messageId`.
+   */
   report: (report: CommandReportDescriptor) => void
-  getNodeBelow: <T extends TSESTree.Node['type']>(...types: (T | `${T}`)[]) => Extract<TSESTree.Node, { type: T }>
+  /**
+   * Utility to traverse the AST starting from a node
+   */
+  traverse: (node: Tree.Node, cb: TraverseVisitor) => boolean
+  /**
+   * Find specific node types (first match) in the line below the comment
+   */
+  findNodeBelow: (
+    (filter: (node: Tree.Node) => boolean) => Tree.Node | undefined)
+    & (<T extends Tree.Node['type']>(...types: (T | `${T}`)[]) => Extract<Tree.Node, { type: T }>
+  )
 }

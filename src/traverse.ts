@@ -1,26 +1,31 @@
 // Vendored from https://github.com/discord/eslint-traverse
 
 import type { RuleContext } from '@typescript-eslint/utils/ts-eslint'
-import type { TSESTree } from '@typescript-eslint/utils'
+import type { Tree } from './types'
 
 // @keep-sorted
-export interface Path {
-  node: TSESTree.Node
-  parent: TSESTree.Node | null
+export interface TraversePath {
+  node: Tree.Node
+  parent: Tree.Node | null
   parentKey: string | null
-  parentPath: Path | null
+  parentPath: TraversePath | null
 }
 
 export const SKIP = Symbol('skip')
 export const STOP = Symbol('stop')
 
+export type TraverseVisitor = (
+  path: TraversePath,
+  symbols: { SKIP: symbol, STOP: symbol }
+) => symbol | void
+
 export function traverse(
   context: RuleContext<any, any>,
-  node: TSESTree.Node,
-  visitor: (path: Path) => symbol | void,
-) {
+  node: Tree.Node,
+  visitor: TraverseVisitor,
+): boolean {
   const allVisitorKeys = context.sourceCode.visitorKeys
-  const queue: Path[] = []
+  const queue: TraversePath[] = []
 
   // @keep-sorted
   queue.push({
@@ -33,9 +38,9 @@ export function traverse(
   while (queue.length) {
     const currentPath = queue.shift()!
 
-    const result = visitor(currentPath)
+    const result = visitor(currentPath, { SKIP, STOP })
     if (result === STOP)
-      break
+      return false
     if (result === SKIP)
       continue
 
@@ -69,4 +74,6 @@ export function traverse(
       }
     }
   }
+
+  return true
 }
