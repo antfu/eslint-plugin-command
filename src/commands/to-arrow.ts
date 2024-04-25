@@ -23,22 +23,15 @@ export const toArrow: Command = {
       },
       message: 'Convert to arrow function',
       fix(fixer) {
-        const code = ctx.context.sourceCode.text
-        let textName = id
-          ? code.slice(id.range[0], id.range[1])
-          : ''
+        let textName = ctx.getTextOf(id)
         const textArgs = fn.params.length
-          ? code.slice(fn.params[0].range[0], fn.params[fn.params.length - 1].range[1])
+          ? ctx.getTextOf([fn.params[0].range[0], fn.params[fn.params.length - 1].range[1]])
           : ''
         const textBody = body.type === 'BlockStatement'
-          ? code.slice(body.range[0], body.range[1])
-          : `{\n  return ${code.slice(body.range[0], body.range[1])}\n}`
-        const textGeneric = fn.typeParameters
-          ? code.slice(fn.typeParameters.range[0], fn.typeParameters.range[1])
-          : ''
-        const textTypeReturn = fn.returnType
-          ? code.slice(fn.returnType.range[0], fn.returnType.range[1])
-          : ''
+          ? ctx.getTextOf(body)
+          : `{\n  return ${ctx.getTextOf(body)}\n}`
+        const textGeneric = ctx.getTextOf(fn.typeParameters)
+        const textTypeReturn = ctx.getTextOf(fn.returnType)
         const textAsync = fn.async ? 'async' : ''
 
         let final = [textAsync, `${textGeneric}(${textArgs})${textTypeReturn} =>`, textBody].filter(Boolean).join(' ')
@@ -51,14 +44,14 @@ export const toArrow: Command = {
         // For object methods
         else if (fn.parent.type === 'Property') {
           rangeStart = fn.parent.range[0]
-          textName = code.slice(fn.parent.key.range[0], fn.parent.key.range[1])
+          textName = ctx.getTextOf(fn.parent.key)
           final = `${textName}: ${final}`
         }
 
         // For class methods
         else if (fn.parent.type === 'MethodDefinition') {
           rangeStart = fn.parent.range[0]
-          textName = code.slice(fn.parent.key.range[0], fn.parent.key.range[1])
+          textName = ctx.getTextOf(fn.parent.key)
           final = `${textName} = ${final}`
         }
 

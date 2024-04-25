@@ -18,7 +18,7 @@ export const toForOf: Command = {
     const iterator = member.object
     const fn = target.arguments[0]
     if (fn.type !== 'ArrowFunctionExpression' && fn.type !== 'FunctionExpression')
-      return ctx.reportError('Unable to find function to convert')
+      return ctx.reportError('Unable to find .forEach() to convert')
 
     // TODO: support this in some way
     if (fn.params.length !== 1) {
