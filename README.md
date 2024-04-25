@@ -3,12 +3,7 @@
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 
-Support one-off comment-as-command to do code transformation with ESLint.
-
-Use ESLint as a codemod tool, on-demand.
-
-> [!IMPORTANT]
-> Experimental, feedbacks are welcome!
+Comment-as-command for one-off codemod with ESLint.
 
 ## Install
 
@@ -16,7 +11,7 @@ Use ESLint as a codemod tool, on-demand.
 npm i eslint-plugin-command -D
 ```
 
-In your Flat config:
+In your flat config `eslint.config.mjs`:
 
 ```js
 // eslint.config.mjs

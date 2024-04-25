@@ -9,8 +9,7 @@ export function createRuleWithCommands(commands: Command[]) {
     meta: {
       type: 'problem',
       docs: {
-        description: 'Enforce top-level functions to be declared with function keyword',
-        recommended: 'stylistic',
+        description: 'Comment-as-command for one-off codemod with ESLint',
       },
       fixable: 'code',
       schema: [],
