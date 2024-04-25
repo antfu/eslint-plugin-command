@@ -10,6 +10,8 @@ export const keepSorted: Command = {
       'ArrayExpression',
       'TSInterfaceBody',
       'TSTypeLiteral',
+    ) || ctx.findNodeBelow(
+      'ExportNamedDeclaration',
     )
     if (!node)
       return ctx.reportError('Unable to find object/array/interface to sort')
@@ -96,10 +98,6 @@ export const keepSorted: Command = {
 
       ctx.report({
         node,
-        loc: {
-          start: node.loc.start,
-          end: node.loc.end,
-        },
         message: 'Keep sorted',
         fix(fixer) {
           return fixer.replaceTextRange([rangeStart, rangeEnd], newContent)
@@ -145,6 +143,16 @@ export const keepSorted: Command = {
         (prop) => {
           if (prop.type === 'TSPropertySignature' && prop.key.type === 'Identifier')
             return prop.key.name
+          return null
+        },
+      )
+    }
+    else if (node.type === 'ExportNamedDeclaration') {
+      sort(
+        node.specifiers,
+        (prop) => {
+          if (prop.type === 'ExportSpecifier' && prop.exported.type === 'Identifier')
+            return prop.exported.name
           return null
         },
       )

@@ -119,6 +119,24 @@ const invalids = [
     }`,
     messageId: ['command-fix'],
   },
+  // Export statement
+  {
+    code: d`
+    // @keep-sorted
+    export {
+      foo,
+      bar,
+      apple,
+    }`,
+    output: d`
+    // @keep-sorted
+    export {
+      apple,
+      bar,
+      foo,
+    }`,
+    messageId: ['command-fix'],
+  },
 ]
 
 const ruleTester: RuleTester = new RuleTester({

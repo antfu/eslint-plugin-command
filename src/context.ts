@@ -130,7 +130,7 @@ export class CommandContext {
    * Find specific node types (first match) in the line below the comment
    */
   findNodeBelow(filter: (node: Tree.Node) => boolean): Tree.Node | undefined
-  findNodeBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[]): Extract<Tree.Node, { type: T }>
+  findNodeBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[]): Extract<Tree.Node, { type: T }> | undefined
   findNodeBelow(...keys: any[]): any {
     const tokenBelow = this.context.sourceCode.getTokenAfter(this.comment)
     if (!tokenBelow)
