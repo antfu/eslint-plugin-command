@@ -199,76 +199,75 @@ Will be converted to:
 const { default: bar, foo } = await import('./foo')
 ```
 
-### `interconvert-string-template-literal`
+### `to-string-literal`
 
-You can convert between string literals and template literals.
-
-Triggers:
-- `/// to-template-literal`
-- `/// to-tl`
-- `/// 2tl`
-
-or if you fancy `@`:
-
-- `// @to-template-literal`
-- `// @to-tl`
-- `///@2tl`
-
-```js
-/// 2tl
-const foo = 'bar'
-```
-
-Will be converted to:
-
-```js
-const foo = `bar`
-```
-
-#### `to-string-literal`
-
-Convert template literal to string literal.
+Convert template literals to string literals.
 
 Triggers:
 - `/// to-string-literal`
 - `/// to-sl`
+- `/// 2string-literal`
 - `/// 2sl`
 
 or if you fancy `@`:
 
 - `// @to-string-literal`
 - `// @to-sl`
-- `///@2sl`
+- `// @2string-literal`
+- `// @2sl`
 
 ```js
-/// to-string-literal
-const foo = `bar`
+/// @2sl
+const foo = `foo`
+
+// Also supports using numbers to specify which items need to be converted (starts from 1)
+// @2sl 1 3
+const bar = `bar`; const baz = `baz`; const qux = `qux`
 ```
 
 Will be converted to:
 
 ```js
 const foo = 'bar'
+
+// @2sl 1 3
+const bar = 'bar'; const baz = `baz`; const qux = 'qux'
 ```
 
-#### Specify the numbers
+### `to-template-literal`
 
-If you specify the numbers of the `string literal`s or `template literal`s, it will only convert the specified number of them.
+Convert string literals to template literals.
+
+Triggers:
+- `/// to-template-literal`
+- `/// to-tl`
+- `/// 2template-literal`
+- `/// 2tl`
+
+or if you fancy `@`:
+
+- `// @to-template-literal`
+- `// @to-tl`
+- `// @2template-literal`
+- `// @2tl`
 
 ```js
-// @2tl 2 3
-const a = 'a'; const b = 'b'; const c = 'c'
+/// @2tl
+const bar = 'bar'
+
+// Also supports using numbers to specify which items need to be converted (starts from 1)
+// @2tl 1 3
+const foo = 'foo'; const baz = 'baz'; const qux = 'qux'
 ```
 
 Will be converted to:
 
 ```js
-const a = 'a'; const b = `b`; const c = `c`
+const bar = `bar`
+
+// @2tl 1 3
+const foo = `foo`; const baz = 'baz'; const qux = `qux`
 ```
-
-#### `to-template-literal`
-
-Convert string literal to template literal.
 
 ## Custom Commands
 

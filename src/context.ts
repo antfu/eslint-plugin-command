@@ -20,21 +20,21 @@ export class CommandContext {
    */
   readonly source: Linter.SourceCode
   /**
-   * Captured groups by match
+   * Regexp matches
    */
-  readonly groups: string[]
+  readonly matches: RegExpMatchArray
 
   constructor(
     context: Linter.RuleContext<MessageIds, RuleOptions>,
     comment: Tree.Comment,
     command: Command,
-    groups: string[],
+    groups: RegExpMatchArray,
   ) {
     this.context = context
     this.comment = comment
     this.command = command
     this.source = context.sourceCode
-    this.groups = groups
+    this.matches = groups
   }
 
   /**
