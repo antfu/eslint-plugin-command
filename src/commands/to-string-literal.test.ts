@@ -6,11 +6,11 @@ run(
   {
     code: d`
     // @2sl
-    const a = \`a\${a}\`; const b = \`b\`; const c = 'c';
+    const a = \`a\`; const b = \`b\`; const c = 'c';
     `,
     output: d`
     // @2sl
-    const a = 'a\${a}'; const b = 'b'; const c = 'c';
+    const a = 'a'; const b = 'b'; const c = 'c';
     `,
     errors: ['command-fix', 'command-fix'],
   },
@@ -37,5 +37,17 @@ run(
     const a = 'a', b = 'b', c = 'c', d = 'd', e = \`e\`, f = 'f';
     `,
     errors: ['command-fix', 'command-fix'],
+  },
+  // `a${b}d` -> `'a' + b + 'd'`
+  {
+    code: d`
+    // @2sl
+    const a = \`\${g}a\${a}a\${b}c\${d}e\${a}\`;
+    `,
+    output: d`
+    // @2sl
+    const a = g + 'a' + a + 'a' + b + 'c' + d + 'e' + a;
+    `,
+    errors: ['command-fix'],
   },
 )

@@ -1,5 +1,43 @@
-import type { Command } from '../types'
+import type { Command, Tree } from '../types'
 import { getNodesByIndexes, parseToNumberArray } from './_utils'
+
+interface Identifier {
+  name: string
+  range: [number, number]
+}
+
+function extractIdentifiers(node: Tree.TemplateLiteral) {
+  const ids: Identifier[] = []
+  for (const child of node.expressions) {
+    if (child.type === 'Identifier')
+      ids.push({ name: child.name, range: child.range })
+    // TODO: sub expressions, e.g. `${a + b}` -> '' + a + b + ''
+  }
+  return ids
+}
+
+function toStringWithIds(raw: string, node: Tree.TemplateLiteral, ids: Identifier[]) {
+  let hasStart = false
+  let hasEnd = false
+  ids.forEach(({ name, range }, index) => {
+    let startStr = `' + `
+    let endStr = ` + '`
+
+    if (index === 0) {
+      hasStart = range[0] - /* `${ */3 === node.range[0]
+      if (hasStart)
+        startStr = ''
+    }
+    if (index === ids.length - 1) {
+      hasEnd = range[1] + /* }` */2 === node.range[1]
+      if (hasEnd)
+        endStr = ''
+    }
+
+    raw = raw.replace(`\${${name}}`, `${startStr}${name}${endStr}`)
+  })
+  return `${hasStart ? '' : `'`}${raw}${hasEnd ? '' : `'`}`
+}
 
 export const toStringLiteral: Command = {
   name: 'to-string-literal',
@@ -12,7 +50,14 @@ export const toStringLiteral: Command = {
     if (!nodes)
       return
     for (const node of getNodesByIndexes(nodes, indexes)) {
-      const raw = `'${ctx.source.getText(node).slice(1, -1)}'`
+      const ids = extractIdentifiers(node)
+      let raw = ctx.source.getText(node).slice(1, -1)
+
+      if (ids.length)
+        raw = toStringWithIds(raw, node, ids)
+      else
+        raw = `'${raw}'`
+
       ctx.report({
         node,
         message: 'Convert to string literal',
