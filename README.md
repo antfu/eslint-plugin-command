@@ -199,6 +199,77 @@ Will be converted to:
 const { default: bar, foo } = await import('./foo')
 ```
 
+### `interconvert-string-template-literal`
+
+You can convert between string literals and template literals.
+
+Triggers:
+- `/// to-template-literal`
+- `/// to-tl`
+- `/// 2tl`
+
+or if you fancy `@`:
+
+- `// @to-template-literal`
+- `// @to-tl`
+- `///@2tl`
+
+```js
+/// 2tl
+const foo = 'bar'
+```
+
+Will be converted to:
+
+```js
+const foo = `bar`
+```
+
+#### `to-string-literal`
+
+Convert template literal to string literal.
+
+Triggers:
+- `/// to-string-literal`
+- `/// to-sl`
+- `/// 2sl`
+
+or if you fancy `@`:
+
+- `// @to-string-literal`
+- `// @to-sl`
+- `///@2sl`
+
+```js
+/// to-string-literal
+const foo = `bar`
+```
+
+Will be converted to:
+
+```js
+const foo = 'bar'
+```
+
+#### Specify the numbers
+
+If you specify the numbers of the `string literal`s or `template literal`s, it will only convert the specified number of them.
+
+```js
+// @2tl 2 3
+const a = 'a'; const b = 'b'; const c = 'c'
+```
+
+Will be converted to:
+
+```js
+const a = `a`; const b = `b`; const c = 'c'
+```
+
+#### `to-template-literal`
+
+Convert string literal to template literal.
+
 ## Custom Commands
 
 It's also possible to define your custom commands.

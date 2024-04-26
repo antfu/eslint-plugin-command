@@ -19,16 +19,22 @@ export class CommandContext {
    * Alias for `this.context.sourceCode`
    */
   readonly source: Linter.SourceCode
+  /**
+   * Captured groups by match
+   */
+  readonly groups: string[]
 
   constructor(
     context: Linter.RuleContext<MessageIds, RuleOptions>,
     comment: Tree.Comment,
     command: Command,
+    groups: string[],
   ) {
     this.context = context
     this.comment = comment
     this.command = command
     this.source = context.sourceCode
+    this.groups = groups
   }
 
   /**
@@ -126,12 +132,10 @@ export class CommandContext {
     })
   }
 
-  /**
-   * Find specific node types (first match) in the line below the comment
-   */
-  findNodeBelow(filter: (node: Tree.Node) => boolean): Tree.Node | undefined
-  findNodeBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[]): Extract<Tree.Node, { type: T }> | undefined
-  findNodeBelow(...keys: any[]): any {
+  private _findNodeBelowImpl(filter: (node: Tree.Node) => boolean, fist: boolean): Tree.Node[] | undefined
+  private _findNodeBelowImpl<T extends Tree.Node['type']>(...types: [(T | `${T}`)[], boolean]): Extract<Tree.Node, { type: T }>[] | undefined
+  private _findNodeBelowImpl(...keys: any[]): any {
+    const first = keys.pop() as boolean
     const tokenBelow = this.context.sourceCode.getTokenAfter(this.comment)
     if (!tokenBelow)
       return
@@ -139,7 +143,7 @@ export class CommandContext {
     if (!nodeBelow)
       return
 
-    let result: any
+    const result: any[] = []
     let target = nodeBelow
     while (target.parent && target.parent.loc.start.line === nodeBelow.loc.start.line)
       target = target.parent
@@ -152,10 +156,31 @@ export class CommandContext {
       if (path.node.loc.start.line !== nodeBelow.loc.start.line)
         return STOP
       if (filter(path.node)) {
-        result = path.node
-        return STOP
+        result.push(path.node)
+        if (first)
+          return STOP
       }
     })
     return result
+  }
+
+  /**
+   * Find specific node types (first match) in the line below the comment
+   */
+  findNodeBelow(filter: (node: Tree.Node) => boolean): Tree.Node | undefined
+  findNodeBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[]): Extract<Tree.Node, { type: T }> | undefined
+  findNodeBelow(...keys: any[]): any {
+    // @ts-expect-error - TS doesn't support pass generic to rest parameter
+    return this._findNodeBelowImpl(...keys, true)?.[0]
+  }
+
+  /**
+   * Find specific nodes in the line below the comment
+   */
+  findNodesBelow(filter: (node: Tree.Node) => boolean): Tree.Node[] | undefined
+  findNodesBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[]): Extract<Tree.Node, { type: T }>[] | undefined
+  findNodesBelow(...keys: any[]): any {
+    // @ts-expect-error - TS doesn't support pass generic to rest parameter
+    return this._findNodeBelowImpl(...keys, false)
   }
 }
