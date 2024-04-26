@@ -220,6 +220,9 @@ or if you fancy `@`:
 /// @2sl
 const foo = `foo`
 
+// @2sl
+const quxx = `${qux}quxx`
+
 // Also supports using numbers to specify which items need to be converted (starts from 1)
 // @2sl 1 3
 const bar = `bar`; const baz = `baz`; const qux = `qux`
@@ -230,7 +233,9 @@ Will be converted to:
 ```js
 const foo = 'bar'
 
-// @2sl 1 3
+// eslint-disable-next-line prefer-template
+const quxx = qux + 'quxx'
+
 const bar = 'bar'; const baz = `baz`; const qux = 'qux'
 ```
 
@@ -255,6 +260,10 @@ or if you fancy `@`:
 /// @2tl
 const bar = 'bar'
 
+// @2tl
+// eslint-disable-next-line prefer-template
+const quxx = qux + 'quxx'
+
 // Also supports using numbers to specify which items need to be converted (starts from 1)
 // @2tl 1 3
 const foo = 'foo'; const baz = 'baz'; const qux = 'qux'
@@ -265,7 +274,8 @@ Will be converted to:
 ```js
 const bar = `bar`
 
-// @2tl 1 3
+const quxx = `${qux}quxx`
+
 const foo = `foo`; const baz = 'baz'; const qux = `qux`
 ```
 

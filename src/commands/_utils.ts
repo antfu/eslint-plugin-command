@@ -1,3 +1,5 @@
+import type { Tree } from '../types'
+
 export function getNodesByIndexes<T>(nodes: T[], indexes: number[]) {
   return indexes.length
     ? indexes.map(n => nodes[n]).filter(Boolean)
@@ -18,4 +20,11 @@ export function parseToNumberArray(value: string | undefined, integer = false) {
         ? (Number.isInteger(n) && n > 0)
         : true,
     ) ?? []
+}
+
+export function insideRange(node: Tree.Node, range: [number, number], includeStart = true, includeEnd = true) {
+  return (
+    (includeStart ? node.range[0] >= range[0] : node.range[0] > range[0])
+    && (includeEnd ? node.range[1] <= range[1] : node.range[1] < range[1])
+  )
 }

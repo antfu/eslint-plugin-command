@@ -1,6 +1,6 @@
 import type { Command, CommandReportDescriptor, CommandReportErrorCauseDescriptor, Linter, MessageIds, RuleOptions, Tree } from './types'
 import type { TraverseVisitor } from './traverse'
-import { STOP, traverse } from './traverse'
+import { SKIP, STOP, traverse } from './traverse'
 
 export class CommandContext {
   /**
@@ -132,10 +132,11 @@ export class CommandContext {
     })
   }
 
-  private _findNodeBelowImpl(filter: (node: Tree.Node) => boolean, fist: boolean): Tree.Node[] | undefined
-  private _findNodeBelowImpl<T extends Tree.Node['type']>(...types: [(T | `${T}`)[], boolean]): Extract<Tree.Node, { type: T }>[] | undefined
+  private _findNodeBelowImpl(filter: (node: Tree.Node) => boolean, shallow: boolean, first: boolean): Tree.Node[] | undefined
+  private _findNodeBelowImpl<T extends Tree.Node['type']>(...types: [(T | `${T}`)[], boolean, boolean]): Extract<Tree.Node, { type: T }>[] | undefined
   private _findNodeBelowImpl(...keys: any[]): any {
     const first = keys.pop() as boolean
+    const shallow = typeof keys.at(-1) === 'boolean' ? keys.pop() as boolean : false
     const tokenBelow = this.context.sourceCode.getTokenAfter(this.comment)
     if (!tokenBelow)
       return
@@ -159,6 +160,8 @@ export class CommandContext {
         result.push(path.node)
         if (first)
           return STOP
+        if (shallow)
+          return SKIP
       }
     })
     return result
@@ -166,9 +169,10 @@ export class CommandContext {
 
   /**
    * Find specific node types (first match) in the line below the comment
+   * @param shallow If true, will not traverse deeper than the first level, default false
    */
-  findNodeBelow(filter: (node: Tree.Node) => boolean): Tree.Node | undefined
-  findNodeBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[]): Extract<Tree.Node, { type: T }> | undefined
+  findNodeBelow(filter: (node: Tree.Node) => boolean, shallow?: boolean): Tree.Node | undefined
+  findNodeBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[] | [(T | `${T}`), boolean | undefined][]): Extract<Tree.Node, { type: T }> | undefined
   findNodeBelow(...keys: any[]): any {
     // @ts-expect-error - TS doesn't support pass generic to rest parameter
     return this._findNodeBelowImpl(...keys, true)?.[0]
@@ -176,9 +180,10 @@ export class CommandContext {
 
   /**
    * Find specific nodes in the line below the comment
+   * @param shallow If true, will not traverse deeper than the first level, default false
    */
-  findNodesBelow(filter: (node: Tree.Node) => boolean): Tree.Node[] | undefined
-  findNodesBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[]): Extract<Tree.Node, { type: T }>[] | undefined
+  findNodesBelow(filter: (node: Tree.Node) => boolean, shallow?: boolean): Tree.Node[] | undefined
+  findNodesBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[] | ([...(T | `${T}`)[], boolean])): Extract<Tree.Node, { type: T }>[] | undefined
   findNodesBelow(...keys: any[]): any {
     // @ts-expect-error - TS doesn't support pass generic to rest parameter
     return this._findNodeBelowImpl(...keys, false)
