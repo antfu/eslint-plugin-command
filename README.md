@@ -263,7 +263,7 @@ const a = 'a'; const b = 'b'; const c = 'c'
 Will be converted to:
 
 ```js
-const a = `a`; const b = `b`; const c = 'c'
+const a = 'a'; const b = `b`; const c = `c`
 ```
 
 #### `to-template-literal`
