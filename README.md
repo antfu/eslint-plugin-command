@@ -199,6 +199,86 @@ Will be converted to:
 const { default: bar, foo } = await import('./foo')
 ```
 
+### `to-string-literal`
+
+Convert template literals to string literals.
+
+Triggers:
+- `/// to-string-literal`
+- `/// to-sl`
+- `/// 2string-literal`
+- `/// 2sl`
+
+or if you fancy `@`:
+
+- `// @to-string-literal`
+- `// @to-sl`
+- `// @2string-literal`
+- `// @2sl`
+
+```js
+/// @2sl
+const foo = `foo`
+
+// @2sl
+const quxx = `${qux}quxx`
+
+// Also supports using numbers to specify which items need to be converted (starts from 1)
+// @2sl 1 3
+const bar = `bar`; const baz = `baz`; const qux = `qux`
+```
+
+Will be converted to:
+
+```js
+const foo = 'bar'
+
+// eslint-disable-next-line prefer-template
+const quxx = qux + 'quxx'
+
+const bar = 'bar'; const baz = `baz`; const qux = 'qux'
+```
+
+### `to-template-literal`
+
+Convert string literals to template literals.
+
+Triggers:
+- `/// to-template-literal`
+- `/// to-tl`
+- `/// 2template-literal`
+- `/// 2tl`
+
+or if you fancy `@`:
+
+- `// @to-template-literal`
+- `// @to-tl`
+- `// @2template-literal`
+- `// @2tl`
+
+```js
+/// @2tl
+const bar = 'bar'
+
+// @2tl
+// eslint-disable-next-line prefer-template
+const quxx = qux + 'quxx'
+
+// Also supports using numbers to specify which items need to be converted (starts from 1)
+// @2tl 1 3
+const foo = 'foo'; const baz = 'baz'; const qux = 'qux'
+```
+
+Will be converted to:
+
+```js
+const bar = `bar`
+
+const quxx = `${qux}quxx`
+
+const foo = `foo`; const baz = 'baz'; const qux = `qux`
+```
+
 ## Custom Commands
 
 It's also possible to define your custom commands.

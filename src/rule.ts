@@ -31,8 +31,9 @@ export function createRuleWithCommands(commands: Command[]) {
 
         const commandRaw = comment.value.trim()
         for (const command of commands) {
-          if (command.match.test(commandRaw)) {
-            command.action(new CommandContext(context, comment, command))
+          const matches = commandRaw.match(command.match)
+          if (matches) {
+            command.action(new CommandContext(context, comment, command, matches))
             continue
           }
         }

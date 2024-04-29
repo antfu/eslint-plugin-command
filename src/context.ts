@@ -1,6 +1,6 @@
-import type { Command, CommandReportDescriptor, CommandReportErrorCauseDescriptor, Linter, MessageIds, RuleOptions, Tree } from './types'
+import type { Command, CommandReportDescriptor, CommandReportErrorCauseDescriptor, FindNodeOptions, Linter, MessageIds, RuleOptions, Tree } from './types'
 import type { TraverseVisitor } from './traverse'
-import { STOP, traverse } from './traverse'
+import { SKIP, STOP, traverse } from './traverse'
 
 export class CommandContext {
   /**
@@ -19,16 +19,22 @@ export class CommandContext {
    * Alias for `this.context.sourceCode`
    */
   readonly source: Linter.SourceCode
+  /**
+   * Regexp matches
+   */
+  readonly matches: RegExpMatchArray
 
   constructor(
     context: Linter.RuleContext<MessageIds, RuleOptions>,
     comment: Tree.Comment,
     command: Command,
+    matches: RegExpMatchArray,
   ) {
     this.context = context
     this.comment = comment
     this.command = command
     this.source = context.sourceCode
+    this.matches = matches
   }
 
   /**
@@ -127,11 +133,45 @@ export class CommandContext {
   }
 
   /**
-   * Find specific node types (first match) in the line below the comment
+   * Find specific node within the line below the comment
+   *
+   * Override 1: Find the fist node of a specific type with rest parameters
    */
-  findNodeBelow(filter: (node: Tree.Node) => boolean): Tree.Node | undefined
-  findNodeBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[]): Extract<Tree.Node, { type: T }> | undefined
-  findNodeBelow(...keys: any[]): any {
+  findNodeBelow<T extends Tree.Node['type']>(...keys: (T | `${T}`)[]): Extract<Tree.Node, { type: T }> | undefined
+  /**
+   * Find specific node within the line below the comment
+   *
+   * Override 2: Find the first matched node with a custom filter function
+   */
+  findNodeBelow(filter: ((node: Tree.Node) => boolean)): Tree.Node | undefined
+  /**
+   * Find specific node within the line below the comment
+   *
+   * Override 3: Find all match with full options (returns an array)
+   */
+  findNodeBelow<T extends Tree.Node['type']>(options: FindNodeOptions<T, true>): Extract<Tree.Node, { type: T }>[]
+  /**
+   * Find specific node within the line below the comment
+   *
+   * Override 4: Find one match with full options
+   */
+  findNodeBelow<T extends Tree.Node['type']>(options: FindNodeOptions<T>): Extract<Tree.Node, { type: T }> | undefined
+  // Implementation
+  findNodeBelow(...args: any): any {
+    let options: FindNodeOptions<Tree.Node['type']>
+
+    if (typeof args[0] === 'string')
+      options = { types: args as Tree.Node['type'][] }
+    else if (typeof args[0] === 'function')
+      options = { filter: args[0] }
+    else
+      options = args[0]
+
+    const {
+      shallow = false,
+      findAll = false,
+    } = options
+
     const tokenBelow = this.context.sourceCode.getTokenAfter(this.comment)
     if (!tokenBelow)
       return
@@ -139,23 +179,29 @@ export class CommandContext {
     if (!nodeBelow)
       return
 
-    let result: any
+    const result: any[] = []
     let target = nodeBelow
     while (target.parent && target.parent.loc.start.line === nodeBelow.loc.start.line)
       target = target.parent
 
-    const filter = typeof keys[0] === 'function'
-      ? keys[0]
-      : (node: Tree.Node) => keys.includes(node.type)
+    const filter = options.filter
+      ? options.filter
+      : (node: Tree.Node) => options.types!.includes(node.type)
 
     this.traverse(target, (path) => {
       if (path.node.loc.start.line !== nodeBelow.loc.start.line)
         return STOP
       if (filter(path.node)) {
-        result = path.node
-        return STOP
+        result.push(path.node)
+        if (!findAll)
+          return STOP
+        if (shallow)
+          return SKIP
       }
     })
-    return result
+
+    return findAll
+      ? result
+      : result[0]
   }
 }

@@ -12,6 +12,7 @@ export default antfu(
     rules: {
       'command/command': 'off',
       'antfu/top-level-function': 'off',
+      'style/max-statements-per-line': 'off',
     },
   },
   {
