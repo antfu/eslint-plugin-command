@@ -9,8 +9,9 @@ export const toStringLiteral: Command = {
     // From integers 1-based to 0-based to match array indexes
     const indexes = parseToNumberArray(numbers, true).map(n => n - 1)
     const nodes = ctx.findNodesBelow('TemplateLiteral')
-    if (!nodes)
-      return
+    if (!nodes?.length)
+      return ctx.reportError('No template literals found')
+
     ctx.removeComment()
     for (const node of getNodesByIndexes(nodes, indexes)) {
       const ids = extractIdentifiers(node)

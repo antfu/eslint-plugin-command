@@ -12,15 +12,18 @@ export const toTemplateLiteral: Command = {
     // From integers 1-based to 0-based to match array indexes
     const indexes = parseToNumberArray(numbers, true).map(n => n - 1)
     let nodes: NodeTypes[] | undefined
-    nodes = ctx.findNodesBelow('Literal', 'BinaryExpression', true)?.filter(node =>
-      node.type === 'Literal'
-        ? typeof node.value === 'string'
-        : node.type === 'BinaryExpression'
-          ? node.operator === '+'
-          : false,
-    ) as NodeTypes[] | undefined
+    nodes = ctx.findNodesBelow('Literal', 'BinaryExpression', true)
+      ?.filter(node =>
+        node.type === 'Literal'
+          ? typeof node.value === 'string'
+          : node.type === 'BinaryExpression'
+            ? node.operator === '+'
+            : false,
+      ) as NodeTypes[] | undefined
+
     if (!nodes || !nodes.length)
-      return
+      return ctx.reportError('No string literals or binary expressions found')
+
     // Since we can specify numbers, the order is sensitive
     nodes = getNodesByIndexes(nodes, indexes)
 

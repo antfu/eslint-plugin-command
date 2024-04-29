@@ -28,13 +28,13 @@ export class CommandContext {
     context: Linter.RuleContext<MessageIds, RuleOptions>,
     comment: Tree.Comment,
     command: Command,
-    groups: RegExpMatchArray,
+    matches: RegExpMatchArray,
   ) {
     this.context = context
     this.comment = comment
     this.command = command
     this.source = context.sourceCode
-    this.matches = groups
+    this.matches = matches
   }
 
   /**
