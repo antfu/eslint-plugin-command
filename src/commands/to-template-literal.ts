@@ -12,7 +12,11 @@ export const toTemplateLiteral: Command = {
     // From integers 1-based to 0-based to match array indexes
     const indexes = parseToNumberArray(numbers, true).map(n => n - 1)
     let nodes: NodeTypes[] | undefined
-    nodes = ctx.findNodesBelow('Literal', 'BinaryExpression', true)
+    nodes = ctx.findNodeBelow({
+      types: ['Literal', 'BinaryExpression'],
+      shallow: true,
+      findAll: true,
+    })
       ?.filter(node =>
         node.type === 'Literal'
           ? typeof node.value === 'string'

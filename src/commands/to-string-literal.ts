@@ -8,7 +8,11 @@ export const toStringLiteral: Command = {
     const numbers = ctx.matches[1]
     // From integers 1-based to 0-based to match array indexes
     const indexes = parseToNumberArray(numbers, true).map(n => n - 1)
-    const nodes = ctx.findNodesBelow('TemplateLiteral')
+    const nodes = ctx.findNodeBelow({
+      types: ['TemplateLiteral'],
+      shallow: true,
+      findAll: true,
+    })
     if (!nodes?.length)
       return ctx.reportError('No template literals found')
 

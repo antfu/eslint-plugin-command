@@ -58,3 +58,24 @@ export type CommandReportErrorCauseDescriptor = {
 export function defineCommand(command: Command) {
   return command
 }
+
+export interface FindNodeOptions<Keys extends Tree.Node['type'], All extends boolean | undefined = false> {
+  /**
+   * The type of the node to search for
+   */
+  types?: (Keys | `${Keys}`)[]
+  /**
+   * Whether to search only the direct children of the node
+   */
+  shallow?: boolean
+  /**
+   * Return the first node found, or an array of all matches
+   */
+  findAll?: All
+  /**
+   * Custom filter function to further filter the nodes
+   *
+   * `types` is ignored when `filter` is provided
+   */
+  filter?: (node: Tree.Node) => boolean
+}

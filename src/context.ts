@@ -1,4 +1,4 @@
-import type { Command, CommandReportDescriptor, CommandReportErrorCauseDescriptor, Linter, MessageIds, RuleOptions, Tree } from './types'
+import type { Command, CommandReportDescriptor, CommandReportErrorCauseDescriptor, FindNodeOptions, Linter, MessageIds, RuleOptions, Tree } from './types'
 import type { TraverseVisitor } from './traverse'
 import { SKIP, STOP, traverse } from './traverse'
 
@@ -132,11 +132,46 @@ export class CommandContext {
     })
   }
 
-  private _findNodeBelowImpl(filter: (node: Tree.Node) => boolean, shallow: boolean, first: boolean): Tree.Node[] | undefined
-  private _findNodeBelowImpl<T extends Tree.Node['type']>(...types: [(T | `${T}`)[], boolean, boolean]): Extract<Tree.Node, { type: T }>[] | undefined
-  private _findNodeBelowImpl(...keys: any[]): any {
-    const first = keys.pop() as boolean
-    const shallow = typeof keys.at(-1) === 'boolean' ? keys.pop() as boolean : false
+  /**
+   * Find specific node within the line below the comment
+   *
+   * Override 1: Find the fist node of a specific type with rest parameters
+   */
+  findNodeBelow<T extends Tree.Node['type']>(...keys: (T | `${T}`)[]): Extract<Tree.Node, { type: T }> | undefined
+  /**
+   * Find specific node within the line below the comment
+   *
+   * Override 2: Find the first matched node with a custom filter function
+   */
+  findNodeBelow(filter: ((node: Tree.Node) => boolean)): Tree.Node | undefined
+  /**
+   * Find specific node within the line below the comment
+   *
+   * Override 3: Find all match with full options (returns an array)
+   */
+  findNodeBelow<T extends Tree.Node['type']>(options: FindNodeOptions<T, true>): Extract<Tree.Node, { type: T }>[]
+  /**
+   * Find specific node within the line below the comment
+   *
+   * Override 4: Find one match with full options
+   */
+  findNodeBelow<T extends Tree.Node['type']>(options: FindNodeOptions<T>): Extract<Tree.Node, { type: T }> | undefined
+  // Implementation
+  findNodeBelow(...args: any): any {
+    let options: FindNodeOptions<Tree.Node['type']>
+
+    if (typeof args[0] === 'string')
+      options = { types: args as Tree.Node['type'][] }
+    else if (typeof args[0] === 'function')
+      options = { filter: args[0] }
+    else
+      options = args[0]
+
+    const {
+      shallow = false,
+      findAll = false,
+    } = options
+
     const tokenBelow = this.context.sourceCode.getTokenAfter(this.comment)
     if (!tokenBelow)
       return
@@ -149,43 +184,24 @@ export class CommandContext {
     while (target.parent && target.parent.loc.start.line === nodeBelow.loc.start.line)
       target = target.parent
 
-    const filter = typeof keys[0] === 'function'
-      ? keys[0]
-      : (node: Tree.Node) => keys.includes(node.type)
+    const filter = options.filter
+      ? options.filter
+      : (node: Tree.Node) => options.types!.includes(node.type)
 
     this.traverse(target, (path) => {
       if (path.node.loc.start.line !== nodeBelow.loc.start.line)
         return STOP
       if (filter(path.node)) {
         result.push(path.node)
-        if (first)
+        if (!findAll)
           return STOP
         if (shallow)
           return SKIP
       }
     })
-    return result
-  }
 
-  /**
-   * Find specific node types (first match) in the line below the comment
-   * @param shallow If true, will not traverse deeper than the first level, default false
-   */
-  findNodeBelow(filter: (node: Tree.Node) => boolean, shallow?: boolean): Tree.Node | undefined
-  findNodeBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[] | [(T | `${T}`), boolean | undefined][]): Extract<Tree.Node, { type: T }> | undefined
-  findNodeBelow(...keys: any[]): any {
-    // @ts-expect-error - TS doesn't support pass generic to rest parameter
-    return this._findNodeBelowImpl(...keys, true)?.[0]
-  }
-
-  /**
-   * Find specific nodes in the line below the comment
-   * @param shallow If true, will not traverse deeper than the first level, default false
-   */
-  findNodesBelow(filter: (node: Tree.Node) => boolean, shallow?: boolean): Tree.Node[] | undefined
-  findNodesBelow<T extends Tree.Node['type']>(...types: (T | `${T}`)[] | ([...(T | `${T}`)[], boolean])): Extract<Tree.Node, { type: T }>[] | undefined
-  findNodesBelow(...keys: any[]): any {
-    // @ts-expect-error - TS doesn't support pass generic to rest parameter
-    return this._findNodeBelowImpl(...keys, false)
+    return findAll
+      ? result
+      : result[0]
   }
 }
