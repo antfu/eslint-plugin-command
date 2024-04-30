@@ -31,6 +31,44 @@ run(
     }`,
     errors: ['command-fix'],
   },
+  // Some object property keys are string
+  {
+    code: d`
+    // @keep-sorted
+    export const obj = {
+      foo,
+      'bar': () => {},
+      apple: 1,
+    }`,
+    output: d`
+    // @keep-sorted
+    export const obj = {
+      'bar': () => {},
+      apple: 1,
+      foo,
+    }`,
+    errors: ['command-fix'],
+  },
+  // All object property keys are string
+  {
+    code: d`
+    // @keep-sorted
+    export const rules = {
+      'block-scoped-var': 'error',
+      'array-callback-return': 'error',
+      'constructor-super': 'error',
+      'default-case-last': 'error',
+    }`,
+    output: d`
+    // @keep-sorted
+    export const rules = {
+      'array-callback-return': 'error',
+      'block-scoped-var': 'error',
+      'constructor-super': 'error',
+      'default-case-last': 'error',
+    }`,
+    errors: ['command-fix'],
+  },
   // Array elements
   {
     code: d`
