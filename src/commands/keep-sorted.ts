@@ -111,6 +111,8 @@ export const keepSorted: Command = {
         (prop) => {
           if (prop.type === 'Property' && prop.key.type === 'Identifier')
             return prop.key.name
+          if (prop.type === 'Property' && prop.key.type === 'Literal')
+            return prop.key.raw
           return null
         },
       )
