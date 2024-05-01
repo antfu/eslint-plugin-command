@@ -6,18 +6,23 @@ export default antfu(
   {
     ignores: ['vendor'],
   },
-  command(),
-  {
-    files: ['README.md/**/*'],
-    rules: {
-      'command/command': 'off',
-      'antfu/top-level-function': 'off',
-      'style/max-statements-per-line': 'off',
-    },
-  },
-  {
-    rules: {
-      'antfu/top-level-function': 'off',
-    },
-  },
 )
+  .replace(
+    'antfu/command/rules',
+    command(),
+  )
+  .append(
+    {
+      files: ['README.md/**/*'],
+      rules: {
+        'command/command': 'off',
+        'antfu/top-level-function': 'off',
+        'style/max-statements-per-line': 'off',
+      },
+    },
+    {
+      rules: {
+        'antfu/top-level-function': 'off',
+      },
+    },
+  )
