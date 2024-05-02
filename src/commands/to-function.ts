@@ -1,5 +1,4 @@
-import type { TSESTree } from '@typescript-eslint/utils'
-import type { Command } from '../types'
+import type { Command, Tree } from '../types'
 
 export const toFunction: Command = {
   name: 'to-function',
@@ -9,8 +8,8 @@ export const toFunction: Command = {
     if (!arrowFn)
       return ctx.reportError('Unable to find arrow function to convert')
 
-    let start: TSESTree.Node = arrowFn
-    let id: TSESTree.Identifier | undefined
+    let start: Tree.Node = arrowFn
+    let id: Tree.Identifier | undefined
     const body = arrowFn.body
 
     if (arrowFn.parent.type === 'VariableDeclarator' && arrowFn.parent.id.type === 'Identifier') {

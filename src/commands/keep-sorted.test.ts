@@ -172,4 +172,40 @@ run(
     }`,
     errors: ['command-fix'],
   },
+  // Sort array of objects
+  {
+    code: d`
+    // @keep-sorted { "keys": ["index", "name"] }
+    export default [
+      { index: 4, name: 'foo' },
+      { index: 2, name: 'bar' },
+      { index: 2, name: 'apple' },
+      { index: 0, name: 'zip' },
+      'foo',
+      { index: 6, name: 'bar' },
+      { index: 3, name: 'foo' },
+    ]`,
+    output: d`
+    // @keep-sorted { "keys": ["index", "name"] }
+    export default [
+      { index: 0, name: 'zip' },
+      { index: 2, name: 'apple' },
+      { index: 2, name: 'bar' },
+      { index: 4, name: 'foo' },
+      'foo',
+      { index: 3, name: 'foo' },
+      { index: 6, name: 'bar' },
+    ]`,
+    errors: ['command-fix'],
+  },
+  // Error on invalid JSON
+  {
+    code: d`
+    // @keep-sorted { keys: [1, 2, 3] }
+    export default [
+      { index: 4, name: 'foo' },
+      { index: 2, name: 'bar' },
+    ]`,
+    errors: ['command-error'],
+  },
 )

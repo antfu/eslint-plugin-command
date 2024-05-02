@@ -104,6 +104,32 @@ const obj = {
 
 Different from the other commands, the comment will not be removed after transformation to keep the sorting.
 
+#### Sort Array of Objects
+
+This command takes an optional inline JSON configuration to specify the keys to sort.
+
+```js
+/// keep-sorted { "keys": ["index", "name"] }
+const arr = [
+  { index: 4, name: 'foo' },
+  { index: 2, name: 'bar' },
+  { index: 2, name: 'apple' },
+  { index: 0, name: 'zip' },
+]
+```
+
+Will be converted to:
+
+```js
+/// keep-sorted { "keys": ["index", "name"] }
+const arr = [
+  { index: 0, name: 'zip' },
+  { index: 2, name: 'apple' },
+  { index: 2, name: 'bar' },
+  { index: 4, name: 'foo' },
+]
+```
+
 ### `to-for-each`
 
 Convert for-of/for-in loop to `.forEach()`.
