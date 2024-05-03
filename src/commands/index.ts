@@ -6,9 +6,11 @@ import { toForOf } from './to-for-of'
 import { toDynamicImport } from './to-dynamic-import'
 import { toStringLiteral } from './to-string-literal'
 import { toTemplateLiteral } from './to-template-literal'
+import { inlineArrow } from './inline-arrow'
 
 // @keep-sorted
 export {
+  inlineArrow,
   keepSorted,
   toArrow,
   toDynamicImport,
@@ -21,6 +23,7 @@ export {
 
 // @keep-sorted
 export const builtinCommands = [
+  inlineArrow,
   keepSorted,
   toArrow,
   toDynamicImport,
