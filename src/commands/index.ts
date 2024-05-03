@@ -7,6 +7,7 @@ import { toDynamicImport } from './to-dynamic-import'
 import { toStringLiteral } from './to-string-literal'
 import { toTemplateLiteral } from './to-template-literal'
 import { inlineArrow } from './inline-arrow'
+import { toPromiseAll } from './to-promise-all'
 
 // @keep-sorted
 export {
@@ -17,6 +18,7 @@ export {
   toForEach,
   toForOf,
   toFunction,
+  toPromiseAll,
   toStringLiteral,
   toTemplateLiteral,
 }
@@ -30,6 +32,7 @@ export const builtinCommands = [
   toForEach,
   toForOf,
   toFunction,
+  toPromiseAll,
   toStringLiteral,
   toTemplateLiteral,
 ]

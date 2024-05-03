@@ -204,4 +204,27 @@ export class CommandContext {
       ? result
       : result[0]
   }
+
+  /**
+   * Get the parent block of the triggering comment
+   */
+  getParentBlock(): Tree.BlockStatement | Tree.Program {
+    const node = this.source.getNodeByRangeIndex(this.comment.range[0])
+    if (node?.type === 'BlockStatement') {
+      if (this.source.getCommentsInside(node).includes(this.comment))
+        return node
+    }
+    if (node)
+      console.warn(`Expected BlockStatement, got ${node.type}. This is probably an internal bug.`)
+    return this.source.ast
+  }
+
+  /**
+   * Get indent string of a specific line
+   */
+  getIndentOfLine(line: number): string {
+    const lineStr = this.source.getLines()[line - 1] || ''
+    const match = lineStr.match(/^\s*/)
+    return match ? match[0] : ''
+  }
 }
