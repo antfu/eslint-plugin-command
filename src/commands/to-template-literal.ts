@@ -76,7 +76,7 @@ function traverseBinaryExpression(node: Tree.BinaryExpression): string {
 }
 
 function convertStringLiteral(node: Tree.StringLiteral, ctx: CommandContext) {
-  const raw = `\`${node.value}\``
+  const raw = `\`${node.value.replace(/`/g, '\\`')}\``
   report(ctx, node, raw)
 }
 

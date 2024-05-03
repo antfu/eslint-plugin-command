@@ -46,4 +46,15 @@ run(
     `,
     errors: ['command-removal', 'command-fix'],
   },
+  // escape
+  {
+    code: d`
+    // @2sl
+    const a = \`'\`
+    `,
+    output: d`
+    const a = '\\''
+    `,
+    errors: ['command-removal', 'command-fix'],
+  },
 )
