@@ -19,7 +19,7 @@ export const toStringLiteral: Command = {
     ctx.removeComment()
     for (const node of getNodesByIndexes(nodes, indexes)) {
       const ids = extractIdentifiers(node)
-      let raw = ctx.source.getText(node).slice(1, -1).replace(/'/g, `\\'`)
+      let raw = ctx.source.getText(node).slice(1, -1).replace(/(?<!\\)'/g, `\\'`)
 
       if (ids.length)
         raw = toStringWithIds(raw, node, ids)

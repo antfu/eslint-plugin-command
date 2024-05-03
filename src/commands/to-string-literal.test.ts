@@ -50,10 +50,10 @@ run(
   {
     code: d`
     // @2sl
-    const a = \`'\`
+    const a = \`'\\'\`
     `,
     output: d`
-    const a = '\\''
+    const a = '\\'\\''
     `,
     errors: ['command-removal', 'command-fix'],
   },
