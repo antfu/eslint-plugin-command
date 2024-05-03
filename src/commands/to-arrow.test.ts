@@ -45,7 +45,7 @@ run(
     code: d`
     const bar = {
       /// to-arrow
-      async bar(a: number, b: number): number {
+      async [bar]?(a: number, b: number): number {
         return a + b
       },
       foo() {
@@ -54,7 +54,7 @@ run(
     }`,
     output: d`
     const bar = {
-      bar: async (a: number, b: number): number => {
+      [bar]: async (a: number, b: number): number => {
         return a + b
       },
       foo() {
@@ -63,12 +63,22 @@ run(
     }`,
     errors: ['command-removal', 'command-fix'],
   },
+  // Getter/setter
+  {
+    code: d`
+    const bar = {
+      /// to-arrow
+      get id() {}
+    }`,
+    output: null,
+    errors: 'command-error',
+  },
   // Class method
   {
     code: d`
     class Bar {
       /// to-arrow
-      async bar(a: number, b: number): number {
+      private static override async [bar]?(a: number, b: number): number {
         return a + b
       }
       foo() {
@@ -77,7 +87,7 @@ run(
     }`,
     output: d`
     class Bar {
-      bar = async (a: number, b: number): number => {
+      private static override [bar] ? = async (a: number, b: number): number => {
         return a + b
       }
       foo() {
