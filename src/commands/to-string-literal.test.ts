@@ -9,7 +9,7 @@ run(
     const a = \`a\`; const b = \`b\`; const c = 'c';
     `,
     output: d`
-    const a = 'a'; const b = 'b'; const c = 'c';
+    const a = "a"; const b = "b"; const c = 'c';
     `,
     errors: ['command-removal', 'command-fix', 'command-fix'],
   },
@@ -20,7 +20,7 @@ run(
     const a = \`a\`, b = \`b\`, c = \`c\`, d = \`d\`;
     `,
     output: d`
-    const a = \`a\`, b = 'b', c = 'c', d = \`d\`;
+    const a = \`a\`, b = "b", c = "c", d = \`d\`;
     `,
     errors: ['command-removal', 'command-fix', 'command-fix'],
   },
@@ -31,7 +31,7 @@ run(
     const a = 'a', b = 'b', c = \`c\`, d = 'd', e = \`e\`, f = \`f\`;
     `,
     output: d`
-    const a = 'a', b = 'b', c = 'c', d = 'd', e = \`e\`, f = 'f';
+    const a = 'a', b = 'b', c = "c", d = 'd', e = \`e\`, f = "f";
     `,
     errors: ['command-removal', 'command-fix', 'command-fix'],
   },
@@ -42,7 +42,7 @@ run(
     const a = \`\${g}a\${a}a\${b}c\${d}e\${a}\`;
     `,
     output: d`
-    const a = g + 'a' + a + 'a' + b + 'c' + d + 'e' + a;
+    const a = g + "a" + a + "a" + b + "c" + d + "e" + a;
     `,
     errors: ['command-removal', 'command-fix'],
   },
@@ -50,10 +50,10 @@ run(
   {
     code: d`
     // @2sl
-    const a = \`'\\'\`
+    const a = \`"\\"\\\\"\`
     `,
     output: d`
-    const a = '\\'\\''
+    const a = "\\"\\\\\\"\\\\\\\\\\""
     `,
     errors: ['command-removal', 'command-fix'],
   },

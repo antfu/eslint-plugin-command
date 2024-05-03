@@ -19,12 +19,12 @@ export const toStringLiteral: Command = {
     ctx.removeComment()
     for (const node of getNodesByIndexes(nodes, indexes)) {
       const ids = extractIdentifiers(node)
-      let raw = ctx.source.getText(node).slice(1, -1).replace(/(?<!\\)'/g, `\\'`)
+      let raw = JSON.stringify(ctx.source.getText(node).slice(1, -1)).slice(1, -1)
 
       if (ids.length)
         raw = toStringWithIds(raw, node, ids)
       else
-        raw = `'${raw}'`
+        raw = `"${raw}"`
 
       ctx.report({
         node,
@@ -56,8 +56,8 @@ function toStringWithIds(raw: string, node: Tree.TemplateLiteral, ids: Identifie
   let hasStart = false
   let hasEnd = false
   ids.forEach(({ name, range }, index) => {
-    let startStr = `' + `
-    let endStr = ` + '`
+    let startStr = `" + `
+    let endStr = ` + "`
 
     if (index === 0) {
       hasStart = range[0] - /* `${ */3 === node.range[0]
@@ -72,5 +72,5 @@ function toStringWithIds(raw: string, node: Tree.TemplateLiteral, ids: Identifie
 
     raw = raw.replace(`\${${name}}`, `${startStr}${name}${endStr}`)
   })
-  return `${hasStart ? '' : `'`}${raw}${hasEnd ? '' : `'`}`
+  return `${hasStart ? '' : `"`}${raw}${hasEnd ? '' : `"`}`
 }
