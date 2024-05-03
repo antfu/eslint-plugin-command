@@ -83,16 +83,16 @@
     "@antfu/eslint-config": "^2.16.1",
     "@antfu/ni": "^0.21.12",
     "@antfu/utils": "^0.7.7",
-    "@eslint/config-inspector": "^0.4.7",
+    "@eslint/config-inspector": "^0.4.8",
     "@types/eslint": "^8.56.10",
     "@types/lodash.merge": "^4.6.9",
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.12.8",
     "@types/semver": "^7.5.8",
     "@typescript-eslint/rule-tester": "^7.8.0",
     "@typescript-eslint/typescript-estree": "^7.8.0",
     "@typescript-eslint/utils": "^7.8.0",
     "bumpp": "^9.4.1",
-    "eslint": "^9.1.1",
+    "eslint": "^9.2.0",
     "eslint-define-config": "^2.1.0",
     "esno": "^4.7.0",
     "fast-glob": "^3.3.2",
@@ -105,8 +105,8 @@
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
     "unbuild": "^2.0.0",
-    "vite": "^5.2.10",
-    "vitest": "^1.5.3"
+    "vite": "^5.2.11",
+    "vitest": "^1.6.0"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

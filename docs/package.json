@@ -14,7 +14,7 @@
     "floating-vue": "^5.2.2",
     "fuse.js": "^7.0.0",
     "unocss": "^0.59.4",
-    "unplugin-vue-components": "^0.26.0",
+    "unplugin-vue-components": "^0.27.0",
     "vitepress": "^1.1.4",
     "vue": "^3.4.26"
   }
