@@ -13,7 +13,7 @@ export default antfu(
   )
   .append(
     {
-      files: ['README.md/**/*'],
+      files: ['**/*.md/**/*'],
       rules: {
         'command/command': 'off',
         'antfu/top-level-function': 'off',

@@ -71,6 +71,8 @@
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
     "test": "vitest",
+    "docs": "nr -C docs docs:dev",
+    "docs:build": "nr -C docs docs:build",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
   },
@@ -93,6 +95,7 @@
     "eslint": "^9.1.1",
     "eslint-define-config": "^2.1.0",
     "esno": "^4.7.0",
+    "fast-glob": "^3.3.2",
     "lint-staged": "^15.2.2",
     "lodash.merge": "4.6.2",
     "pnpm": "^9.0.6",
