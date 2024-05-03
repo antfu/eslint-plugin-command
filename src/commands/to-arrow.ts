@@ -14,6 +14,11 @@ export const toArrow: Command = {
     let rangeStart = fn.range[0]
     const rangeEnd = fn.range[1]
 
+    const parent = fn.parent
+
+    if (parent.type === 'Property' && parent.kind !== 'init')
+      return ctx.reportError(`Cannot convert ${parent.kind}ter property to arrow function`)
+
     ctx.removeComment()
     ctx.report({
       node: fn,
@@ -42,24 +47,25 @@ export const toArrow: Command = {
         }
 
         // For object methods
-        else if (fn.parent.type === 'Property') {
-          rangeStart = fn.parent.range[0]
-          textName = ctx.getTextOf(fn.parent.key)
-          final = `${textName}: ${final}`
+        else if (parent.type === 'Property') {
+          rangeStart = parent.range[0]
+          textName = ctx.getTextOf(parent.key)
+          final = `${parent.computed ? `[${textName}]` : textName}: ${final}`
         }
 
         // For class methods
-        else if (fn.parent.type === 'MethodDefinition') {
-          rangeStart = fn.parent.range[0]
-          textName = ctx.getTextOf(fn.parent.key)
-          final = `${textName} = ${final}`
+        else if (parent.type === 'MethodDefinition') {
+          rangeStart = parent.range[0]
+          textName = ctx.getTextOf(parent.key)
+          final = `${[
+            parent.accessibility,
+            parent.static && 'static',
+            parent.override && 'override',
+            parent.computed ? `[${textName}]` : textName,
+            parent.optional && '?',
+          ].filter(Boolean).join(' ')} = ${final}`
         }
 
-        // console.log({
-        //   final,
-        //   original: code.slice(rangeStart, rangeEnd),
-        //   p: fn.parent.type,
-        // })
         return fixer.replaceTextRange([rangeStart, rangeEnd], final)
       },
     })
