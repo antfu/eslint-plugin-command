@@ -86,4 +86,35 @@ run(
     `,
     errors: ['command-removal', 'command-fix', 'command-fix'],
   },
+  // escape
+  {
+    code: d`
+    // @2tl
+    const a = "\`"
+    `,
+    output: d`
+    const a = \`\\\`\`
+    `,
+    errors: ['command-removal', 'command-fix'],
+  },
+  {
+    code: d`
+    // @2tl
+    const a = str + "\`" 
+    `,
+    output: d`
+    const a = \`\${str}\\\`\` 
+    `,
+    errors: ['command-removal', 'command-fix'],
+  },
+  {
+    code: d`
+    // @2tl
+    const a = "\${str}"
+    `,
+    output: d`
+    const a = \`\\\${str}\`
+    `,
+    errors: ['command-removal', 'command-fix'],
+  },
 )

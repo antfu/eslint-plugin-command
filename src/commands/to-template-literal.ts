@@ -51,7 +51,7 @@ function getExpressionValue(node: Tree.Expression | Tree.PrivateIdentifier) {
   if (node.type === 'Identifier')
     return `\${${node.name}}`
   if (node.type === 'Literal' && typeof node.value === 'string')
-    return node.value
+    return escape(node.value)
 
   return ''
 }
@@ -76,7 +76,7 @@ function traverseBinaryExpression(node: Tree.BinaryExpression): string {
 }
 
 function convertStringLiteral(node: Tree.StringLiteral, ctx: CommandContext) {
-  const raw = `\`${node.value}\``
+  const raw = `\`${escape(node.value)}\``
   report(ctx, node, raw)
 }
 
@@ -88,4 +88,9 @@ function report(ctx: CommandContext, node: Tree.Node, raw: string) {
       return fixer.replaceTextRange(node.range, raw)
     },
   })
+}
+
+function escape(raw: string) {
+  // TODO handle multi escape characters '\\${str}'
+  return raw.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
 }
