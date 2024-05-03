@@ -149,7 +149,7 @@ export class CommandContext {
    *
    * Override 3: Find all match with full options (returns an array)
    */
-  findNodeBelow<T extends Tree.Node['type']>(options: FindNodeOptions<T, true>): Extract<Tree.Node, { type: T }>[]
+  findNodeBelow<T extends Tree.Node['type']>(options: FindNodeOptions<T, true>): Extract<Tree.Node, { type: T }>[] | undefined
   /**
    * Find specific node within the line below the comment
    *
