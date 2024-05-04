@@ -8,12 +8,14 @@ import { toStringLiteral } from './to-string-literal'
 import { toTemplateLiteral } from './to-template-literal'
 import { inlineArrow } from './inline-arrow'
 import { toPromiseAll } from './to-promise-all'
+import { noShorthand } from './no-shorthand'
 import { noType } from './no-type'
 
 // @keep-sorted
 export {
   inlineArrow,
   keepSorted,
+  noShorthand,
   noType,
   toArrow,
   toDynamicImport,
@@ -29,6 +31,7 @@ export {
 export const builtinCommands = [
   inlineArrow,
   keepSorted,
+  noShorthand,
   noType,
   toArrow,
   toDynamicImport,
