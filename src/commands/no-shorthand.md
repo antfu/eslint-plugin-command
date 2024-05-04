@@ -5,7 +5,7 @@ Expand object shorthand properties to their full form.
 ## Triggers
 
 - `/// no-shorthand`
-- `/// ns`
+- `/// nsh`
 
 ## Examples
 

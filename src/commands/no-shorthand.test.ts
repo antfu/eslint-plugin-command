@@ -13,14 +13,14 @@ run(
   },
   {
     code: d`
-    /// ns
+    /// nsh
     const obj = 10`,
     output: null,
     errors: 'command-error',
   },
   {
     code: d`
-    /// ns
+    /// nsh
     const obj = { key: value, key2: value2 }`,
     output: null,
     errors: 'command-error',
