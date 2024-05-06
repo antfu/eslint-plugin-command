@@ -1,4 +1,3 @@
-import { EOL } from 'node:os'
 import type { Command, CommandContext, Tree } from '../types'
 
 export interface KeepSortedInlineOptions {
@@ -164,7 +163,7 @@ function sort<T extends Tree.Node>(
     const endStartToken = ctx.context.sourceCode.getTokenByRangeStart(lastRange)
     if (endStartToken?.type === 'Punctuator' && endStartToken.value === ',')
       lastRange = endStartToken.range[1]
-    if (ctx.context.sourceCode.getText()[lastRange] === EOL)
+    if (ctx.context.sourceCode.getText()[lastRange] === '\n')
       lastRange++
     ranges.set(item, [rangeEnd, lastRange])
     rangeEnd = lastRange
@@ -249,10 +248,10 @@ function getString(node: Tree.Node): string | null {
 function insertComma(text: string): string {
   if (text.at(-1) === ',')
     return text
-  if (text.at(-1) === EOL) {
+  if (text.at(-1) === '\n') {
     if (text.at(-2) === ',')
       return text
-    return `${text.slice(0, -1)},${EOL}`
+    return `${text.slice(0, -1)},\n`
   }
   return `${text},`
 }
@@ -261,8 +260,8 @@ function removeComma(text: string): string {
   if (text.at(-1) === ',')
     return text.slice(0, -1)
 
-  if (text.at(-1) === EOL && text.at(-2) === ',')
-    return `${text.slice(0, -2)}${EOL}`
+  if (text.at(-1) === '\n' && text.at(-2) === ',')
+    return `${text.slice(0, -2)}\n`
 
   return text
 }
