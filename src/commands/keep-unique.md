@@ -5,7 +5,7 @@ Keep array items unique, removing duplicates.
 ## Triggers
 
 - `/// keep-unique`
-- `/// uniq
+- `/// uniq`
 - `// @keep-unique`
 
 ## Examples
