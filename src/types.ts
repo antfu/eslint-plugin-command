@@ -19,7 +19,7 @@ export interface Command {
    */
   match: RegExp | ((comment: Tree.Comment) => RegExpMatchArray | boolean | undefined | null)
   /**
-   * The type of the comment
+   * The type of the comment. By default commands are only matched with line comments.
    *
    * - `line` - `//`
    * - `block` - `/*`
@@ -28,11 +28,13 @@ export interface Command {
    */
   commentType?: 'line' | 'block' | 'both'
   /**
-   * Main action of the command
+   * Main action of the command.
+   *
+   * Return `false` for "no-change", and forward to the next commands.
    *
    * @param ctx The context of the command (per-file, per matched comment)
    */
-  action: (ctx: CommandContext) => void
+  action: (ctx: CommandContext) => false | void
 }
 
 export interface ESLintPluginCommandOptions {

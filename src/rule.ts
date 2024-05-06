@@ -45,8 +45,9 @@ export function createRuleWithCommands(commands: Command[]) {
           if (matches === true)
             matches = '__dummy__'.match('__dummy__')!
 
-          command.action(new CommandContext(context, comment, command, matches))
-          break
+          const result = command.action(new CommandContext(context, comment, command, matches))
+          if (result !== false)
+            break
         }
       }
       return {}

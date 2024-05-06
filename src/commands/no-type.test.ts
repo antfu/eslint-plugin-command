@@ -1,81 +1,81 @@
 import { noType as command } from './no-type'
-import { d, run } from './_test-utils'
+import { $, run } from './_test-utils'
 
 run(
   command,
   {
-    code: d`
+    code: $`
     /// no-type
     let a: string`,
-    output: d`
+    output: $`
     let a`,
     errors: ['command-removal', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// no-type
     function a<T>(arg: A): R {}`,
-    output: d`
+    output: $`
     function a(arg) {}`,
     errors: ['command-removal', 'command-fix', 'command-fix', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// no-type
     declare const a: string`,
-    output: d`
+    output: $`
     declare const a`,
     errors: ['command-removal', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// no-type
     fn(arg as any)`,
-    output: d`
+    output: $`
     fn(arg)`,
     errors: ['command-removal', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// no-type
     fn(arg satisfies any)`,
-    output: d`
+    output: $`
     fn(arg)`,
     errors: ['command-removal', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// no-type
     fn(arg!)`,
-    output: d`
+    output: $`
     fn(arg)`,
     errors: ['command-removal', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// no-type
     fn(<string>arg)`,
-    output: d`
+    output: $`
     fn(arg)`,
     errors: ['command-removal', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// no-type
     const fn = foo<string>`,
-    output: d`
+    output: $`
     const fn = foo`,
     errors: ['command-removal', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// no-type
     type A = string`,
     output: '\n',
     errors: ['command-removal', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// nt
     const a = 1`,
     output: null,

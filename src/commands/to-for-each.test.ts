@@ -1,11 +1,11 @@
 import { toForEach as command } from './to-for-each'
-import { d, run } from './_test-utils'
+import { $, run } from './_test-utils'
 
 run(
   command,
   // Basic for-of
   {
-    code: d`
+    code: $`
     /// to-for-each
     for (const foo of bar) {
       if (foo) {
@@ -15,7 +15,7 @@ run(
         continue
       }
     }`,
-    output: d`
+    output: $`
     bar.forEach((foo) => {
       if (foo) {
         return
@@ -28,12 +28,12 @@ run(
   },
   // One-line for-of
   {
-    code: d`
+    code: $`
     /// to-for-each
     for (const foo of bar) 
       count += 1
     `,
-    output: d`
+    output: $`
     bar.forEach((foo) => {
     count += 1
     })
@@ -42,7 +42,7 @@ run(
   },
   // Nested for
   {
-    code: d`
+    code: $`
     /// to-for-each
     for (const foo of bar) {
       for (const baz of foo) {
@@ -57,7 +57,7 @@ run(
         continue
       }
     }`,
-    output: d`
+    output: $`
     bar.forEach((foo) => {
       for (const baz of foo) {
         if (foo) {
@@ -75,7 +75,7 @@ run(
   },
   // Throw on return statement
   {
-    code: d`
+    code: $`
     /// to-for-each
     for (const foo of bar) {
       return foo
@@ -84,12 +84,12 @@ run(
   },
   // Destructure
   {
-    code: d`
+    code: $`
     /// to-for-each
     for (const [key, value] of Object.entries(baz)) {
       console.log(foo, bar)
     }`,
-    output: d`
+    output: $`
     Object.entries(baz).forEach(([key, value]) => {
       console.log(foo, bar)
     })`,
@@ -97,11 +97,11 @@ run(
   },
   // Iterate over expressions
   {
-    code: d`
+    code: $`
     /// to-for-each
     for (const i of 'a' + 'b')
       console.log(i)`,
-    output: d`
+    output: $`
     ;('a' + 'b').forEach((i) => {
     console.log(i)
     })`,
@@ -109,11 +109,11 @@ run(
   },
   // Iterate over object
   {
-    code: d`
+    code: $`
     /// to-for-each
     for (const key of { a: 1, b: 2 })
       console.log(key)`,
-    output: d`
+    output: $`
     ;({ a: 1, b: 2 }).forEach((key) => {
     console.log(key)
     })`,

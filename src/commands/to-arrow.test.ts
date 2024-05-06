@@ -1,5 +1,5 @@
 import { toArrow as command } from './to-arrow'
-import { d, run } from './_test-utils'
+import { $, run } from './_test-utils'
 
 run(
   command,
@@ -8,7 +8,7 @@ run(
     const bar = () => {}
   }`,
   {
-    code: d`
+    code: $`
     /// 2a
     const a = 1`,
     output: null,
@@ -16,12 +16,12 @@ run(
   },
   // Function declaration
   {
-    code: d`
+    code: $`
     /// to-arrow
     export async function foo <T = 1>(arg: T): Bar {
       const bar = () => {}
     }`,
-    output: d`
+    output: $`
     export const foo = async <T = 1>(arg: T): Bar => {
       const bar = () => {}
     }`,
@@ -29,12 +29,12 @@ run(
   },
   // Function expression
   {
-    code: d`
+    code: $`
     ///to-arrow
     const bar = async function foo <T = 1>(arg: T): Bar {
       function baz() {}
     }`,
-    output: d`
+    output: $`
     const bar = async <T = 1>(arg: T): Bar => {
       function baz() {}
     }`,
@@ -42,7 +42,7 @@ run(
   },
   // Object method
   {
-    code: d`
+    code: $`
     const bar = {
       /// to-arrow
       async [bar]?(a: number, b: number): number {
@@ -52,7 +52,7 @@ run(
         return 1
       },
     }`,
-    output: d`
+    output: $`
     const bar = {
       [bar]: async (a: number, b: number): number => {
         return a + b
@@ -65,7 +65,7 @@ run(
   },
   // Getter/setter
   {
-    code: d`
+    code: $`
     const bar = {
       /// to-arrow
       get id() {}
@@ -75,7 +75,7 @@ run(
   },
   // Class method
   {
-    code: d`
+    code: $`
     class Bar {
       /// to-arrow
       private static override async [bar]?(a: number, b: number): number {
@@ -85,7 +85,7 @@ run(
         return 1
       }
     }`,
-    output: d`
+    output: $`
     class Bar {
       private static override [bar] ? = async (a: number, b: number): number => {
         return a + b

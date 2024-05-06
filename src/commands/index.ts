@@ -10,11 +10,13 @@ import { inlineArrow } from './inline-arrow'
 import { toPromiseAll } from './to-promise-all'
 import { noShorthand } from './no-shorthand'
 import { noType } from './no-type'
+import { keepUnique } from './keep-unique'
 
 // @keep-sorted
 export {
   inlineArrow,
   keepSorted,
+  keepUnique,
   noShorthand,
   noType,
   toArrow,
@@ -31,6 +33,7 @@ export {
 export const builtinCommands = [
   inlineArrow,
   keepSorted,
+  keepUnique,
   noShorthand,
   noType,
   toArrow,
