@@ -11,7 +11,6 @@ run(
      'bar',
      'foo',
    ]`
-
   ,
   // Object property
   {
@@ -172,6 +171,24 @@ run(
     }`,
     errors: ['command-fix'],
   },
+  // Export statement without trailing comma
+  {
+    code: d`
+    // @keep-sorted
+    export {
+      foo,
+      bar,
+      apple
+    }`,
+    output: d`
+    // @keep-sorted
+    export {
+      apple,
+      bar,
+      foo
+    }`,
+    errors: ['command-fix'],
+  },
   // Sort array of objects
   {
     code: d`
@@ -207,5 +224,51 @@ run(
       { index: 2, name: 'bar' },
     ]`,
     errors: ['command-error'],
+  },
+  // Destructuring assignment
+  {
+    code: d`
+    // @keep-sorted
+    const { foo, bar, apple } = obj`,
+    output: d`
+    // @keep-sorted
+    const { apple, bar, foo } = obj`,
+    errors: ['command-fix'],
+  },
+  // Destructuring assignment multiple lines
+  {
+    code: d`
+    // @keep-sorted
+    const {
+      foo,
+      bar,
+      apple,
+    } = obj`,
+    output: d`
+    // @keep-sorted
+    const {
+      apple,
+      bar,
+      foo,
+    } = obj`,
+    errors: ['command-fix'],
+  },
+  // Destructuring assignment multiple lines without trailing comma
+  {
+    code: d`
+    // @keep-sorted
+    const {
+      foo,
+      bar,
+      apple
+    } = obj`,
+    output: d`
+    // @keep-sorted
+    const {
+      apple,
+      bar,
+      foo
+    } = obj`,
+    errors: ['command-fix'],
   },
 )

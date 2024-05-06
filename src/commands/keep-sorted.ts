@@ -1,3 +1,4 @@
+import { EOL } from 'node:os'
 import type { Command, CommandContext, Tree } from '../types'
 
 export interface KeepSortedInlineOptions {
@@ -20,6 +21,7 @@ export const keepSorted: Command = {
 
     const node = ctx.findNodeBelow(
       'ObjectExpression',
+      'ObjectPattern',
       'ArrayExpression',
       'TSInterfaceBody',
       'TSTypeLiteral',
@@ -38,6 +40,18 @@ export const keepSorted: Command = {
       return ctx.reportError(`Only arrays can be sorted by keys, but got ${node.type}`)
 
     if (node.type === 'ObjectExpression') {
+      sort(
+        ctx,
+        node,
+        node.properties,
+        (prop) => {
+          if (prop.type === 'Property')
+            return getString(prop.key)
+          return null
+        },
+      )
+    }
+    else if (node.type === 'ObjectPattern') {
       sort(
         ctx,
         node,
@@ -150,7 +164,7 @@ function sort<T extends Tree.Node>(
     const endStartToken = ctx.context.sourceCode.getTokenByRangeStart(lastRange)
     if (endStartToken?.type === 'Punctuator' && endStartToken.value === ',')
       lastRange = endStartToken.range[1]
-    if (ctx.context.sourceCode.getText()[lastRange] === '\n')
+    if (ctx.context.sourceCode.getText()[lastRange] === EOL)
       lastRange++
     ranges.set(item, [rangeEnd, lastRange])
     rangeEnd = lastRange
@@ -199,9 +213,15 @@ function sort<T extends Tree.Node>(
   if (!changed)
     return
 
-  const newContent = reordered.map((i) => {
+  const newContent = reordered.map((i, index) => {
     const range = ranges.get(i)!
-    return ctx.context.sourceCode.text.slice(range[0], range[1])
+    const content = ctx.context.sourceCode.text.slice(range[0], range[1])
+    const oldRange = list.at(index)!.range
+    const lastToken = ctx.context.sourceCode.getTokenByRangeStart(oldRange[1])
+    const needInsertComma = lastToken?.type === 'Punctuator' && lastToken.value === ','
+    return needInsertComma
+      ? insertComma(content)
+      : removeComma(content)
   }).join('')
 
   // console.log({
@@ -224,4 +244,25 @@ function getString(node: Tree.Node): string | null {
   if (node.type === 'Literal')
     return String(node.raw)
   return null
+}
+
+function insertComma(text: string): string {
+  if (text.at(-1) === ',')
+    return text
+  if (text.at(-1) === EOL) {
+    if (text.at(-2) === ',')
+      return text
+    return `${text.slice(0, -1)},${EOL}`
+  }
+  return `${text},`
+}
+
+function removeComma(text: string): string {
+  if (text.at(-1) === ',')
+    return text.slice(0, -1)
+
+  if (text.at(-1) === EOL && text.at(-2) === ',')
+    return `${text.slice(0, -2)}${EOL}`
+
+  return text
 }
