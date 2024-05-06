@@ -1,25 +1,25 @@
 import { noShorthand as command } from './no-shorthand'
-import { d, run } from './_test-utils'
+import { $, run } from './_test-utils'
 
 run(
   command,
   {
-    code: d`
+    code: $`
     /// no-shorthand
     const obj = fn({ a, b, c: d })`,
-    output: d`
+    output: $`
     const obj = fn({ a: a, b: b, c: d })`,
     errors: ['command-removal', 'command-fix', 'command-fix'],
   },
   {
-    code: d`
+    code: $`
     /// nsh
     const obj = 10`,
     output: null,
     errors: 'command-error',
   },
   {
-    code: d`
+    code: $`
     /// nsh
     const obj = { key: value, key2: value2 }`,
     output: null,

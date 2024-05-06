@@ -26,16 +26,28 @@ export function createRuleWithCommands(commands: Command[]) {
       const comments = sc.getAllComments()
 
       for (const comment of comments) {
-        if (comment.type !== 'Line')
-          continue
-
         const commandRaw = comment.value.trim()
         for (const command of commands) {
-          const matches = commandRaw.match(command.match)
-          if (matches) {
-            command.action(new CommandContext(context, comment, command, matches))
+          const type = command.commentType ?? 'line'
+          if (type === 'line' && comment.type !== 'Line')
             continue
-          }
+          if (type === 'block' && comment.type !== 'Block')
+            continue
+
+          let matches = typeof command.match === 'function'
+            ? command.match(comment)
+            : commandRaw.match(command.match)
+
+          if (!matches)
+            continue
+
+          // create a dummy match for user provided function that returns `true`
+          if (matches === true)
+            matches = '__dummy__'.match('__dummy__')!
+
+          const result = command.action(new CommandContext(context, comment, command, matches))
+          if (result !== false)
+            break
         }
       }
       return {}

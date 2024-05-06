@@ -5,9 +5,13 @@ export interface KeepSortedInlineOptions {
   keys?: string[]
 }
 
+const reLine = /^[\/@:]\s*(?:keep-sorted|sorted)\s*({.*})?$/
+const reBlock = /(?:\b|\s)@keep-sorted\s*({.*})?(?:\b|\s|$)/
+
 export const keepSorted: Command = {
   name: 'keep-sorted',
-  match: /^[\/@:]\s*(?:keep-sorted|sorted)\s*({.*})?$/,
+  commentType: 'both',
+  match: comment => comment.value.trim().match(comment.type === 'Line' ? reLine : reBlock),
   action(ctx) {
     const optionsRaw = ctx.matches[1] || '{}'
     let options: KeepSortedInlineOptions | null = null
@@ -39,7 +43,7 @@ export const keepSorted: Command = {
       return ctx.reportError(`Only arrays can be sorted by keys, but got ${node.type}`)
 
     if (node.type === 'ObjectExpression') {
-      sort(
+      return sort(
         ctx,
         node,
         node.properties,
@@ -63,7 +67,7 @@ export const keepSorted: Command = {
       )
     }
     else if (node.type === 'ArrayExpression') {
-      sort(
+      return sort(
         ctx,
         node,
         node.elements.filter(Boolean) as (Tree.Expression | Tree.SpreadElement)[],
@@ -88,7 +92,7 @@ export const keepSorted: Command = {
       )
     }
     else if (node.type === 'TSInterfaceBody') {
-      sort(
+      return sort(
         ctx,
         node,
         node.body,
@@ -97,10 +101,11 @@ export const keepSorted: Command = {
             return getString(prop.key)
           return null
         },
+        false,
       )
     }
     else if (node.type === 'TSTypeLiteral') {
-      sort(
+      return sort(
         ctx,
         node,
         node.members,
@@ -109,10 +114,11 @@ export const keepSorted: Command = {
             return getString(prop.key)
           return null
         },
+        false,
       )
     }
     else if (node.type === 'ExportNamedDeclaration') {
-      sort(
+      return sort(
         ctx,
         node,
         node.specifiers,
@@ -123,6 +129,9 @@ export const keepSorted: Command = {
         },
       )
     }
+    else {
+      return false
+    }
   },
 }
 
@@ -131,17 +140,18 @@ function sort<T extends Tree.Node>(
   node: Tree.Node,
   list: T[],
   getName: (node: T) => string | (string | null)[] | null,
-): void {
+  insertComma = true,
+): false | void {
   const firstToken = ctx.context.sourceCode.getFirstToken(node)!
   const lastToken = ctx.context.sourceCode.getLastToken(node)!
   if (!firstToken || !lastToken)
     return ctx.reportError('Unable to find object/array/interface to sort')
 
   if (list.length < 2)
-    return
+    return false
 
   const reordered = list.slice()
-  const ranges = new Map<typeof list[number], [number, number]>()
+  const ranges = new Map<typeof list[number], [number, number, string]>()
   const names = new Map<typeof list[number], (string | null)[] | null>()
 
   const rangeStart = Math.max(
@@ -151,6 +161,7 @@ function sort<T extends Tree.Node>(
       column: 0,
     }),
   )
+
   let rangeEnd = rangeStart
   for (let i = 0; i < list.length; i++) {
     const item = list[i]
@@ -160,12 +171,23 @@ function sort<T extends Tree.Node>(
     names.set(item, name)
 
     let lastRange = item.range[1]
-    const endStartToken = ctx.context.sourceCode.getTokenByRangeStart(lastRange)
-    if (endStartToken?.type === 'Punctuator' && endStartToken.value === ',')
-      lastRange = endStartToken.range[1]
-    if (ctx.context.sourceCode.getText()[lastRange] === '\n')
+    const nextToken = ctx.context.sourceCode.getTokenAfter(item)
+    if (nextToken?.type === 'Punctuator' && nextToken.value === ',')
+      lastRange = nextToken.range[1]
+    const nextChar = ctx.context.sourceCode.getText()[lastRange]
+
+    // Insert comma if it's the last item without a comma
+    let text = ctx.getTextOf([rangeEnd, lastRange])
+    if (nextToken === lastToken && insertComma)
+      text += ','
+
+    // Include subsequent newlines
+    if (nextChar === '\n') {
       lastRange++
-    ranges.set(item, [rangeEnd, lastRange])
+      text += '\n'
+    }
+
+    ranges.set(item, [rangeEnd, lastRange, text])
     rangeEnd = lastRange
   }
 
@@ -210,20 +232,14 @@ function sort<T extends Tree.Node>(
 
   const changed = reordered.some((prop, i) => prop !== list[i])
   if (!changed)
-    return
+    return false
 
-  const newContent = reordered.map((i, index) => {
-    const range = ranges.get(i)!
-    const content = ctx.context.sourceCode.text.slice(range[0], range[1])
-    const oldRange = list.at(index)!.range
-    const lastToken = ctx.context.sourceCode.getTokenByRangeStart(oldRange[1])
-    const needInsertComma = lastToken?.type === 'Punctuator' && lastToken.value === ','
-    return needInsertComma
-      ? insertComma(content)
-      : removeComma(content)
-  }).join('')
+  const newContent = reordered
+    .map(i => ranges.get(i)![2])
+    .join('')
 
   // console.log({
+  //   reordered,
   //   newContent,
   //   oldContent: ctx.context.sourceCode.text.slice(rangeStart, rangeEnd),
   // })
@@ -243,25 +259,4 @@ function getString(node: Tree.Node): string | null {
   if (node.type === 'Literal')
     return String(node.raw)
   return null
-}
-
-function insertComma(text: string): string {
-  if (text.at(-1) === ',')
-    return text
-  if (text.at(-1) === '\n') {
-    if (text.at(-2) === ',')
-      return text
-    return `${text.slice(0, -1)},\n`
-  }
-  return `${text},`
-}
-
-function removeComma(text: string): string {
-  if (text.at(-1) === ',')
-    return text.slice(0, -1)
-
-  if (text.at(-1) === '\n' && text.at(-2) === ',')
-    return `${text.slice(0, -2)}\n`
-
-  return text
 }

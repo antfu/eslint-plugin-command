@@ -1,16 +1,16 @@
 import { toPromiseAll as command } from './to-promise-all'
-import { d, run } from './_test-utils'
+import { $, run } from './_test-utils'
 
 run(
   command,
-  // Program level
   {
-    code: d`
+    description: 'Program level',
+    code: $`
       /// to-promise-all
       const a = await foo()
       const b = await bar()
     `,
-    output: d`
+    output: $`
       const [
       a,
       b,
@@ -24,14 +24,14 @@ run(
   // Function declaration
   {
     filename: 'index.ts',
-    code: d`
+    code: $`
       async function fn() {
         /// to-promise-all
         const a = await foo()
         const b = await bar()
       }
     `,
-    output: d`
+    output: $`
       async function fn() {
         const [
         a,
@@ -46,7 +46,7 @@ run(
   },
   // If Statement
   {
-    code: d`
+    code: $`
       if (true) {
         /// to-promise-all
         const a = await foo()
@@ -54,7 +54,7 @@ run(
         const b = await import('bar').then(m => m.default)
       }
     `,
-    output: d`
+    output: $`
       if (true) {
         const [
         a,
@@ -70,7 +70,7 @@ run(
   },
   // Mixed declarations
   {
-    code: d`
+    code: $`
       on('event', async () => {
         /// to-promise-all
         let a = await foo()
@@ -79,7 +79,7 @@ run(
         const b = await baz(), c = await qux(), d = foo()
       })
     `,
-    output: d`
+    output: $`
       on('event', async () => {
         let [
         a,
@@ -101,7 +101,7 @@ run(
   },
   // Await expressions
   {
-    code: d`
+    code: $`
       /// to-promise-all
       const a = await bar()
       await foo()
@@ -109,7 +109,7 @@ run(
       doSomething()
       const nonTarget = await qux()
     `,
-    output: d`
+    output: $`
       const [
       a,
       /* discarded */,
@@ -126,14 +126,14 @@ run(
   },
   // Should stop on first non-await expression
   {
-    code: d`
+    code: $`
       /// to-promise-all
       const a = await bar()
       let b = await foo()
       let c = baz()
       const d = await qux()
     `,
-    output: d`
+    output: $`
       let [
       a,
       b,

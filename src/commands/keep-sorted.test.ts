@@ -1,10 +1,10 @@
 import { keepSorted as command } from './keep-sorted'
-import { d, run } from './_test-utils'
+import { $, run } from './_test-utils'
 
 run(
   command,
   // Already sorted
-  d`
+  $`
    // @keep-sorted
    export const arr = [
      'apple',
@@ -14,14 +14,14 @@ run(
   ,
   // Object property
   {
-    code: d`
+    code: $`
     // @keep-sorted
     export const obj = {
       foo,
       bar: () => {},
       apple: 1,
     }`,
-    output: d`
+    output: $`
     // @keep-sorted
     export const obj = {
       apple: 1,
@@ -32,14 +32,14 @@ run(
   },
   // Some object property keys are string
   {
-    code: d`
+    code: $`
     // @keep-sorted
     export const obj = {
       foo,
       'bar': () => {},
       apple: 1,
     }`,
-    output: d`
+    output: $`
     // @keep-sorted
     export const obj = {
       'bar': () => {},
@@ -50,7 +50,7 @@ run(
   },
   // All object property keys are string
   {
-    code: d`
+    code: $`
     // @keep-sorted
     export const rules = {
       'block-scoped-var': 'error',
@@ -58,7 +58,7 @@ run(
       'constructor-super': 'error',
       'default-case-last': 'error',
     }`,
-    output: d`
+    output: $`
     // @keep-sorted
     export const rules = {
       'array-callback-return': 'error',
@@ -70,14 +70,14 @@ run(
   },
   // Array elements
   {
-    code: d`
+    code: $`
     // @keep-sorted
     export const arr = [
       'foo',
       'bar',
       'apple',
     ]`,
-    output: d`
+    output: $`
     // @keep-sorted
     export const arr = [
       'apple',
@@ -88,7 +88,7 @@ run(
   },
   // Type interface members
   {
-    code: d`
+    code: $`
     // @keep-sorted
     export interface Path {
       parent: TSESTree.Node | null
@@ -97,7 +97,7 @@ run(
       node: TSESTree.Node
     }
     `,
-    output: d`
+    output: $`
     // @keep-sorted
     export interface Path {
       node: TSESTree.Node
@@ -108,9 +108,9 @@ run(
     `,
     errors: ['command-fix'],
   },
-  // Type type members
   {
-    code: d`
+    description: 'Type members',
+    code: $`
     // @keep-sorted
     export type Path = {
       parent: TSESTree.Node | null
@@ -119,7 +119,7 @@ run(
       node: TSESTree.Node
     }
     `,
-    output: d`
+    output: $`
     // @keep-sorted
     export type Path = {
       node: TSESTree.Node
@@ -131,7 +131,8 @@ run(
     errors: ['command-fix'],
   },
   {
-    code: d`
+    description: 'Function arguments',
+    code: $`
     function foo() {
       // @keep-sorted
       queue.push({
@@ -141,7 +142,7 @@ run(
         parentKey: null,
       })
     }`,
-    output: d`
+    output: $`
     function foo() {
       // @keep-sorted
       queue.push({
@@ -153,16 +154,16 @@ run(
     }`,
     errors: ['command-fix'],
   },
-  // Export statement
   {
-    code: d`
+    description: 'Export statement',
+    code: $`
     // @keep-sorted
     export {
       foo,
       bar,
       apple,
     }`,
-    output: d`
+    output: $`
     // @keep-sorted
     export {
       apple,
@@ -171,27 +172,27 @@ run(
     }`,
     errors: ['command-fix'],
   },
-  // Export statement without trailing comma
   {
-    code: d`
+    description: 'Export statement without trailing comma',
+    code: $`
     // @keep-sorted
     export {
       foo,
       bar,
       apple
     }`,
-    output: d`
+    output: $`
     // @keep-sorted
     export {
       apple,
       bar,
-      foo
+      foo,
     }`,
     errors: ['command-fix'],
   },
-  // Sort array of objects
   {
-    code: d`
+    description: 'Sort array of objects',
+    code: $`
     // @keep-sorted { "keys": ["index", "name"] }
     export default [
       { index: 4, name: 'foo' },
@@ -202,7 +203,7 @@ run(
       { index: 6, name: 'bar' },
       { index: 3, name: 'foo' },
     ]`,
-    output: d`
+    output: $`
     // @keep-sorted { "keys": ["index", "name"] }
     export default [
       { index: 0, name: 'zip' },
@@ -215,9 +216,9 @@ run(
     ]`,
     errors: ['command-fix'],
   },
-  // Error on invalid JSON
   {
-    code: d`
+    description: 'Error on invalid JSON',
+    code: $`
     // @keep-sorted { keys: [1, 2, 3] }
     export default [
       { index: 4, name: 'foo' },
@@ -225,26 +226,26 @@ run(
     ]`,
     errors: ['command-error'],
   },
-  // Destructuring assignment
   {
-    code: d`
+    description: 'Destructuring assignment',
+    code: $`
     // @keep-sorted
     const { foo, bar, apple } = obj`,
-    output: d`
+    output: $`
     // @keep-sorted
-    const { apple, bar, foo } = obj`,
+    const { apple, bar, foo, } = obj`,
     errors: ['command-fix'],
   },
-  // Destructuring assignment multiple lines
   {
-    code: d`
+    description: 'Destructuring assignment multiple lines',
+    code: $`
     // @keep-sorted
     const {
       foo,
       bar,
       apple,
     } = obj`,
-    output: d`
+    output: $`
     // @keep-sorted
     const {
       apple,
@@ -253,22 +254,80 @@ run(
     } = obj`,
     errors: ['command-fix'],
   },
-  // Destructuring assignment multiple lines without trailing comma
   {
-    code: d`
+    description: 'Destructuring assignment multiple lines without trailing comma',
+    code: $`
     // @keep-sorted
     const {
       foo,
       bar,
       apple
     } = obj`,
-    output: d`
+    output: $`
     // @keep-sorted
     const {
       apple,
       bar,
-      foo
+      foo,
     } = obj`,
     errors: ['command-fix'],
+  },
+  {
+    description: 'Block comment',
+    code: $`
+    /**
+     * Some JSdocs
+     *
+     * @keep-sorted
+     * @description
+     */
+    export const arr = [
+      'foo',
+      'bar',
+      'apple',
+    ]`,
+    output: $`
+    /**
+     * Some JSdocs
+     *
+     * @keep-sorted
+     * @description
+     */
+    export const arr = [
+      'apple',
+      'bar',
+      'foo',
+    ]`,
+    errors: ['command-fix'],
+  },
+  {
+    description: 'Inlined array',
+    code: $`
+    // @keep-sorted
+    export const arr = [ 'foo', 'bar', 'apple' ]
+    `,
+    output: $`
+    // @keep-sorted
+    export const arr = [ 'apple', 'bar', 'foo', ]
+    `,
+  },
+  {
+    description: 'Array without trailing comma',
+    code: $`
+    // @keep-sorted
+    export const arr = [ 
+      'foo',
+      'bar',
+      'apple'
+    ]
+    `,
+    output: $`
+    // @keep-sorted
+    export const arr = [ 
+      'apple',
+      'bar',
+      'foo',
+    ]
+    `,
   },
 )
