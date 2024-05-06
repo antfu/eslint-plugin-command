@@ -10,7 +10,8 @@ run(
      'apple',
      'bar',
      'foo',
-   ]`,
+   ]`
+  ,
   // Object property
   {
     code: $`
@@ -130,6 +131,7 @@ run(
     errors: ['command-fix'],
   },
   {
+    description: 'Function arguments',
     code: $`
     function foo() {
       // @keep-sorted
@@ -160,6 +162,24 @@ run(
       foo,
       bar,
       apple,
+    }`,
+    output: $`
+    // @keep-sorted
+    export {
+      apple,
+      bar,
+      foo,
+    }`,
+    errors: ['command-fix'],
+  },
+  {
+    description: 'Export statement without trailing comma',
+    code: $`
+    // @keep-sorted
+    export {
+      foo,
+      bar,
+      apple
     }`,
     output: $`
     // @keep-sorted
@@ -205,6 +225,52 @@ run(
       { index: 2, name: 'bar' },
     ]`,
     errors: ['command-error'],
+  },
+  {
+    description: 'Destructuring assignment',
+    code: $`
+    // @keep-sorted
+    const { foo, bar, apple } = obj`,
+    output: $`
+    // @keep-sorted
+    const { apple, bar, foo, } = obj`,
+    errors: ['command-fix'],
+  },
+  {
+    description: 'Destructuring assignment multiple lines',
+    code: $`
+    // @keep-sorted
+    const {
+      foo,
+      bar,
+      apple,
+    } = obj`,
+    output: $`
+    // @keep-sorted
+    const {
+      apple,
+      bar,
+      foo,
+    } = obj`,
+    errors: ['command-fix'],
+  },
+  {
+    description: 'Destructuring assignment multiple lines without trailing comma',
+    code: $`
+    // @keep-sorted
+    const {
+      foo,
+      bar,
+      apple
+    } = obj`,
+    output: $`
+    // @keep-sorted
+    const {
+      apple,
+      bar,
+      foo,
+    } = obj`,
+    errors: ['command-fix'],
   },
   {
     description: 'Block comment',

@@ -24,6 +24,7 @@ export const keepSorted: Command = {
 
     const node = ctx.findNodeBelow(
       'ObjectExpression',
+      'ObjectPattern',
       'ArrayExpression',
       'TSInterfaceBody',
       'TSTypeLiteral',
@@ -43,6 +44,18 @@ export const keepSorted: Command = {
 
     if (node.type === 'ObjectExpression') {
       return sort(
+        ctx,
+        node,
+        node.properties,
+        (prop) => {
+          if (prop.type === 'Property')
+            return getString(prop.key)
+          return null
+        },
+      )
+    }
+    else if (node.type === 'ObjectPattern') {
+      sort(
         ctx,
         node,
         node.properties,
