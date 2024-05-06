@@ -5,9 +5,13 @@ export interface KeepSortedInlineOptions {
   keys?: string[]
 }
 
+const reLine = /^[\/@:]\s*(?:keep-sorted|sorted)\s*({.*})?$/
+const reBlock = /(?:\b|\s)@keep-sorted\s*({.*})?(?:\b|\s|$)/
+
 export const keepSorted: Command = {
   name: 'keep-sorted',
-  match: /^[\/@:]\s*(?:keep-sorted|sorted)\s*({.*})?$/,
+  commentType: 'both',
+  match: comment => comment.value.trim().match(comment.type === 'Line' ? reLine : reBlock),
   action(ctx) {
     const optionsRaw = ctx.matches[1] || '{}'
     let options: KeepSortedInlineOptions | null = null

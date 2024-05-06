@@ -10,9 +10,7 @@ run(
      'apple',
      'bar',
      'foo',
-   ]`
-
-  ,
+   ]`,
   // Object property
   {
     code: d`
@@ -207,5 +205,33 @@ run(
       { index: 2, name: 'bar' },
     ]`,
     errors: ['command-error'],
+  },
+  // Block comment
+  {
+    code: d`
+    /**
+     * Some JSdocs
+     *
+     * @keep-sorted
+     * @description
+     */
+    export const arr = [
+      'foo',
+      'bar',
+      'apple',
+    ]`,
+    output: d`
+    /**
+     * Some JSdocs
+     *
+     * @keep-sorted
+     * @description
+     */
+    export const arr = [
+      'apple',
+      'bar',
+      'foo',
+    ]`,
+    errors: ['command-fix'],
   },
 )

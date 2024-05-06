@@ -9,8 +9,29 @@ export type RuleOptions = []
 export type MessageIds = 'command-error' | 'command-error-cause' | 'command-fix' | 'command-removal'
 
 export interface Command {
-  match: RegExp
+  /**
+   * The name of the command
+   * Used to identify the command in reported errors
+   */
   name: string
+  /**
+   * RegExp to match the comment, without the leading `//` or `/*`
+   */
+  match: RegExp | ((comment: Tree.Comment) => RegExpMatchArray | boolean | undefined | null)
+  /**
+   * The type of the comment
+   *
+   * - `line` - `//`
+   * - `block` - `/*`
+   *
+   * @default 'line'
+   */
+  commentType?: 'line' | 'block' | 'both'
+  /**
+   * Main action of the command
+   *
+   * @param ctx The context of the command (per-file, per matched comment)
+   */
   action: (ctx: CommandContext) => void
 }
 
