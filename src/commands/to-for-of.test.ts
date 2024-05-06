@@ -57,7 +57,6 @@ run(
     a.forEach((b, i) => {
       console.log(i, b)
     })`,
-    output: null,
     errors: ['command-error', 'command-error-cause'],
   },
 )

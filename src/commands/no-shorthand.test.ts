@@ -15,14 +15,12 @@ run(
     code: $`
     /// nsh
     const obj = 10`,
-    output: null,
-    errors: 'command-error',
+    errors: ['command-error'],
   },
   {
     code: $`
     /// nsh
     const obj = { key: value, key2: value2 }`,
-    output: null,
-    errors: 'command-error',
+    errors: ['command-error'],
   },
 )

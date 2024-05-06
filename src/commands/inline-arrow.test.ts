@@ -8,8 +8,7 @@ run(
     code: $`
     ///inline-arrow
     const a = 1`,
-    output: null,
-    errors: 'command-error',
+    errors: ['command-error'],
   },
   // multi statement
   {
@@ -19,8 +18,7 @@ run(
       const a = 1
       return a
     }`,
-    output: null,
-    errors: 'command-error',
+    errors: ['command-error'],
   },
   {
     code: $`

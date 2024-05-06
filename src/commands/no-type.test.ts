@@ -78,7 +78,6 @@ run(
     code: $`
     /// nt
     const a = 1`,
-    output: null,
-    errors: 'command-error',
+    errors: ['command-error'],
   },
 )
