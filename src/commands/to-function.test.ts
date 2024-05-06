@@ -7,8 +7,7 @@ run(
     code: $`
     ///to-fn
     const a = 1`,
-    output: null,
-    errors: 'command-error',
+    errors: ['command-error'],
   },
   {
     code: $`

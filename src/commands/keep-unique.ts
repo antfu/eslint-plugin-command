@@ -1,4 +1,4 @@
-import type { Command, CommandContext, Tree } from '../types'
+import type { Command } from '../types'
 
 export interface KeepSortedInlineOptions {
   key?: string

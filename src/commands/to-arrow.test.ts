@@ -11,8 +11,7 @@ run(
     code: $`
     /// 2a
     const a = 1`,
-    output: null,
-    errors: 'command-error',
+    errors: ['command-error'],
   },
   // Function declaration
   {
@@ -70,8 +69,7 @@ run(
       /// to-arrow
       get id() {}
     }`,
-    output: null,
-    errors: 'command-error',
+    errors: ['command-error'],
   },
   // Class method
   {
