@@ -10,3 +10,4 @@ logs
 node_modules
 temp
 docs/.vitepress/cache
+docs/guide/snippets.json

@@ -2,8 +2,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
+    "docs:dev": "esno scripts/snippets.ts && vitepress dev",
+    "docs:build": "esno scripts/snippets.ts && vitepress build",
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {

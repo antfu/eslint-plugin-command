@@ -48,3 +48,9 @@ export default [
 ```
 
 You can refer to [the built-in commands as examples](https://github.com/antfu/eslint-plugin-command/tree/main/src/commands).
+
+## VSCode Snippets
+
+You can also use the following VSCode snippets to quickly insert the command comments:
+
+<<< @/docs/guide/snippets.json
