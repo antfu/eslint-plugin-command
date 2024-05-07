@@ -6,7 +6,7 @@ export type { Tree, Linter, CommandContext }
 export type NodeType = `${Tree.Node['type']}`
 
 export type RuleOptions = []
-export type MessageIds = 'command-error' | 'command-error-cause' | 'command-fix' | 'command-removal'
+export type MessageIds = 'command-error' | 'command-error-cause' | 'command-fix'
 
 export interface Command {
   /**
