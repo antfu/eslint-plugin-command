@@ -51,6 +51,6 @@ You can refer to [the built-in commands as examples](https://github.com/antfu/es
 
 ## VSCode Snippets
 
-You can also use the following VSCode snippets to quickly insert the command comments:
+You can use the following VSCode snippets to quickly insert the command comments:
 
 <<< @/docs/guide/snippets.json
