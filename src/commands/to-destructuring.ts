@@ -1,8 +1,8 @@
 import type { Command } from '../types'
 
-export const toDestructuringAssignment: Command = {
-  name: 'to-destructuring-assignment',
-  match: /^[\/:@]\s*(?:to-|2)?(?:destructuring|d)(?:-?assignment|a)?$/i,
+export const toDestructuring: Command = {
+  name: 'to-destructuring',
+  match: /^[\/:@]\s*(?:to-|2)?(?:destructuring|dest)?$/i,
   action(ctx) {
     const node = ctx.findNodeBelow(
       'VariableDeclaration',
@@ -17,7 +17,7 @@ export const toDestructuringAssignment: Command = {
     const member = rightExpression?.type === 'ChainExpression' ? rightExpression.expression : rightExpression
 
     if (member?.type !== 'MemberExpression')
-      return ctx.reportError('Unable to convert to destructuring assignment')
+      return ctx.reportError('Unable to convert to destructuring')
 
     const id = isDeclaration ? ctx.getTextOf(node.declarations[0].id) : ctx.getTextOf(node.left)
     const property = ctx.getTextOf(member.property)
@@ -37,7 +37,7 @@ export const toDestructuringAssignment: Command = {
     ctx.removeComment()
     ctx.report({
       node,
-      message: 'Convert to destructuring assignment',
+      message: 'Convert to destructuring',
       fix: fixer => fixer.replaceTextRange(node.range, str),
     })
   },

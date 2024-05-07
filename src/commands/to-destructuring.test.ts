@@ -1,11 +1,11 @@
-import { toDestructuringAssignment as command } from './to-destructuring-assignment'
+import { toDestructuring as command } from './to-destructuring'
 import { $, run } from './_test-utils'
 
 run(
   command,
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     const foo = bar.foo`,
     output: $`
     const { foo } = bar`,
@@ -13,7 +13,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     const baz = bar.foo`,
     output: $`
     const { foo: baz } = bar`,
@@ -21,7 +21,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     const foo = bar?.foo`,
     output: $`
     const { foo } = bar ?? {}`,
@@ -29,7 +29,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     const foo = bar[1]`,
     output: $`
     const [,foo] = bar`,
@@ -37,7 +37,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     const foo = bar?.[0]`,
     output: $`
     const [foo] = bar ?? []`,
@@ -45,7 +45,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     const foo = bar().foo`,
     output: $`
     const { foo } = bar()`,
@@ -53,7 +53,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     const foo = bar()?.foo`,
     output: $`
     const { foo } = bar() ?? {}`,
@@ -61,7 +61,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     foo = bar.foo`,
     output: $`
     ;({ foo } = bar)`,
@@ -69,7 +69,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     baz = bar.foo`,
     output: $`
     ;({ foo: baz } = bar)`,
@@ -77,7 +77,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     foo = bar[0]`,
     output: $`
     ;([foo] = bar)`,
@@ -85,7 +85,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     foo = bar().foo`,
     output: $`
     ;({ foo } = bar())`,
@@ -93,7 +93,7 @@ run(
   },
   {
     code: $`
-    /// to-destructuring-assignment
+    /// to-destructuring
     baz = bar().foo`,
     output: $`
     ;({ foo: baz } = bar())`,
