@@ -16,24 +16,23 @@ export const toStringLiteral: Command = {
     if (!nodes?.length)
       return ctx.reportError('No template literals found')
 
-    ctx.removeComment()
-    for (const node of getNodesByIndexes(nodes, indexes)) {
-      const ids = extractIdentifiers(node)
-      let raw = JSON.stringify(ctx.source.getText(node).slice(1, -1)).slice(1, -1)
+    ctx.report({
+      nodes,
+      message: 'Convert to string literal',
+      *fix(fixer) {
+        for (const node of getNodesByIndexes(nodes, indexes)) {
+          const ids = extractIdentifiers(node)
+          let raw = JSON.stringify(ctx.source.getText(node).slice(1, -1)).slice(1, -1)
 
-      if (ids.length)
-        raw = toStringWithIds(raw, node, ids)
-      else
-        raw = `"${raw}"`
+          if (ids.length)
+            raw = toStringWithIds(raw, node, ids)
+          else
+            raw = `"${raw}"`
 
-      ctx.report({
-        node,
-        message: 'Convert to string literal',
-        fix(fixer) {
-          return fixer.replaceTextRange(node.range, raw)
-        },
-      })
-    }
+          yield fixer.replaceTextRange(node.range, raw)
+        }
+      },
+    })
   },
 }
 

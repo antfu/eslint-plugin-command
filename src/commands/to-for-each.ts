@@ -84,7 +84,6 @@ export const toForEach: Command = {
     if (str[0] === '(')
       str = `;${str}`
 
-    ctx.removeComment()
     ctx.report({
       node,
       message: 'Convert to forEach',

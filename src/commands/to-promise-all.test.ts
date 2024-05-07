@@ -19,7 +19,7 @@ run(
       bar(),
       ])
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Function declaration
   {
@@ -42,7 +42,7 @@ run(
         ] as const)
       }
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // If Statement
   {
@@ -66,7 +66,7 @@ run(
         ])
       }
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Mixed declarations
   {
@@ -97,7 +97,7 @@ run(
         ])
       })
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Await expressions
   {
@@ -122,7 +122,7 @@ run(
       doSomething()
       const nonTarget = await qux()
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Should stop on first non-await expression
   {
@@ -144,6 +144,6 @@ run(
       let c = baz()
       const d = await qux()
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
 )

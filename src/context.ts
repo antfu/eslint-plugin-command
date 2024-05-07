@@ -85,6 +85,15 @@ export class CommandContext {
    */
   report(descriptor: CommandReportDescriptor): void {
     const { message, ...report } = descriptor
+    const { comment, source } = this
+
+    if (report.nodes) {
+      report.loc ||= {
+        start: report.nodes[0].loc.start,
+        end: report.nodes[report.nodes.length - 1].loc.end,
+      }
+    }
+
     this.context.report({
       ...report as any,
       messageId: 'command-fix',
@@ -92,6 +101,39 @@ export class CommandContext {
         command: this.command.name,
         message,
         ...report.data,
+      },
+      *fix(fixer) {
+        if (report.fix) {
+          const result = report.fix(fixer)
+          // if is generator
+          if (result && 'next' in result) {
+            for (const fix of result)
+              yield fix
+          }
+          else if (result) {
+            yield result
+          }
+        }
+
+        if (report.removeComment !== false) {
+          const lastToken = source.getTokenBefore(
+            comment,
+            { includeComments: true },
+          )?.range[1]
+          let rangeStart = source.getIndexFromLoc({
+            line: comment.loc.start.line,
+            column: 0,
+          }) - 1
+          if (lastToken != null)
+            rangeStart = Math.max(0, lastToken, rangeStart)
+          let rangeEnd = comment.range[1]
+          // The first line
+          if (comment.loc.start.line === 1) {
+            if (source.text[rangeEnd] === '\n')
+              rangeEnd += 1
+          }
+          yield fixer.removeRange([rangeStart, rangeEnd])
+        }
       },
     })
   }
@@ -101,35 +143,6 @@ export class CommandContext {
    */
   traverse(node: Tree.Node, cb: TraverseVisitor): boolean {
     return traverse(this.context, node, cb)
-  }
-
-  /**
-   * Report an ESLint error that removes the triggering comment
-   */
-  removeComment(): void {
-    this.context.report({
-      loc: this.comment.loc,
-      messageId: 'command-removal',
-      data: {
-        command: this.command.name,
-      },
-      fix: (fixer) => {
-        const lastToken = this.context.sourceCode.getTokenBefore(
-          this.comment,
-          { includeComments: true },
-        )?.range[1]
-        let lineStart = this.context.sourceCode.getIndexFromLoc({
-          line: this.comment.loc.start.line,
-          column: 0,
-        }) - 1
-        if (lastToken != null)
-          lineStart = Math.max(lastToken, lineStart)
-        return fixer.removeRange([
-          lineStart,
-          this.comment.range[1],
-        ])
-      },
-    })
   }
 
   /**

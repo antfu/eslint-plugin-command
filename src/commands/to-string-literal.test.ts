@@ -11,7 +11,7 @@ run(
     output: $`
     const a = "a"; const b = "b"; const c = 'c';
     `,
-    errors: ['command-removal', 'command-fix', 'command-fix'],
+    errors: ['command-fix'],
   },
   // You can specify which one to convert
   {
@@ -22,7 +22,7 @@ run(
     output: $`
     const a = \`a\`, b = "b", c = "c", d = \`d\`;
     `,
-    errors: ['command-removal', 'command-fix', 'command-fix'],
+    errors: ['command-fix'],
   },
   // mixed
   {
@@ -33,7 +33,7 @@ run(
     output: $`
     const a = 'a', b = 'b', c = "c", d = 'd', e = \`e\`, f = "f";
     `,
-    errors: ['command-removal', 'command-fix', 'command-fix'],
+    errors: ['command-fix'],
   },
   // `a${b}d` -> `'a' + b + 'd'`
   {
@@ -44,7 +44,7 @@ run(
     output: $`
     const a = g + "a" + a + "a" + b + "c" + d + "e" + a;
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // escape
   {
@@ -55,6 +55,6 @@ run(
     output: $`
     const a = "\\"\\\\\\"\\\\\\\\\\""
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
 )

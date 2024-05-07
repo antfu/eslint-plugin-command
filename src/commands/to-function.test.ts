@@ -19,7 +19,7 @@ run(
     export function foo <T = 1>(arg: Z): Bar {
       const bar = () => {}
     }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Arrow function without name
   {
@@ -32,7 +32,7 @@ run(
     export default function <T = 1>(arg: Z): Bar {
       const bar = () => {}
     }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Object method
   {
@@ -49,6 +49,6 @@ run(
     },
       foo: () => { return 1 }
     }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
 )

@@ -247,6 +247,7 @@ function sort<T extends Tree.Node>(
   ctx.report({
     node,
     message: 'Keep sorted',
+    removeComment: false,
     fix(fixer) {
       return fixer.replaceTextRange([rangeStart, rangeEnd], newContent)
     },

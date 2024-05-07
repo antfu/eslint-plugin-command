@@ -54,7 +54,6 @@ export const toForOf: Command = {
     const local = fn.params[0]
     const str = `for (const ${ctx.getTextOf(local)} of ${ctx.getTextOf(iterator)}) ${textBody}`
 
-    ctx.removeComment()
     ctx.report({
       node: target,
       message: 'Convert to for-of loop',

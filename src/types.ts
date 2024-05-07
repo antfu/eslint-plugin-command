@@ -51,6 +51,16 @@ export interface ESLintPluginCommandOptions {
 }
 
 export type CommandReportDescriptor = Partial<Linter.ReportDescriptor<MessageIds>> & {
+  nodes?: Tree.Node[]
+  /**
+   * Remove the command comment on fix
+   *
+   * @default true
+   */
+  removeComment?: boolean
+  /**
+   * Message of the report
+   */
   message: string
 }
 

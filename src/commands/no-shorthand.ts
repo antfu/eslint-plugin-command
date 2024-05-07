@@ -12,15 +12,13 @@ export const noShorthand: Command = {
     if (!nodes || nodes.length === 0)
       return ctx.reportError('Unable to find shorthand object property to convert')
 
-    ctx.removeComment()
-    for (const node of nodes) {
-      ctx.report({
-        node,
-        message: 'Expand shorthand',
-        fix(fixer) {
-          return fixer.insertTextAfter(node.key, `: ${ctx.getTextOf(node.key)}`)
-        },
-      })
-    }
+    ctx.report({
+      nodes,
+      message: 'Expand shorthand',
+      *fix(fixer) {
+        for (const node of nodes)
+          yield fixer.insertTextAfter(node.key, `: ${ctx.getTextOf(node.key)}`)
+      },
+    })
   },
 }

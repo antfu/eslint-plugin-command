@@ -42,8 +42,7 @@ run(
     export const arr = [ 3, 2, 1, 2, 1, 'foo', 'bar' ]`,
     output(output) {
       expect(output).toMatchInlineSnapshot(`
-        "
-        /**
+        "/**
          * @keep-unique @keep-sorted
          */
         export const arr = [ 'bar', 'foo', 1, 2, 3, ]"

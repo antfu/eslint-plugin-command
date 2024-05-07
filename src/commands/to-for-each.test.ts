@@ -24,7 +24,7 @@ run(
         return
       }
     })`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // One-line for-of
   {
@@ -38,7 +38,7 @@ run(
     count += 1
     })
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Nested for
   {
@@ -71,7 +71,7 @@ run(
         continue
       }
     })`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Throw on return statement
   {
@@ -93,7 +93,7 @@ run(
     Object.entries(baz).forEach(([key, value]) => {
       console.log(foo, bar)
     })`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Iterate over expressions
   {
@@ -105,7 +105,7 @@ run(
     ;('a' + 'b').forEach((i) => {
     console.log(i)
     })`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Iterate over object
   {
@@ -117,6 +117,6 @@ run(
     ;({ a: 1, b: 2 }).forEach((key) => {
     console.log(key)
     })`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
 )

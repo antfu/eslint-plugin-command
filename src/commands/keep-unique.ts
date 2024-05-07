@@ -37,6 +37,7 @@ export const keepUnique: Command = {
     ctx.report({
       node,
       message: 'Keep unique',
+      removeComment: false,
       fix(fixer) {
         const removalRanges = Array.from(removalIndex)
           .map((idx) => {

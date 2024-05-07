@@ -10,7 +10,7 @@ run(
     import { foo } from 'bar'`,
     output: $`
     const { foo } = await import('bar')`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Default import
   {
@@ -19,7 +19,7 @@ run(
     import foo from 'bar'`,
     output: $`
     const { default: foo } = await import('bar')`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Namespace
   {
@@ -28,7 +28,7 @@ run(
     import * as foo from 'bar'`,
     output: $`
     const foo = await import('bar')`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Mixed
   {
@@ -37,7 +37,7 @@ run(
     import foo, { bar, baz as tex } from 'bar'`,
     output: $`
     const { default: foo, bar, baz: tex } = await import('bar')`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Type import (error)
   {
@@ -54,6 +54,6 @@ run(
     output: $`
     import { type Type } from 'bar'
     const { default: foo, bar } = await import('bar')`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
 )

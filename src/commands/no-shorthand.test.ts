@@ -5,11 +5,13 @@ run(
   command,
   {
     code: $`
-    /// no-shorthand
-    const obj = fn({ a, b, c: d })`,
+      /// no-shorthand
+      const obj = fn({ a, b, c: d })
+    `,
     output: $`
-    const obj = fn({ a: a, b: b, c: d })`,
-    errors: ['command-removal', 'command-fix', 'command-fix'],
+      const obj = fn({ a: a, b: b, c: d })
+    `,
+    errors: ['command-fix'],
   },
   {
     code: $`

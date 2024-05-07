@@ -19,7 +19,6 @@ export const toArrow: Command = {
     if (parent.type === 'Property' && parent.kind !== 'init')
       return ctx.reportError(`Cannot convert ${parent.kind}ter property to arrow function`)
 
-    ctx.removeComment()
     ctx.report({
       node: fn,
       loc: {
