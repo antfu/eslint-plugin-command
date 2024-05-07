@@ -34,7 +34,6 @@ export const toDestructuring: Command = {
     let str = isArray ? `[${left}] = ${right}` : `{ ${left} } = ${right}`
     str = isDeclaration ? `${node.kind} ${str}` : `;(${str})`
 
-    ctx.removeComment()
     ctx.report({
       node,
       message: 'Convert to destructuring',

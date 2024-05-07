@@ -9,7 +9,7 @@ run(
     const foo = bar.foo`,
     output: $`
     const { foo } = bar`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -17,7 +17,7 @@ run(
     const baz = bar.foo`,
     output: $`
     const { foo: baz } = bar`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -25,7 +25,7 @@ run(
     const foo = bar?.foo`,
     output: $`
     const { foo } = bar ?? {}`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -33,7 +33,7 @@ run(
     const foo = bar[1]`,
     output: $`
     const [,foo] = bar`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -41,7 +41,7 @@ run(
     const foo = bar?.[0]`,
     output: $`
     const [foo] = bar ?? []`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -49,7 +49,7 @@ run(
     const foo = bar().foo`,
     output: $`
     const { foo } = bar()`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -57,7 +57,7 @@ run(
     const foo = bar()?.foo`,
     output: $`
     const { foo } = bar() ?? {}`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -65,7 +65,7 @@ run(
     foo = bar.foo`,
     output: $`
     ;({ foo } = bar)`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -73,7 +73,7 @@ run(
     baz = bar.foo`,
     output: $`
     ;({ foo: baz } = bar)`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -81,7 +81,7 @@ run(
     foo = bar[0]`,
     output: $`
     ;([foo] = bar)`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -89,7 +89,7 @@ run(
     foo = bar().foo`,
     output: $`
     ;({ foo } = bar())`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -97,6 +97,6 @@ run(
     baz = bar().foo`,
     output: $`
     ;({ foo: baz } = bar())`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
 )
