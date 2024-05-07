@@ -6,7 +6,7 @@ export type { Tree, Linter, CommandContext }
 export type NodeType = `${Tree.Node['type']}`
 
 export type RuleOptions = []
-export type MessageIds = 'command-error' | 'command-error-cause' | 'command-fix' | 'command-removal'
+export type MessageIds = 'command-error' | 'command-error-cause' | 'command-fix'
 
 export interface Command {
   /**
@@ -51,6 +51,16 @@ export interface ESLintPluginCommandOptions {
 }
 
 export type CommandReportDescriptor = Partial<Linter.ReportDescriptor<MessageIds>> & {
+  nodes?: Tree.Node[]
+  /**
+   * Remove the command comment on fix
+   *
+   * @default true
+   */
+  removeComment?: boolean
+  /**
+   * Message of the report
+   */
   message: string
 }
 

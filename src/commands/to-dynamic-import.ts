@@ -46,7 +46,6 @@ export const toDynamicImport: Command = {
     if (typeSpecifiers.length)
       str = `import { ${typeSpecifiers.map(s => ctx.getTextOf(s)).join(', ')} } from ${ctx.getTextOf(node.source)}\n${str}`
 
-    ctx.removeComment()
     ctx.report({
       node,
       message: 'Convert to dynamic import',

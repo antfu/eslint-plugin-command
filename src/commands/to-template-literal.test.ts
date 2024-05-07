@@ -11,7 +11,7 @@ run(
     output: $`
     const a = \`a\${a}\`, b = \`b\`, c = \`c\`, d = 2;
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // You can specify which one to convert
   {
@@ -22,7 +22,7 @@ run(
     output: $`
     const a = \`a\`, b = 'b', c = 'c', d = \`d\`;
     `,
-    errors: ['command-removal', 'command-fix', 'command-fix'],
+    errors: ['command-fix'],
   },
   // mixed
   {
@@ -33,7 +33,7 @@ run(
     output: $`
     const a = \`a\`; const b = \`b\`; const c = \`c\`; const d = \`d\`; const e = 'e'; const f = \`f\`;
     `,
-    errors: ['command-removal', 'command-fix', 'command-fix'],
+    errors: ['command-fix'],
   },
   // 'a' + b + 'c' -> `a${b}c`
   {
@@ -44,7 +44,7 @@ run(
     output: $`
     const a = \`a\${b}c\`;
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -54,7 +54,7 @@ run(
     output: $`
     const b = \`\${b}c\${d}e\${f}\${z}g\${h}i\${j}\`;
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -64,7 +64,7 @@ run(
     output: $`
     const a = \`\${a}\${b}\${c}\`;
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -74,7 +74,7 @@ run(
     output: $`
     const a = a + b; const d = \`\${d}e\`; const c = '3'; const d = \`4\`;
     `,
-    errors: ['command-removal', 'command-fix', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -84,7 +84,7 @@ run(
     output: $`
     const a = \`4\${b}\`; const d = \`\${d}e\`; const c = '3'; const d = '4';
     `,
-    errors: ['command-removal', 'command-fix', 'command-fix'],
+    errors: ['command-fix'],
   },
   // escape
   {
@@ -95,7 +95,7 @@ run(
     output: $`
     const a = \`\\\`\`
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -105,7 +105,7 @@ run(
     output: $`
     const a = \`\${str}\\\`\` 
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -115,6 +115,6 @@ run(
     output: $`
     const a = \`\\\${str}\`
     `,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
 )

@@ -46,7 +46,6 @@ export const toPromiseAll: Command = {
       }
     }
 
-    ctx.removeComment()
     ctx.report({
       loc: {
         start: nodeStart.loc.start,

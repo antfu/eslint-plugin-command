@@ -9,7 +9,7 @@ run(
     let a: string`,
     output: $`
     let a`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -17,7 +17,7 @@ run(
     function a<T>(arg: A): R {}`,
     output: $`
     function a(arg) {}`,
-    errors: ['command-removal', 'command-fix', 'command-fix', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -25,7 +25,7 @@ run(
     declare const a: string`,
     output: $`
     declare const a`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -33,7 +33,7 @@ run(
     fn(arg as any)`,
     output: $`
     fn(arg)`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -41,7 +41,7 @@ run(
     fn(arg satisfies any)`,
     output: $`
     fn(arg)`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -49,7 +49,7 @@ run(
     fn(arg!)`,
     output: $`
     fn(arg)`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -57,7 +57,7 @@ run(
     fn(<string>arg)`,
     output: $`
     fn(arg)`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
@@ -65,14 +65,14 @@ run(
     const fn = foo<string>`,
     output: $`
     const fn = foo`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   {
     code: $`
     /// no-type
     type A = string`,
-    output: '\n',
-    errors: ['command-removal', 'command-fix'],
+    output: '',
+    errors: ['command-fix'],
   },
   {
     code: $`

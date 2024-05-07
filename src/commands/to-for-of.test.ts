@@ -17,7 +17,7 @@ run(
         continue
       console.log(b)
     }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Chaining
   {
@@ -30,7 +30,7 @@ run(
     for (const b of a.sort().filter(b => !!b)) {
       console.log(b)
     }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Chaining multi-line
   {
@@ -48,7 +48,7 @@ run(
       .filter(b => !!b)) {
         console.log(b)
       }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // forEach with index (TODO: support this)
   {

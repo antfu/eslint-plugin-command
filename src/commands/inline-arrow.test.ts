@@ -28,7 +28,7 @@ run(
     }`,
     output: $`
     export const foo = <T = 1>(arg: Z): Bar => arg`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // no return statement
   {
@@ -37,7 +37,7 @@ run(
     const foo = () => {}`,
     output: $`
     const foo = () => undefined`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // without return argument
   {
@@ -46,6 +46,6 @@ run(
     export default <T = 1>(arg: Z): Bar => { return }`,
     output: $`
     export default <T = 1>(arg: Z): Bar => undefined`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
 )

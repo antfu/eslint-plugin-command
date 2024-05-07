@@ -24,7 +24,7 @@ run(
     export const foo = async <T = 1>(arg: T): Bar => {
       const bar = () => {}
     }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Function expression
   {
@@ -37,7 +37,7 @@ run(
     const bar = async <T = 1>(arg: T): Bar => {
       function baz() {}
     }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Object method
   {
@@ -60,7 +60,7 @@ run(
         return 1
       },
     }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
   // Getter/setter
   {
@@ -92,6 +92,6 @@ run(
         return 1
       }
     }`,
-    errors: ['command-removal', 'command-fix'],
+    errors: ['command-fix'],
   },
 )

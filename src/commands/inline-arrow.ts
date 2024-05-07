@@ -19,7 +19,6 @@ export const inlineArrow: Command = {
       return ctx.reportError('Arrow function body must have a single statement')
     const statement = statements[0] as Tree.ReturnStatement | undefined
 
-    ctx.removeComment()
     ctx.report({
       node: arrowFn,
       loc: body.loc,

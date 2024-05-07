@@ -17,7 +17,6 @@ export function createRuleWithCommands(commands: Command[]) {
         'command-error': '[{{command}}] error: {{message}}',
         'command-error-cause': '[{{command}}] error cause: {{message}}',
         'command-fix': '[{{command}}] fix: {{message}}',
-        'command-removal': '[{{command}}] remove comment after use',
       },
     },
     defaultOptions: [],

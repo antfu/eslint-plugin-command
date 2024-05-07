@@ -22,7 +22,6 @@ export const toFunction: Command = {
       start = arrowFn.parent.key
     }
 
-    ctx.removeComment()
     ctx.report({
       node: arrowFn,
       loc: {

@@ -9,26 +9,26 @@ export const noType: Command = {
       findAll: true,
       shallow: true,
     })
+
     if (!nodes || nodes.length === 0)
       return ctx.reportError('Unable to find type to remove')
 
-    ctx.removeComment()
-    for (const node of nodes) {
-      ctx.report({
-        node,
-        message: 'Remove type',
-        fix(fixer) {
+    ctx.report({
+      nodes,
+      message: 'Remove type',
+      *fix(fixer) {
+        for (const node of nodes.reverse()) {
           if (node.type === 'TSAsExpression' // foo as number
             || node.type === 'TSSatisfiesExpression' // foo satisfies T
             || node.type === 'TSNonNullExpression' // foo!
             || node.type === 'TSInstantiationExpression') // foo<string>
-            return fixer.removeRange([node.expression.range[1], node.range[1]])
+            yield fixer.removeRange([node.expression.range[1], node.range[1]])
           else if (node.type === 'TSTypeAssertion') // <number>foo
-            return fixer.removeRange([node.range[0], node.expression.range[0]])
+            yield fixer.removeRange([node.range[0], node.expression.range[0]])
           else
-            return fixer.remove(node)
-        },
-      })
-    }
+            yield fixer.remove(node)
+        }
+      },
+    })
   },
 }
