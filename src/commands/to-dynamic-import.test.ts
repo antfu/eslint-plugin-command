@@ -6,54 +6,65 @@ run(
   // Named import
   {
     code: $`
-    /// to-dynamic-import
-    import { foo } from 'bar'`,
+      /// to-dynamic-import
+      import { foo } from 'bar'
+    `,
     output: $`
-    const { foo } = await import('bar')`,
+      const { foo } = await import('bar')
+    `,
     errors: ['command-fix'],
   },
   // Default import
   {
     code: $`
-    /// to-dynamic-import
-    import foo from 'bar'`,
+      /// to-dynamic-import
+      import foo from 'bar'
+    `,
     output: $`
-    const { default: foo } = await import('bar')`,
+      const { default: foo } = await import('bar')
+    `,
     errors: ['command-fix'],
   },
   // Namespace
   {
     code: $`
-    /// to-dynamic-import
-    import * as foo from 'bar'`,
+      /// to-dynamic-import
+      import * as foo from 'bar'
+    `,
     output: $`
-    const foo = await import('bar')`,
+      const foo = await import('bar')
+    `,
     errors: ['command-fix'],
   },
   // Mixed
   {
     code: $`
-    /// to-dynamic-import
-    import foo, { bar, baz as tex } from 'bar'`,
+      /// to-dynamic-import
+      import foo, { bar, baz as tex } from 'bar'
+    `,
     output: $`
-    const { default: foo, bar, baz: tex } = await import('bar')`,
+      const { default: foo, bar, baz: tex } = await import('bar')
+    `,
     errors: ['command-fix'],
   },
   // Type import (error)
   {
     code: $`
-    /// to-dynamic-import
-    import type { Type } from 'baz'`,
+      /// to-dynamic-import
+      import type { Type } from 'baz'
+    `,
     errors: ['command-error'],
   },
   // Mixed with type import
   {
     code: $`
-    /// to-dynamic-import
-    import foo, { bar, type Type } from 'bar'`,
+      /// to-dynamic-import
+      import foo, { bar, type Type } from 'bar'
+    `,
     output: $`
-    import { type Type } from 'bar'
-    const { default: foo, bar } = await import('bar')`,
+      import { type Type } from 'bar'
+      const { default: foo, bar } = await import('bar')
+    `,
     errors: ['command-fix'],
   },
 )

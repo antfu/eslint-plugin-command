@@ -9,37 +9,41 @@ run(
   ],
   // Already unique
   $`
-  // @keep-unique
-  export const arr = [
-    'apple',
-    'bar',
-    'foo',
-  ]`,
+    // @keep-unique
+    export const arr = [
+      'apple',
+      'bar',
+      'foo',
+    ]
+  `,
   // Unique
   {
     code: $`
-    // @keep-unique
-    export const arr = [
-      1, 2, 3, 2, 1, '3',
-      3,
-      4, '3', 
-      false, true, false,
-    ]`,
+      // @keep-unique
+      export const arr = [
+        1, 2, 3, 2, 1, '3',
+        3,
+        4, '3', 
+        false, true, false,
+      ]
+    `,
     output: $`
-    // @keep-unique
-    export const arr = [
-      1, 2, 3, '3',
-      4, false, true, 
-    ]`,
+      // @keep-unique
+      export const arr = [
+        1, 2, 3, '3',
+        4, false, true, 
+      ]
+    `,
     errors: ['command-fix'],
   },
   {
     description: 'Unique combine with sort',
     code: $`
-    /**
-     * @keep-unique @keep-sorted
-     */
-    export const arr = [ 3, 2, 1, 2, 1, 'foo', 'bar' ]`,
+      /**
+       * @keep-unique @keep-sorted
+       */
+      export const arr = [ 3, 2, 1, 2, 1, 'foo', 'bar' ]
+    `,
     output(output) {
       expect(output).toMatchInlineSnapshot(`
         "/**

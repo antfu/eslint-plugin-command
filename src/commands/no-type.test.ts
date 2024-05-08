@@ -5,79 +5,97 @@ run(
   command,
   {
     code: $`
-    /// no-type
-    let a: string`,
+      /// no-type
+      let a: string
+    `,
     output: $`
-    let a`,
+      let a
+    `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    /// no-type
-    function a<T>(arg: A): R {}`,
+      /// no-type
+      function a<T>(arg: A): R {}
+    `,
     output: $`
-    function a(arg) {}`,
+      function a(arg) {}
+    `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    /// no-type
-    declare const a: string`,
+      /// no-type
+      declare const a: string
+    `,
     output: $`
-    declare const a`,
+      declare const a
+    `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    /// no-type
-    fn(arg as any)`,
+      /// no-type
+      fn(arg as any)
+    `,
     output: $`
-    fn(arg)`,
+      fn(arg)
+    `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    /// no-type
-    fn(arg satisfies any)`,
+      /// no-type
+      fn(arg satisfies any)
+    `,
     output: $`
-    fn(arg)`,
+      fn(arg)
+    `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    /// no-type
-    fn(arg!)`,
+      /// no-type
+      fn(arg!)
+    `,
     output: $`
-    fn(arg)`,
+      fn(arg)
+    `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    /// no-type
-    fn(<string>arg)`,
+      /// no-type
+      fn(<string>arg)
+    `,
     output: $`
-    fn(arg)`,
+      fn(arg)
+    `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    /// no-type
-    const fn = foo<string>`,
+      /// no-type
+      const fn = foo<string>
+    `,
     output: $`
-    const fn = foo`,
+      const fn = foo
+    `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    /// no-type
-    type A = string`,
+      /// no-type
+      type A = string
+    `,
     output: '',
     errors: ['command-fix'],
   },
   {
     code: $`
-    /// nt
-    const a = 1`,
+      /// nt
+      const a = 1
+    `,
     errors: ['command-error'],
   },
 )

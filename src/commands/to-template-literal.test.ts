@@ -5,115 +5,115 @@ run(
   command,
   {
     code: $`
-    // @2tl
-    const a = \`a\${a}\`, b = \`b\`, c = "c", d = 2;
+      // @2tl
+      const a = \`a\${a}\`, b = \`b\`, c = "c", d = 2;
     `,
     output: $`
-    const a = \`a\${a}\`, b = \`b\`, c = \`c\`, d = 2;
+      const a = \`a\${a}\`, b = \`b\`, c = \`c\`, d = 2;
     `,
     errors: ['command-fix'],
   },
   // You can specify which one to convert
   {
     code: $`
-    // @2tl 1 4
-    const a = 'a', b = 'b', c = 'c', d = 'd';
+      // @2tl 1 4
+      const a = 'a', b = 'b', c = 'c', d = 'd';
     `,
     output: $`
-    const a = \`a\`, b = 'b', c = 'c', d = \`d\`;
+      const a = \`a\`, b = 'b', c = 'c', d = \`d\`;
     `,
     errors: ['command-fix'],
   },
   // mixed
   {
     code: $`
-    // @2tl 1 3
-    const a = \`a\`; const b = \`b\`; const c = 'c'; const d = \`d\`; const e = 'e'; const f = 'f';
+      // @2tl 1 3
+      const a = \`a\`; const b = \`b\`; const c = 'c'; const d = \`d\`; const e = 'e'; const f = 'f';
     `,
     output: $`
-    const a = \`a\`; const b = \`b\`; const c = \`c\`; const d = \`d\`; const e = 'e'; const f = \`f\`;
+      const a = \`a\`; const b = \`b\`; const c = \`c\`; const d = \`d\`; const e = 'e'; const f = \`f\`;
     `,
     errors: ['command-fix'],
   },
   // 'a' + b + 'c' -> `a${b}c`
   {
     code: $`
-    // @2tl
-    const a = 'a' + b + 'c';
+      // @2tl
+      const a = 'a' + b + 'c';
     `,
     output: $`
-    const a = \`a\${b}c\`;
+      const a = \`a\${b}c\`;
     `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    // @2tl
-    const b = b + 'c' + d + 'e' + f + z + 'g' + h + 'i' + j;
+      // @2tl
+      const b = b + 'c' + d + 'e' + f + z + 'g' + h + 'i' + j;
     `,
     output: $`
-    const b = \`\${b}c\${d}e\${f}\${z}g\${h}i\${j}\`;
+      const b = \`\${b}c\${d}e\${f}\${z}g\${h}i\${j}\`;
     `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    // @2tl
-    const a = a + b + c;
+      // @2tl
+      const a = a + b + c;
     `,
     output: $`
-    const a = \`\${a}\${b}\${c}\`;
+      const a = \`\${a}\${b}\${c}\`;
     `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    // @2tl 2 4
-    const a = a + b; const d = d + 'e'; const c = '3'; const d = '4';
+      // @2tl 2 4
+      const a = a + b; const d = d + 'e'; const c = '3'; const d = '4';
     `,
     output: $`
-    const a = a + b; const d = \`\${d}e\`; const c = '3'; const d = \`4\`;
+      const a = a + b; const d = \`\${d}e\`; const c = '3'; const d = \`4\`;
     `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    // @2tl 1 2
-    const a = '4' + b; const d = d + 'e'; const c = '3'; const d = '4';
+      // @2tl 1 2
+      const a = '4' + b; const d = d + 'e'; const c = '3'; const d = '4';
     `,
     output: $`
-    const a = \`4\${b}\`; const d = \`\${d}e\`; const c = '3'; const d = '4';
+      const a = \`4\${b}\`; const d = \`\${d}e\`; const c = '3'; const d = '4';
     `,
     errors: ['command-fix'],
   },
   // escape
   {
     code: $`
-    // @2tl
-    const a = "\`"
+      // @2tl
+      const a = "\`"
     `,
     output: $`
-    const a = \`\\\`\`
+      const a = \`\\\`\`
     `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    // @2tl
-    const a = str + "\`" 
+      // @2tl
+      const a = str + "\`" 
     `,
     output: $`
-    const a = \`\${str}\\\`\` 
+      const a = \`\${str}\\\`\` 
     `,
     errors: ['command-fix'],
   },
   {
     code: $`
-    // @2tl
-    const a = "\${str}"
+      // @2tl
+      const a = "\${str}"
     `,
     output: $`
-    const a = \`\\\${str}\`
+      const a = \`\\\${str}\`
     `,
     errors: ['command-fix'],
   },

@@ -25,4 +25,10 @@ export default antfu(
         'antfu/top-level-function': 'off',
       },
     },
+    {
+      files: ['**/*.test.ts'],
+      rules: {
+        'antfu/indent-unindent': 'error',
+      },
+    },
   )

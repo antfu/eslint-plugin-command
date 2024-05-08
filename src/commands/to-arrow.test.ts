@@ -9,89 +9,99 @@ run(
   }`,
   {
     code: $`
-    /// 2a
-    const a = 1`,
+      /// 2a
+      const a = 1
+    `,
     errors: ['command-error'],
   },
   // Function declaration
   {
     code: $`
-    /// to-arrow
-    export async function foo <T = 1>(arg: T): Bar {
-      const bar = () => {}
-    }`,
+      /// to-arrow
+      export async function foo <T = 1>(arg: T): Bar {
+        const bar = () => {}
+      }
+    `,
     output: $`
-    export const foo = async <T = 1>(arg: T): Bar => {
-      const bar = () => {}
-    }`,
+      export const foo = async <T = 1>(arg: T): Bar => {
+        const bar = () => {}
+      }
+    `,
     errors: ['command-fix'],
   },
   // Function expression
   {
     code: $`
-    ///to-arrow
-    const bar = async function foo <T = 1>(arg: T): Bar {
-      function baz() {}
-    }`,
+      ///to-arrow
+      const bar = async function foo <T = 1>(arg: T): Bar {
+        function baz() {}
+      }
+    `,
     output: $`
-    const bar = async <T = 1>(arg: T): Bar => {
-      function baz() {}
-    }`,
+      const bar = async <T = 1>(arg: T): Bar => {
+        function baz() {}
+      }
+    `,
     errors: ['command-fix'],
   },
   // Object method
   {
     code: $`
-    const bar = {
-      /// to-arrow
-      async [bar]?(a: number, b: number): number {
-        return a + b
-      },
-      foo() {
-        return 1
-      },
-    }`,
+      const bar = {
+        /// to-arrow
+        async [bar]?(a: number, b: number): number {
+          return a + b
+        },
+        foo() {
+          return 1
+        },
+      }
+    `,
     output: $`
-    const bar = {
-      [bar]: async (a: number, b: number): number => {
-        return a + b
-      },
-      foo() {
-        return 1
-      },
-    }`,
+      const bar = {
+        [bar]: async (a: number, b: number): number => {
+          return a + b
+        },
+        foo() {
+          return 1
+        },
+      }
+    `,
     errors: ['command-fix'],
   },
   // Getter/setter
   {
     code: $`
-    const bar = {
-      /// to-arrow
-      get id() {}
-    }`,
+      const bar = {
+        /// to-arrow
+        get id() {}
+      }
+    `,
     errors: ['command-error'],
   },
   // Class method
   {
     code: $`
-    class Bar {
-      /// to-arrow
-      private static override async [bar]?(a: number, b: number): number {
-        return a + b
+      class Bar {
+        /// to-arrow
+        private static override async [bar]?(a: number, b: number): number {
+          return a + b
+        }
+        foo() {
+          return 1
+        }
       }
-      foo() {
-        return 1
-      }
-    }`,
+    `,
     output: $`
-    class Bar {
-      private static override [bar] ? = async (a: number, b: number): number => {
-        return a + b
+      class Bar {
+        private static override [bar] ? = async (a: number, b: number): number => {
+          return a + b
+        }
+        foo() {
+          return 1
+        }
       }
-      foo() {
-        return 1
-      }
-    }`,
+    `,
     errors: ['command-fix'],
   },
 )
