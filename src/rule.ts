@@ -25,7 +25,7 @@ export function createRuleWithCommands(commands: Command[]) {
       const comments = sc.getAllComments()
 
       for (const comment of comments) {
-        const commandRaw = comment.value.trim()
+        const commandRaw = comment.value
         for (const command of commands) {
           const type = command.commentType ?? 'line'
           if (type === 'line' && comment.type !== 'Line')

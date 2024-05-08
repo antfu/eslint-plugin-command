@@ -12,6 +12,7 @@ import { toPromiseAll } from './to-promise-all'
 import { noShorthand } from './no-shorthand'
 import { noType } from './no-type'
 import { keepUnique } from './keep-unique'
+import { regex101 } from './regex101'
 
 // @keep-sorted
 export {
@@ -20,6 +21,7 @@ export {
   keepUnique,
   noShorthand,
   noType,
+  regex101,
   toArrow,
   toDestructuring,
   toDynamicImport,
@@ -38,6 +40,7 @@ export const builtinCommands = [
   keepUnique,
   noShorthand,
   noType,
+  regex101,
   toArrow,
   toDestructuring,
   toDynamicImport,

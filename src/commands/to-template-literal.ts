@@ -5,7 +5,7 @@ type NodeTypes = Tree.StringLiteral | Tree.BinaryExpression
 
 export const toTemplateLiteral: Command = {
   name: 'to-template-literal',
-  match: /^[\/:@]\s*(?:to-|2)?(?:template-literal|tl)\s{0,}(.*)?$/,
+  match: /^\s*[\/:@]\s*(?:to-|2)?(?:template-literal|tl)\s{0,}(.*)?$/,
   action(ctx) {
     const numbers = ctx.matches[1]
     // From integers 1-based to 0-based to match array indexes

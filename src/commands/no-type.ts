@@ -2,7 +2,7 @@ import type { Command } from '../types'
 
 export const noType: Command = {
   name: 'no-type',
-  match: /^[\/:@]\s*(no-type|nt)$/,
+  match: /^\s*[\/:@]\s*(no-type|nt)$/,
   action(ctx) {
     const nodes = ctx.findNodeBelow({
       filter: node => node.type.startsWith('TS'),

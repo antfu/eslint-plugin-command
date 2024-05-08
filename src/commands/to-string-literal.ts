@@ -3,7 +3,7 @@ import { getNodesByIndexes, parseToNumberArray } from './_utils'
 
 export const toStringLiteral: Command = {
   name: 'to-string-literal',
-  match: /^[\/:@]\s*(?:to-|2)?(?:string-literal|sl)\s{0,}(.*)?$/,
+  match: /^\s*[\/:@]\s*(?:to-|2)?(?:string-literal|sl)\s{0,}(.*)?$/,
   action(ctx) {
     const numbers = ctx.matches[1]
     // From integers 1-based to 0-based to match array indexes
