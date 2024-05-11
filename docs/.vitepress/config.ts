@@ -89,7 +89,7 @@ export default defineConfig({
     ),
 
     editLink: {
-      pattern: 'https://github.com/antfu/eslint-plugin-command/edit/main/docs/:path',
+      pattern: 'https://github.com/antfu/eslint-plugin-command/edit/main/:path',
       text: 'Suggest changes to this page',
     },
 
