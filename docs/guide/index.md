@@ -25,7 +25,7 @@ async function foo<T>(msg: T): void {
 }
 ```
 
-One more example that `/// to-promis-all` converts a sequence of `await` expressions to `await Promise.all()`:
+One more example that `/// to-promise-all` converts a sequence of `await` expressions to `await Promise.all()`:
 
 <!-- eslint-skip -->
 
