@@ -28,3 +28,13 @@ export function insideRange(node: Tree.Node, range: [number, number], includeSta
     && (includeEnd ? node.range[1] <= range[1] : node.range[1] < range[1])
   )
 }
+
+export function unwrapType(node: Tree.Node) {
+  if (node.type === 'TSAsExpression' // foo as number
+    || node.type === 'TSSatisfiesExpression' // foo satisfies T
+    || node.type === 'TSNonNullExpression' // foo!
+    || node.type === 'TSInstantiationExpression' // foo<string>
+    || node.type === 'TSTypeAssertion') // <number>foo
+    return node.expression
+  return node
+}

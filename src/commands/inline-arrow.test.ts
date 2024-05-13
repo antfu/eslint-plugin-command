@@ -56,4 +56,16 @@ run(
     `,
     errors: ['command-fix'],
   },
+  {
+    code: $`
+      /// inline-arrow
+      export const foo = () => {
+        return { a: 'b' } as any
+      }
+    `,
+    output: $`
+      export const foo = () => ({ a: 'b' } as any)
+    `,
+    errors: ['command-fix'],
+  },
 )
