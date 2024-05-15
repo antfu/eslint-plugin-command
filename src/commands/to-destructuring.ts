@@ -2,7 +2,7 @@ import type { Command } from '../types'
 
 export const toDestructuring: Command = {
   name: 'to-destructuring',
-  match: /^\s*[\/:@]\s*(?:to-|2)?(?:destructuring|dest)?$/i,
+  match: /^\s*[\/:@]\s*(?:to-|2)(?:destructuring|dest)$/i,
   action(ctx) {
     const node = ctx.findNodeBelow(
       'VariableDeclaration',
