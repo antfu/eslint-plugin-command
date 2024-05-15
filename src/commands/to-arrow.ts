@@ -2,7 +2,7 @@ import type { Command } from '../types'
 
 export const toArrow: Command = {
   name: 'to-arrow',
-  match: /^\s*[\/:@]\s*(to-arrow|2a|ta)$/,
+  match: /^\s*[/:@]\s*(to-arrow|2a|ta)$/,
   action(ctx) {
     const fn = ctx.findNodeBelow('FunctionDeclaration', 'FunctionExpression')
     if (!fn)

@@ -3,7 +3,7 @@ import type { Command } from '../types'
 
 export const noShorthand: Command = {
   name: 'no-shorthand',
-  match: /^\s*[\/:@]\s*(no-shorthand|nsh)$/,
+  match: /^\s*[/:@]\s*(no-shorthand|nsh)$/,
   action(ctx) {
     const nodes = ctx.findNodeBelow<AST_NODE_TYPES.Property>({
       filter: node => node.type === 'Property' && node.shorthand,

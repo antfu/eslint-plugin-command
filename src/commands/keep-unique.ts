@@ -5,7 +5,7 @@ export interface KeepSortedInlineOptions {
   keys?: string[]
 }
 
-const reLine = /^[\/@:]\s*(?:keep-)?uni(?:que)?$/
+const reLine = /^[/@:]\s*(?:keep-)?uni(?:que)?$/
 const reBlock = /(?:\b|\s)@keep-uni(?:que)?(?:\b|\s|$)/
 
 export const keepUnique: Command = {

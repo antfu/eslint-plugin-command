@@ -5,7 +5,7 @@ type TargetDeclarator = Tree.VariableDeclarator | Tree.AwaitExpression
 
 export const toPromiseAll: Command = {
   name: 'to-promise-all',
-  match: /^[\/@:]\s*(?:to-|2)(?:promise-all|pa)$/,
+  match: /^[/@:]\s*(?:to-|2)(?:promise-all|pa)$/,
   action(ctx) {
     const parent = ctx.getParentBlock()
     const nodeStart = ctx.findNodeBelow(isTarget) as TargetNode
