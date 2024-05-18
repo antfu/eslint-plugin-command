@@ -13,6 +13,7 @@ import { noShorthand } from './no-shorthand'
 import { noType } from './no-type'
 import { keepUnique } from './keep-unique'
 import { regex101 } from './regex101'
+import { toTernary } from './to-ternary'
 
 // @keep-sorted
 export {
@@ -31,6 +32,7 @@ export {
   toPromiseAll,
   toStringLiteral,
   toTemplateLiteral,
+  toTernary,
 }
 
 // @keep-sorted
@@ -50,4 +52,5 @@ export const builtinCommands = [
   toPromiseAll,
   toStringLiteral,
   toTemplateLiteral,
+  toTernary,
 ]
