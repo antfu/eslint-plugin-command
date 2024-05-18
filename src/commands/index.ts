@@ -1,3 +1,4 @@
+import { hoistRegExp } from './hoist-regexp'
 import { toFunction } from './to-function'
 import { toArrow } from './to-arrow'
 import { keepSorted } from './keep-sorted'
@@ -17,6 +18,7 @@ import { toTernary } from './to-ternary'
 
 // @keep-sorted
 export {
+  hoistRegExp,
   inlineArrow,
   keepSorted,
   keepUnique,
@@ -37,6 +39,7 @@ export {
 
 // @keep-sorted
 export const builtinCommands = [
+  hoistRegExp,
   inlineArrow,
   keepSorted,
   keepUnique,
