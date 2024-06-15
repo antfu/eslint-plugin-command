@@ -25,7 +25,7 @@ or if you fancy `@`:
 const foo = `foo`
 
 // @2sl
-const quxx = `${qux}quxx`
+const quxx = `${foo}quxx`
 
 // Also supports using numbers to specify which items need to be converted (starts from 1)
 // @2sl 1 3
@@ -38,7 +38,7 @@ Will be converted to:
 const foo = 'bar'
 
 // eslint-disable-next-line prefer-template
-const quxx = qux + 'quxx'
+const quxx = foo + 'quxx'
 
 const bar = 'bar'; const baz = `baz`; const qux = 'qux'
 ```

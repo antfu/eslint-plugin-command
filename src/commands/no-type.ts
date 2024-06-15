@@ -21,12 +21,16 @@ export const noType: Command = {
           if (node.type === 'TSAsExpression' // foo as number
             || node.type === 'TSSatisfiesExpression' // foo satisfies T
             || node.type === 'TSNonNullExpression' // foo!
-            || node.type === 'TSInstantiationExpression') // foo<string>
+            || node.type === 'TSInstantiationExpression' // foo<string>
+          ) {
             yield fixer.removeRange([node.expression.range[1], node.range[1]])
-          else if (node.type === 'TSTypeAssertion') // <number>foo
+          }
+          else if (node.type === 'TSTypeAssertion') { // <number>foo
             yield fixer.removeRange([node.range[0], node.expression.range[0]])
-          else
+          }
+          else {
             yield fixer.remove(node)
+          }
         }
       },
     })

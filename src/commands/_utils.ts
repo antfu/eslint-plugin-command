@@ -34,7 +34,8 @@ export function unwrapType(node: Tree.Node) {
     || node.type === 'TSSatisfiesExpression' // foo satisfies T
     || node.type === 'TSNonNullExpression' // foo!
     || node.type === 'TSInstantiationExpression' // foo<string>
-    || node.type === 'TSTypeAssertion') // <number>foo
+    || node.type === 'TSTypeAssertion') { // <number>foo
     return node.expression
+  }
   return node
 }

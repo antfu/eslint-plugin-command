@@ -16,8 +16,9 @@ export const inlineArrow: Command = {
     if (
       (statements.length !== 1 || statements[0].type !== 'ReturnStatement')
       && (statements.length !== 0)
-    )
+    ) {
       return ctx.reportError('Arrow function body must have a single statement')
+    }
     const statement = statements[0] as Tree.ReturnStatement | undefined
     const argument: Tree.Node | null = statement?.argument ? unwrapType(statement.argument) : null
     const isObject = (argument?.type === 'ObjectExpression')

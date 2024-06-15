@@ -11,7 +11,7 @@ Convert an assignment expression to destructuring assignment.
 
 ## Examples
 
-```js
+```ts
 /// to-destructuring
 const foo = bar.foo
 
@@ -31,7 +31,7 @@ foo = bar().foo
 
 Will be converted to:
 
-```js
+```ts
 const { foo } = bar
 
 const { foo: baz } = bar ?? {}

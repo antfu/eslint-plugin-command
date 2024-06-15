@@ -10,7 +10,7 @@ Hoist regular expressions to the top-level.
 
 ## Examples
 
-```js
+```ts
 function foo(msg: string): void {
   /// hoist-regexp
   console.log(/foo/.test(msg))
@@ -19,7 +19,7 @@ function foo(msg: string): void {
 
 Will be converted to:
 
-```js
+```ts
 const re$0 = /foo/
 
 function foo(msg: string): void {
@@ -29,7 +29,7 @@ function foo(msg: string): void {
 
 You can also provide a name for the hoisted regular expression:
 
-```js
+```ts
 function foo(msg: string): void {
   /// hoist-regexp myRegex
   console.log(/foo/.test(msg))
@@ -38,7 +38,7 @@ function foo(msg: string): void {
 
 Will be converted to:
 
-```js
+```ts
 const myRegex = /foo/
 
 function foo(msg: string): void {

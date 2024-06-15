@@ -26,7 +26,7 @@ const bar = 'bar'
 
 // @2tl
 // eslint-disable-next-line prefer-template
-const quxx = qux + 'quxx'
+const quxx = bar + 'quxx'
 
 // Also supports using numbers to specify which items need to be converted (starts from 1)
 // @2tl 1 3
@@ -38,7 +38,7 @@ Will be converted to:
 ```js
 const bar = `bar`
 
-const quxx = `${qux}quxx`
+const quxx = `${bar}quxx`
 
 const foo = `foo`; const baz = 'baz'; const qux = `qux`
 ```

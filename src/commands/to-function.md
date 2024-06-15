@@ -12,7 +12,7 @@ Revese command: [`to-arrow`](./to-arrow)
 
 ## Examples
 
-```js
+```ts
 /// to-function
 const foo = async (msg: string): void => {
   console.log(msg)
@@ -21,7 +21,7 @@ const foo = async (msg: string): void => {
 
 Will be converted to (the command comment will be removed along the way):
 
-```js
+```ts
 async function foo(msg: string): void {
   console.log(msg)
 }

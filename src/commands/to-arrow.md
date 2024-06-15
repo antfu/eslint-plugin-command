@@ -11,7 +11,7 @@ Revese command: [`to-function`](./to-function)
 
 ## Examples
 
-```js
+```ts
 /// to-arrow
 function foo(msg: string): void {
   console.log(msg)
@@ -20,7 +20,7 @@ function foo(msg: string): void {
 
 Will be converted to:
 
-```js
+```ts
 const foo = (msg: string): void => {
   console.log(msg)
 }

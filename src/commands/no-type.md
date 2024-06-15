@@ -9,13 +9,13 @@ Removes TypeScript type annotations.
 
 ## Examples
 
-```js
+```ts
 /// no-type
 const foo: string = 'foo'
 ```
 
 Will be converted to:
 
-```js
+```ts
 const foo = 'foo'
 ```

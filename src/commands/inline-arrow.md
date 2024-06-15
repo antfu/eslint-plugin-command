@@ -9,7 +9,7 @@ Inline return statement of arrow function.
 
 ## Examples
 
-```js
+```ts
 /// inline-arrow
 const foo = async (msg: string): void => {
   return fn(msg)
@@ -18,6 +18,6 @@ const foo = async (msg: string): void => {
 
 Will be converted to:
 
-```js
+```ts
 const foo = async (msg: string): void => fn(msg)
 ```
