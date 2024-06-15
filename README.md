@@ -7,6 +7,8 @@
 
 Comment-as-command for one-off codemod with ESLint.
 
+https://github.com/antfu/eslint-plugin-command/assets/11247099/ec401a21-4081-42d0-8748-9d0376b7d501
+
 ## Introduction
 
 **ESLint Plugin Command** is a special kind of ESLint plugin, that by default, **does nothing**. Instead of checking for code quality, it serves as a micro-codemod tool triggers by special comments on-demand, resuse the infrastructure of ESLint.

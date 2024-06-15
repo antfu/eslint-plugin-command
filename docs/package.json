@@ -9,13 +9,13 @@
   "devDependencies": {
     "@iconify-json/ph": "^1.1.13",
     "@iconify-json/svg-spinners": "^1.1.2",
-    "@unocss/reset": "^0.60.2",
-    "@vueuse/core": "^10.9.0",
+    "@unocss/reset": "^0.61.0",
+    "@vueuse/core": "^10.11.0",
     "floating-vue": "^5.2.2",
     "fuse.js": "^7.0.0",
-    "unocss": "^0.60.2",
+    "unocss": "^0.61.0",
     "unplugin-vue-components": "^0.27.0",
-    "vitepress": "^1.2.0",
-    "vue": "^3.4.27"
+    "vitepress": "^1.2.3",
+    "vue": "^3.4.29"
   }
 }
