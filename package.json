@@ -113,8 +113,11 @@
     "vite": "^5.2.11",
     "vitest": "^1.6.0"
   },
+  "resolutions": {
+    "eslint-plugin-command": "workspace:*"
+  },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
     "*": "eslint --fix"

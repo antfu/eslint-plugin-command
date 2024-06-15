@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  eslint-plugin-command: workspace:*
+
 importers:
 
   .:
@@ -1873,11 +1876,6 @@ packages:
     peerDependencies:
       eslint: '*'
 
-  eslint-plugin-command@0.2.2:
-    resolution: {integrity: sha512-St9OM9w9/vjltIze9yhXPHKyc+wRHw3M/ql9Kvw+9BYE5BTsFz0f7nlI7xFIkOBEHs2MyZQCQLP1bV/qAT3q2w==}
-    peerDependencies:
-      eslint: '*'
-
   eslint-plugin-es-x@7.5.0:
     resolution: {integrity: sha512-ODswlDSO0HJDzXU0XvgZ3lF3lS3XAZEossh15Q2UHjwrJggWeBoKqqEsLTZLXl+dh5eOAozG0zRcYtuE35oTuQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -3670,7 +3668,7 @@ snapshots:
       eslint-flat-config-utils: 0.2.5
       eslint-merge-processors: 0.1.0(eslint@9.3.0)
       eslint-plugin-antfu: 2.2.0(eslint@9.3.0)
-      eslint-plugin-command: 0.2.2(eslint@9.3.0)
+      eslint-plugin-command: 'link:'
       eslint-plugin-eslint-comments: 3.2.0(eslint@9.3.0)
       eslint-plugin-import-x: 0.5.0(eslint@9.3.0)(typescript@5.4.5)
       eslint-plugin-jsdoc: 48.2.5(eslint@9.3.0)
@@ -5357,11 +5355,6 @@ snapshots:
   eslint-plugin-antfu@2.2.0(eslint@9.3.0):
     dependencies:
       '@antfu/utils': 0.7.8
-      eslint: 9.3.0
-
-  eslint-plugin-command@0.2.2(eslint@9.3.0):
-    dependencies:
-      '@es-joy/jsdoccomment': 0.43.0
       eslint: 9.3.0
 
   eslint-plugin-es-x@7.5.0(eslint@9.3.0):
