@@ -18,6 +18,25 @@ export default [
 ]
 ```
 
+<details>
+<summary>Legacy Config</summary>
+
+While no longer supported, you may still use the legacy `.eslintrc.js` file:
+
+```js
+// .eslintrc.js
+module.exports = {
+  plugins: [
+    'command'
+  ],
+  rules: {
+    'command/command': 'error',
+  },
+}
+```
+
+</details>
+
 ## Custom Commands
 
 It's also possible to define your custom commands.
