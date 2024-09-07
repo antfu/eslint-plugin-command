@@ -16,7 +16,7 @@ export const regex101: Command = {
       return n.type === 'Literal' && 'regex' in n
     }) as Tree.RegExpLiteral | undefined
     if (!literal)
-      return ctx.reportError('Unable to find arrow function to convert')
+      return ctx.reportError('Unable to find a regexp literal to generate')
 
     const [
       _fullStr = '',
