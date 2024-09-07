@@ -356,4 +356,32 @@ run(
       ]
     `,
   },
+  {
+    description: 'With satisfies',
+    code: $`
+      // @keep-sorted
+      const a = {
+        foo,
+        bar,
+        apple
+      } satisfies Record<string, any>
+    `,
+    output: $`
+      // @keep-sorted
+      const a = {
+        apple,
+        bar,
+        foo,
+      } satisfies Record<string, any>
+    `,
+    errors: ['command-fix'],
+  },
+  {
+    description: 'With satisfies',
+    code: $`
+      // @keep-sorted
+      const a = bar satisfies Record<string, any>
+    `,
+    errors: ['command-error'],
+  },
 )

@@ -22,15 +22,27 @@ export const keepSorted: Command = {
       return ctx.reportError(`Failed to parse options: ${optionsRaw}`)
     }
 
-    const node = ctx.findNodeBelow(
+    let node = ctx.findNodeBelow(
       'ObjectExpression',
       'ObjectPattern',
       'ArrayExpression',
       'TSInterfaceBody',
       'TSTypeLiteral',
+      'TSSatisfiesExpression',
     ) || ctx.findNodeBelow(
       'ExportNamedDeclaration',
     )
+
+    // Unwrap TSSatisfiesExpression
+    if (node?.type === 'TSSatisfiesExpression') {
+      if (node.expression.type !== 'ArrayExpression' && node.expression.type !== 'ObjectExpression') {
+        node = undefined
+      }
+      else {
+        node = node.expression
+      }
+    }
+
     if (!node)
       return ctx.reportError('Unable to find object/array/interface to sort')
 
