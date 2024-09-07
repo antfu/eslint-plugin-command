@@ -1,5 +1,5 @@
-import { toFunction as command } from './to-function'
 import { $, run } from './_test-utils'
+import { toFunction as command } from './to-function'
 
 run(
   command,

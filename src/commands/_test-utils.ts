@@ -1,6 +1,6 @@
 import * as tsParser from '@typescript-eslint/parser'
-import type { TestCase } from 'eslint-vitest-rule-tester'
 import { run as _run } from 'eslint-vitest-rule-tester'
+import type { TestCase } from 'eslint-vitest-rule-tester'
 import { createRuleWithCommands } from '../rule'
 import type { Command } from '../types'
 

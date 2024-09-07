@@ -1,5 +1,5 @@
-import { toStringLiteral as command } from './to-string-literal'
 import { $, run } from './_test-utils'
+import { toStringLiteral as command } from './to-string-literal'
 
 run(
   command,

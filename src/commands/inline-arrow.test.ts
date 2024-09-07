@@ -1,5 +1,5 @@
-import { inlineArrow as command } from './inline-arrow'
 import { $, run } from './_test-utils'
+import { inlineArrow as command } from './inline-arrow'
 
 run(
   command,

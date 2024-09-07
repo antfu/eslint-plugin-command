@@ -1,6 +1,6 @@
-import { keepUnique as command } from './keep-unique'
 import { $, run } from './_test-utils'
 import { keepSorted } from './keep-sorted'
+import { keepUnique as command } from './keep-unique'
 
 run(
   [

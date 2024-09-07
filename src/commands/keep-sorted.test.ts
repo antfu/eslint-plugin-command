@@ -1,5 +1,5 @@
-import { keepSorted as command } from './keep-sorted'
 import { $, run } from './_test-utils'
+import { keepSorted as command } from './keep-sorted'
 
 run(
   command,

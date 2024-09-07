@@ -43,8 +43,8 @@ It's also possible to define your custom commands.
 
 ```js
 // eslint.config.mjs
-import command from 'eslint-plugin-command/config'
 import { builtinCommands, defineCommand } from 'eslint-plugin-command/commands'
+import command from 'eslint-plugin-command/config'
 
 const myCommand = defineCommand({
   name: 'my-command',

@@ -1,5 +1,5 @@
-import { toTernary as command } from './to-ternary'
 import { $, run } from './_test-utils'
+import { toTernary as command } from './to-ternary'
 
 run(
   command,

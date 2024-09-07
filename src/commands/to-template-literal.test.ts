@@ -1,5 +1,5 @@
-import { toTemplateLiteral as command } from './to-template-literal'
 import { $, run } from './_test-utils'
+import { toTemplateLiteral as command } from './to-template-literal'
 
 run(
   command,

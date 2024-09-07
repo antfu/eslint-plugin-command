@@ -18,7 +18,7 @@ export const keepSorted: Command = {
     try {
       options = JSON.parse(optionsRaw)
     }
-    catch (e) {
+    catch {
       return ctx.reportError(`Failed to parse options: ${optionsRaw}`)
     }
 

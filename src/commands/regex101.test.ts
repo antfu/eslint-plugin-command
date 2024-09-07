@@ -1,5 +1,5 @@
-import { regex101 as command } from './regex101'
 import { $, run } from './_test-utils'
+import { regex101 as command } from './regex101'
 
 run(
   command,

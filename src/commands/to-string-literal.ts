@@ -1,5 +1,5 @@
-import type { Command, Tree } from '../types'
 import { getNodesByIndexes, parseToNumberArray } from './_utils'
+import type { Command, Tree } from '../types'
 
 export const toStringLiteral: Command = {
   name: 'to-string-literal',

@@ -1,5 +1,5 @@
-import { noType as command } from './no-type'
 import { $, run } from './_test-utils'
+import { noType as command } from './no-type'
 
 run(
   command,

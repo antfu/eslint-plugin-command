@@ -1,7 +1,7 @@
 import type { ESLint } from 'eslint'
 import { version } from '../package.json'
-import type { ESLintPluginCommandOptions } from './types'
 import command from './rule'
+import type { ESLintPluginCommandOptions } from './types'
 
 export function createPluginWithCommands(options: ESLintPluginCommandOptions = {}) {
   const {

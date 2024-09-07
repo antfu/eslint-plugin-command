@@ -1,5 +1,5 @@
-import { toForOf as command } from './to-for-of'
 import { $, run } from './_test-utils'
+import { toForOf as command } from './to-for-of'
 
 run(
   command,

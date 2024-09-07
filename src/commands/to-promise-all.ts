@@ -46,6 +46,12 @@ export const toPromiseAll: Command = {
       }
     }
 
+    function unwrapAwait(node: Tree.Node | null) {
+      if (node?.type === 'AwaitExpression')
+        return node.argument
+      return node
+    }
+
     ctx.report({
       loc: {
         start: nodeStart.loc.start,
@@ -55,12 +61,6 @@ export const toPromiseAll: Command = {
       fix(fixer) {
         const lineIndent = ctx.getIndentOfLine(nodeStart.loc.start.line)
         const isTs = ctx.context.filename.match(/\.[mc]?tsx?$/)
-
-        function unwrapAwait(node: Tree.Node | null) {
-          if (node?.type === 'AwaitExpression')
-            return node.argument
-          return node
-        }
 
         function getId(declarator: TargetDeclarator) {
           if (declarator.type === 'AwaitExpression')

@@ -1,5 +1,5 @@
-import { toForEach as command } from './to-for-each'
 import { $, run } from './_test-utils'
+import { toForEach as command } from './to-for-each'
 
 run(
   command,

@@ -1,5 +1,5 @@
-import { noShorthand as command } from './no-shorthand'
 import { $, run } from './_test-utils'
+import { noShorthand as command } from './no-shorthand'
 
 run(
   command,

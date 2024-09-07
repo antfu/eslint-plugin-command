@@ -1,5 +1,5 @@
-import { toDestructuring as command } from './to-destructuring'
 import { $, run } from './_test-utils'
+import { toDestructuring as command } from './to-destructuring'
 
 run(
   command,

@@ -1,9 +1,10 @@
-import { toPromiseAll as command } from './to-promise-all'
 import { $, run } from './_test-utils'
+import { toPromiseAll as command } from './to-promise-all'
 
 run(
   command,
   {
+    filename: 'index.js',
     description: 'Program level',
     code: $`
       /// to-promise-all
@@ -63,7 +64,7 @@ run(
         foo()
           .then(() => {}),
         import('bar').then(m => m.default),
-        ])
+        ] as const)
       }
     `,
     errors: ['command-fix'],
@@ -94,7 +95,7 @@ run(
         baz(),
         qux(),
         foo(),
-        ])
+        ] as const)
       })
     `,
     errors: ['command-fix'],
@@ -118,7 +119,7 @@ run(
       bar(),
       foo(),
       baz(),
-      ])
+      ] as const)
       doSomething()
       const nonTarget = await qux()
     `,
@@ -140,7 +141,7 @@ run(
       ] = await Promise.all([
       bar(),
       foo(),
-      ])
+      ] as const)
       let c = baz()
       const d = await qux()
     `,

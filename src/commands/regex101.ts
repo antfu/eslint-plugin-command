@@ -37,7 +37,7 @@ export const regex101: Command = {
         if (code)
           example = code
       }
-      catch (e) {}
+      catch {}
     }
 
     // docs: https://github.com/firasdib/Regex101/wiki/FAQ#how-to-prefill-the-fields-on-the-interface-via-url

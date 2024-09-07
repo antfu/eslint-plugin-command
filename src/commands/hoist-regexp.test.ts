@@ -1,5 +1,5 @@
-import { hoistRegExp as command } from './hoist-regexp'
 import { $, run } from './_test-utils'
+import { hoistRegExp as command } from './hoist-regexp'
 
 run(
   command,

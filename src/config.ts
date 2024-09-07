@@ -1,7 +1,7 @@
 import type { Linter } from 'eslint'
-import type { ESLintPluginCommandOptions } from './types'
-import { createPluginWithCommands } from './plugin'
 import defaultPlugin from './index'
+import { createPluginWithCommands } from './plugin'
+import type { ESLintPluginCommandOptions } from './types'
 
 export default function config(options: ESLintPluginCommandOptions = {}): Linter.FlatConfig {
   const plugin = options.commands

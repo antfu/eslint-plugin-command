@@ -23,11 +23,7 @@ export const hoistRegExp: Command = {
         return ctx.reportError(`Variable '${name}' is already in scope`)
     }
     else {
-      let baseName = regexNode.regex.pattern
-        .replace(/\W/g, '_')
-        .replace(/_{2,}/g, '_')
-        .replace(/^_+|_+$/, '')
-        .toLowerCase()
+      let baseName = regexNode.regex.pattern.replace(/\W/g, '_').replace(/_{2,}/g, '_').replace(/^_+|_+$/, '').toLowerCase()
 
       if (baseName.length > 0)
         baseName = baseName[0].toUpperCase() + baseName.slice(1)

@@ -1,5 +1,5 @@
-import { toArrow as command } from './to-arrow'
 import { $, run } from './_test-utils'
+import { toArrow as command } from './to-arrow'
 
 run(
   command,

@@ -1,6 +1,6 @@
-import type { Command, CommandReportDescriptor, CommandReportErrorCauseDescriptor, FindNodeOptions, Linter, MessageIds, RuleOptions, Tree } from './types'
-import type { TraverseVisitor } from './traverse'
 import { SKIP, STOP, traverse } from './traverse'
+import type { TraverseVisitor } from './traverse'
+import type { Command, CommandReportDescriptor, CommandReportErrorCauseDescriptor, FindNodeOptions, Linter, MessageIds, RuleOptions, Tree } from './types'
 
 export class CommandContext {
   /**

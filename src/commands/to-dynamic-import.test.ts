@@ -1,5 +1,5 @@
-import { toDynamicImport as command } from './to-dynamic-import'
 import { $, run } from './_test-utils'
+import { toDynamicImport as command } from './to-dynamic-import'
 
 run(
   command,

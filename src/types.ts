@@ -1,7 +1,7 @@
 import type { TSESLint as Linter, TSESTree as Tree } from '@typescript-eslint/utils'
 import type { CommandContext } from './context'
 
-export type { Tree, Linter, CommandContext }
+export type { CommandContext, Linter, Tree }
 
 export type NodeType = `${Tree.Node['type']}`
 
