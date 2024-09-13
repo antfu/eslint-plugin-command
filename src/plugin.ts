@@ -1,19 +1,22 @@
 import type { ESLint } from 'eslint'
-import { version } from '../package.json'
-import command from './rule'
 import type { ESLintPluginCommandOptions } from './types'
+import { version } from '../package.json'
+import BuiltinRules, { createRuleWithCommands } from './rule'
 
 export function createPluginWithCommands(options: ESLintPluginCommandOptions = {}) {
   const {
     name = 'command',
   } = options
+  const plugin = options.commands
+    ? createRuleWithCommands(options.commands)
+    : BuiltinRules
   return {
     meta: {
       name,
       version,
     },
     rules: {
-      command,
+      command: plugin,
     },
   } satisfies ESLint.Plugin
 }
