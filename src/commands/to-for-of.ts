@@ -1,5 +1,5 @@
-import { FOR_TRAVERSE_IGNORE } from './to-for-each'
 import type { Command, Tree } from '../types'
+import { FOR_TRAVERSE_IGNORE } from './to-for-each'
 
 export const toForOf: Command = {
   name: 'to-for-of',

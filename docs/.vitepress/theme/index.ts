@@ -1,6 +1,6 @@
 // https://vitepress.dev/guide/custom-theme
-import Theme from 'vitepress/theme'
 import type { EnhanceAppContext } from 'vitepress'
+import Theme from 'vitepress/theme'
 
 import 'floating-vue/dist/style.css'
 import 'uno.css'

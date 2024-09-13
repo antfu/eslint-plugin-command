@@ -1,7 +1,7 @@
+import type { Command, MessageIds, RuleOptions } from './types'
 import { builtinCommands } from './commands'
 import { CommandContext } from './context'
 import { createEslintRule } from './utils'
-import type { Command, MessageIds, RuleOptions } from './types'
 
 export function createRuleWithCommands(commands: Command[]) {
   return createEslintRule<RuleOptions, MessageIds>({

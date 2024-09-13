@@ -1,5 +1,5 @@
-import { parseComment } from '@es-joy/jsdoccomment'
 import type { Command, Tree } from '../types'
+import { parseComment } from '@es-joy/jsdoccomment'
 
 // @regex101 https://regex101.com/?regex=%60%60%60%28.*%29%5Cn%28%5B%5Cs%5CS%5D*%29%5Cn%60%60%60&flavor=javascript
 const reCodeBlock = /```(.*)\n([\s\S]*)\n```/

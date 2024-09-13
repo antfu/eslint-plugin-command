@@ -1,5 +1,5 @@
-import { unwrapType } from './_utils'
 import type { Command, Tree } from '../types'
+import { unwrapType } from './_utils'
 
 export const inlineArrow: Command = {
   name: 'inline-arrow',

@@ -1,7 +1,7 @@
+import type { DefaultTheme } from 'vitepress'
 import { fileURLToPath } from 'node:url'
 import fg from 'fast-glob'
 import { defineConfig } from 'vitepress'
-import type { DefaultTheme } from 'vitepress'
 import { version } from '../../package.json'
 import vite from './vite.config'
 
