@@ -31,7 +31,28 @@ export const keepSorted: Command = {
       'TSSatisfiesExpression',
     ) || ctx.findNodeBelow(
       'ExportNamedDeclaration',
+      'TSInterfaceDeclaration',
+      'VariableDeclaration',
     )
+
+    if (node?.type === 'TSInterfaceDeclaration') {
+      node = node.body
+    }
+
+    if (node?.type === 'VariableDeclaration') {
+      const dec = node.declarations[0]
+      if (!dec) {
+        node = undefined
+      }
+      else if (dec.id.type === 'ObjectPattern') {
+        node = dec.id
+      }
+      else {
+        node = Array.isArray(dec.init) ? dec.init[0] : dec.init
+        if (node && node.type !== 'ObjectExpression' && node.type !== 'ArrayExpression' && node.type !== 'TSSatisfiesExpression')
+          node = undefined
+      }
+    }
 
     // Unwrap TSSatisfiesExpression
     if (node?.type === 'TSSatisfiesExpression') {

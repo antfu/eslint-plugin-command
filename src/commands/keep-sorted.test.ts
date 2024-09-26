@@ -13,6 +13,30 @@ run(
     ]
   `
   ,
+  // multi interfaces without export
+  $`
+    // @keep-sorted
+    interface A {
+      foo: number
+    }
+    // @keep-sorted
+    interface B {
+      foo: number
+    }
+  `
+  ,
+  // multi declares without export
+  $`
+    // @keep-sorted
+    const arr1 = [
+      { index: 0, name: 'foo' },
+    ]
+    // @keep-sorted
+    const arr2 = [
+      { index: 0, name: 'foo' },
+    ]
+  `
+  ,
   // Object property
   {
     code: $`
