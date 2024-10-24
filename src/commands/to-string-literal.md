@@ -22,7 +22,7 @@ or if you fancy `@`:
 
 ```js
 /// @2sl
-const foo = `foo`
+const foo = `bar`
 
 // @2sl
 const quxx = `${foo}quxx`
