@@ -22,7 +22,7 @@ export const toDynamicImport: Command = {
             typeSpecifiers.push(specifier)
             return null
           }
-          if (specifier.local.name === specifier.imported.name)
+          if (specifier.imported.type === 'Identifier' && specifier.local.name === specifier.imported.name)
             return ctx.getTextOf(specifier.imported)
           else
             return `${ctx.getTextOf(specifier.imported)}: ${ctx.getTextOf(specifier.local)}`
