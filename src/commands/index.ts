@@ -4,6 +4,7 @@ import { keepSorted } from './keep-sorted'
 import { keepUnique } from './keep-unique'
 import { noShorthand } from './no-shorthand'
 import { noType } from './no-type'
+import { noXAbove } from './no-x-above'
 import { regex101 } from './regex101'
 import { toArrow } from './to-arrow'
 import { toDestructuring } from './to-destructuring'
@@ -24,6 +25,7 @@ export {
   keepUnique,
   noShorthand,
   noType,
+  noXAbove,
   regex101,
   toArrow,
   toDestructuring,
@@ -45,6 +47,7 @@ export const builtinCommands = [
   keepUnique,
   noShorthand,
   noType,
+  noXAbove,
   regex101,
   toArrow,
   toDestructuring,
