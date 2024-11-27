@@ -7,6 +7,12 @@ Disallow certain syntaxes above or below the comment, with in the current block.
 - `// @no-await-above` - Disallow `await` above the comment.
 - `// @no-await-below` - Disallow `await` below the comment.
 
+## Supported Checker Type
+
+- `await` - Disallow `await` above or below the comment.
+
+// TODO: support more types
+
 ## Examples
 
 ```js
