@@ -18,10 +18,10 @@ export default antfu(
         'command/command': 'off',
         'antfu/top-level-function': 'off',
         'style/max-statements-per-line': 'off',
-        'style/no-multi-spaces': 'off',
-        'style/comma-spacing': 'off',
-        'antfu/consistent-list-newline': 'off',
       },
+    },
+    {
+      ignores: ['src/commands/keep-aligned.md'],
     },
     {
       rules: {
