@@ -21,9 +21,6 @@ export default antfu(
       },
     },
     {
-      ignores: ['src/commands/keep-aligned.md'],
-    },
-    {
       rules: {
         'antfu/top-level-function': 'off',
       },

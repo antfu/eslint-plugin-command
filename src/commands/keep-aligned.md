@@ -9,6 +9,8 @@ Keep specific symbols within a block of code are aligned vertically.
 
 ## Examples
 
+<!-- eslint-skip -->
+
 ```typescript
 // @keep-aligned , , ,
 export const matrix = [
@@ -19,6 +21,8 @@ export const matrix = [
 ```
 
 Will be converted to:
+
+<!-- eslint-skip -->
 
 ```typescript
 // @keep-aligned , , ,
@@ -32,6 +36,8 @@ export const matrix = [
 ### Repeat Mode
 
 For the example above where `,` is the only repeating symbol for alignment, `keep-aligned*` could be used instead to indicate a repeating pattern:
+
+<!-- eslint-skip -->
 
 ```typescript
 // @keep-aligned* ,
