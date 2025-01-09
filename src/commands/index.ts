@@ -1,5 +1,6 @@
 import { hoistRegExp } from './hoist-regexp'
 import { inlineArrow } from './inline-arrow'
+import { keepAligned } from './keep-aligned'
 import { keepSorted } from './keep-sorted'
 import { keepUnique } from './keep-unique'
 import { noShorthand } from './no-shorthand'
@@ -21,6 +22,7 @@ import { toTernary } from './to-ternary'
 export {
   hoistRegExp,
   inlineArrow,
+  keepAligned,
   keepSorted,
   keepUnique,
   noShorthand,
@@ -43,6 +45,7 @@ export {
 export const builtinCommands = [
   hoistRegExp,
   inlineArrow,
+  keepAligned,
   keepSorted,
   keepUnique,
   noShorthand,
