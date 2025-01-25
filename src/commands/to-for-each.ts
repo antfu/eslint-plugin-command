@@ -60,8 +60,8 @@ export const toForEach: Command = {
         textBody
           // eslint-disable-next-line prefer-template
           = textBody.slice(0, c.range[0] - node.body.range[0])
-          + 'return'
-          + textBody.slice(c.range[1] - node.body.range[0])
+            + 'return'
+            + textBody.slice(c.range[1] - node.body.range[0])
       })
     // Add braces if missing
     if (!textBody.trim().startsWith('{'))

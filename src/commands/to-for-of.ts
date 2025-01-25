@@ -47,8 +47,8 @@ export const toForOf: Command = {
         textBody
           // eslint-disable-next-line prefer-template
           = textBody.slice(0, c.range[0] - fn.body.range[0])
-          + 'continue'
-          + textBody.slice(c.range[1] - fn.body.range[0])
+            + 'continue'
+            + textBody.slice(c.range[1] - fn.body.range[0])
       })
 
     const local = fn.params[0]

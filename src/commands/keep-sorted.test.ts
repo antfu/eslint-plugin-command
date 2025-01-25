@@ -11,8 +11,7 @@ run(
       'bar',
       'foo',
     ]
-  `
-  ,
+  `,
   // multi interfaces without export
   $`
     // @keep-sorted
@@ -23,8 +22,7 @@ run(
     interface B {
       foo: number
     }
-  `
-  ,
+  `,
   // multi declares without export
   $`
     // @keep-sorted
@@ -35,8 +33,7 @@ run(
     const arr2 = [
       { index: 0, name: 'foo' },
     ]
-  `
-  ,
+  `,
   // Object property
   {
     code: $`

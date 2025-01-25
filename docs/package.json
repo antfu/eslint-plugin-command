@@ -7,15 +7,15 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "@iconify-json/ph": "^1.2.1",
-    "@iconify-json/svg-spinners": "^1.2.1",
-    "@unocss/reset": "^0.64.1",
-    "@vueuse/core": "^12.0.0",
+    "@iconify-json/ph": "^1.2.2",
+    "@iconify-json/svg-spinners": "^1.2.2",
+    "@unocss/reset": "^65.4.3",
+    "@vueuse/core": "^12.5.0",
     "floating-vue": "^5.2.2",
     "fuse.js": "^7.0.0",
-    "unocss": "^0.62.4",
-    "unplugin-vue-components": "^0.27.5",
-    "vitepress": "^1.5.0",
-    "vue": "^3.5.12"
+    "unocss": "^65.4.3",
+    "unplugin-vue-components": "^28.0.0",
+    "vitepress": "^1.6.3",
+    "vue": "^3.5.13"
   }
 }
