@@ -2,7 +2,7 @@
   "name": "eslint-plugin-command",
   "type": "module",
   "version": "3.0.0",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.4.0",
   "description": "Comment-as-command for one-off codemod with ESLint",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
   "license": "MIT",
@@ -19,43 +19,14 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
-    "./config": {
-      "types": "./dist/config.d.mts",
-      "default": "./dist/config.mjs"
-    },
-    "./commands": {
-      "types": "./dist/commands.d.mts",
-      "default": "./dist/commands.mjs"
-    },
-    "./types": {
-      "types": "./dist/types.d.mts",
-      "default": "./dist/types.mjs"
-    }
+    ".": "./dist/index.mjs",
+    "./config": "./dist/config.mjs",
+    "./commands": "./dist/commands.mjs",
+    "./types": "./dist/types.mjs"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/index.d.mts",
-        "./dist/*"
-      ],
-      "./config": [
-        "./dist/config.d.mts"
-      ],
-      "./commands": [
-        "./dist/commands.d.mts"
-      ],
-      "./types": [
-        "./dist/types.d.mts"
-      ]
-    }
-  },
   "files": [
     "dist"
   ],
@@ -79,34 +50,34 @@
     "@es-joy/jsdoccomment": "^0.50.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.0.0",
-    "@antfu/ni": "^23.2.0",
-    "@antfu/utils": "^8.1.0",
+    "@antfu/eslint-config": "^4.2.0",
+    "@antfu/ni": "^23.3.1",
+    "@antfu/utils": "^9.0.0",
     "@eslint/config-inspector": "^1.0.0",
     "@types/lodash.merge": "^4.6.9",
-    "@types/node": "^22.10.10",
+    "@types/node": "^22.13.4",
     "@types/semver": "^7.5.8",
-    "@typescript-eslint/rule-tester": "^8.21.0",
-    "@typescript-eslint/typescript-estree": "^8.21.0",
-    "@typescript-eslint/utils": "^8.21.0",
-    "@vitest/ui": "^3.0.4",
-    "bumpp": "^9.10.2",
-    "eslint": "^9.19.0",
+    "@typescript-eslint/rule-tester": "^8.24.0",
+    "@typescript-eslint/typescript-estree": "^8.24.0",
+    "@typescript-eslint/utils": "^8.24.0",
+    "@vitest/ui": "^3.0.5",
+    "bumpp": "^10.0.3",
+    "eslint": "^9.20.1",
     "eslint-define-config": "^2.1.0",
     "eslint-vitest-rule-tester": "^1.1.0",
     "esno": "^4.8.0",
     "fast-glob": "^3.3.3",
-    "lint-staged": "^15.4.2",
+    "lint-staged": "^15.4.3",
     "lodash.merge": "4.6.2",
-    "pnpm": "^9.15.4",
+    "pnpm": "^10.4.0",
     "rimraf": "^6.0.1",
-    "semver": "^7.6.3",
+    "semver": "^7.7.1",
     "simple-git-hooks": "^2.11.1",
-    "tsup": "^8.3.5",
+    "tsup": "^8.3.6",
     "typescript": "^5.7.3",
     "unbuild": "^3.3.1",
-    "vite": "^6.0.11",
-    "vitest": "^3.0.4"
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5"
   },
   "resolutions": {
     "eslint-plugin-command": "workspace:*"

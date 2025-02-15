@@ -7,7 +7,7 @@ export default defineBuildConfig({
     'src/types',
     'src/commands.ts',
   ],
-  declaration: true,
+  declaration: 'node16',
   clean: true,
   externals: [
     '@typescript-eslint/utils',
