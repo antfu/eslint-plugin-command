@@ -56,3 +56,29 @@ const arr = [
   { index: 4, name: 'foo' },
 ]
 ```
+
+#### Sort Object of Objects
+
+Uses optional inline JSON configuration (like [Sort Array of Objects](#sort-array-of-objects)) to define sort keys.
+
+```js
+/// keep-sorted { "keys": ["index","label"] }
+const obj = {
+  a: { index: 3, label: 'banana' },
+  b: { index: 2, label: 'cherry' },
+  c: { index: 2, label: 'apple' },
+  d: { index: 1, label: 'berry' }
+}
+```
+
+Will be converted to:
+
+```js
+/// keep-sorted { "keys": ["index","label"] }
+const obj = {
+  d: { index: 1, label: 'berry' },
+  c: { index: 2, label: 'apple' },
+  b: { index: 2, label: 'cherry' },
+  a: { index: 3, label: 'banana' },
+}
+```

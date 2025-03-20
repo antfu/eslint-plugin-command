@@ -72,17 +72,31 @@ export const keepSorted: Command = {
       ...(options?.keys || []),
     ].filter(x => x != null) as string[]
 
-    if (objectKeys.length > 0 && node.type !== 'ArrayExpression')
-      return ctx.reportError(`Only arrays can be sorted by keys, but got ${node.type}`)
+    if (objectKeys.length > 0 && node.type !== 'ArrayExpression' && node.type !== 'ObjectExpression')
+      return ctx.reportError(`Only arrays and objects can be sorted by keys, but got ${node.type}`)
 
     if (node.type === 'ObjectExpression') {
       return sort(
         ctx,
         node,
-        node.properties,
+        node.properties.filter(Boolean) as (Tree.ObjectExpression | Tree.Property)[],
         (prop) => {
-          if (prop.type === 'Property')
+          if (objectKeys.length) {
+            if (prop.type === 'Property' && prop.value.type === 'ObjectExpression') {
+              const objectProp = prop.value
+              return objectKeys.map((key) => {
+                for (const innerProp of objectProp.properties) {
+                  if (innerProp.type === 'Property' && getString(innerProp.key) === key) {
+                    return getString(innerProp.value)
+                  }
+                }
+                return null
+              })
+            }
+          }
+          else if (prop.type === 'Property') {
             return getString(prop.key)
+          }
           return null
         },
       )
