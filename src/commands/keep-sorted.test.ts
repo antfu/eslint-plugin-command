@@ -405,4 +405,26 @@ run(
     `,
     errors: ['command-error'],
   },
+  {
+    description: 'Sort object of objects',
+    code: $`
+      /// keep-sorted { "keys": ["index","label"] }
+      const obj = {
+        a: { index: 3, label: 'banana' },
+        b: { index: 2, label: 'cherry' },
+        c: { index: 2, label: 'apple' },
+        d: { index: 1, label: 'berry' }
+      }
+    `,
+    output: $`
+      /// keep-sorted { "keys": ["index","label"] }
+      const obj = {
+        d: { index: 1, label: 'berry' },
+        c: { index: 2, label: 'apple' },
+        b: { index: 2, label: 'cherry' },
+        a: { index: 3, label: 'banana' },
+      }
+    `,
+    errors: ['command-fix'],
+  },
 )
