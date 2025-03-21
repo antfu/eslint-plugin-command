@@ -10,11 +10,11 @@
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/svg-spinners": "^1.2.2",
     "@unocss/reset": "^65.5.0",
-    "@vueuse/core": "^12.6.1",
+    "@vueuse/core": "^12.8.2",
     "floating-vue": "^5.2.2",
     "fuse.js": "^7.1.0",
     "unocss": "^65.5.0",
-    "unplugin-vue-components": "^28.1.0",
+    "unplugin-vue-components": "^28.4.1",
     "vitepress": "^1.6.3",
     "vue": "^3.5.13"
   }

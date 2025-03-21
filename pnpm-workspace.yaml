@@ -2,3 +2,6 @@ packages:
   - playground
   - docs
   - examples/*
+onlyBuiltDependencies:
+  - esbuild
+  - simple-git-hooks
