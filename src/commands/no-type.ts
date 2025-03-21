@@ -16,7 +16,7 @@ export const noType: Command = {
     ctx.report({
       nodes,
       message: 'Remove type',
-      *fix(fixer) {
+      * fix(fixer) {
         for (const node of nodes.reverse()) {
           if (node.type === 'TSAsExpression' // foo as number
             || node.type === 'TSSatisfiesExpression' // foo satisfies T

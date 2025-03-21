@@ -34,7 +34,7 @@ export const toTemplateLiteral: Command = {
     ctx.report({
       nodes,
       message: 'Convert to template literal',
-      *fix(fixer) {
+      * fix(fixer) {
         for (const node of nodes.reverse()) {
           if (node.type === 'BinaryExpression')
             yield fixer.replaceText(node, `\`${traverseBinaryExpression(node)}\``)

@@ -19,7 +19,7 @@ export const toStringLiteral: Command = {
     ctx.report({
       nodes,
       message: 'Convert to string literal',
-      *fix(fixer) {
+      * fix(fixer) {
         for (const node of getNodesByIndexes(nodes, indexes)) {
           const ids = extractIdentifiers(node)
           let raw = JSON.stringify(ctx.source.getText(node).slice(1, -1)).slice(1, -1)

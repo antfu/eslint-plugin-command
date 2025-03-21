@@ -15,7 +15,7 @@ export const noShorthand: Command = {
     ctx.report({
       nodes,
       message: 'Expand shorthand',
-      *fix(fixer) {
+      * fix(fixer) {
         for (const node of nodes)
           yield fixer.insertTextAfter(node.key, `: ${ctx.getTextOf(node.key)}`)
       },

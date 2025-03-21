@@ -39,7 +39,7 @@ export const hoistRegExp: Command = {
     ctx.report({
       node: regexNode,
       message: `Hoist regular expression to ${name}`,
-      *fix(fixer) {
+      * fix(fixer) {
         yield fixer.insertTextBefore(parent, `const ${name} = ${ctx.source.getText(regexNode)}\n`)
         yield fixer.replaceText(regexNode, name)
       },

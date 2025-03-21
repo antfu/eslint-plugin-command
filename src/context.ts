@@ -102,7 +102,7 @@ export class CommandContext {
         message,
         ...report.data,
       },
-      *fix(fixer) {
+      * fix(fixer) {
         if (report.fix) {
           const result = report.fix(fixer)
           // if is generator
