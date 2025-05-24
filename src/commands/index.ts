@@ -13,6 +13,7 @@ import { toDynamicImport } from './to-dynamic-import'
 import { toForEach } from './to-for-each'
 import { toForOf } from './to-for-of'
 import { toFunction } from './to-function'
+import { toOneLine } from './to-one-line'
 import { toPromiseAll } from './to-promise-all'
 import { toStringLiteral } from './to-string-literal'
 import { toTemplateLiteral } from './to-template-literal'
@@ -35,6 +36,7 @@ export {
   toForEach,
   toForOf,
   toFunction,
+  toOneLine,
   toPromiseAll,
   toStringLiteral,
   toTemplateLiteral,
@@ -58,6 +60,7 @@ export const builtinCommands = [
   toForEach,
   toForOf,
   toFunction,
+  toOneLine,
   toPromiseAll,
   toStringLiteral,
   toTemplateLiteral,
