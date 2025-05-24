@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-command",
   "type": "module",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "packageManager": "pnpm@10.11.0",
   "description": "Comment-as-command for one-off codemod with ESLint",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
