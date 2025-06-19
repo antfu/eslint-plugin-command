@@ -22,7 +22,7 @@ export const reverseIfElse: Command = {
     const elseNode = maybeElseNode
 
     ctx.report({
-      loc: ifNode.loc,
+      loc: node.loc,
       message: 'Reverse if-else',
       fix(fixer) {
         const lineIndent = ctx.getIndentOfLine(node.loc.start.line)
