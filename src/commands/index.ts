@@ -7,6 +7,7 @@ import { noShorthand } from './no-shorthand'
 import { noType } from './no-type'
 import { noXAbove } from './no-x-above'
 import { regex101 } from './regex101'
+import { reverseIfElse } from './reverse-if-else'
 import { toArrow } from './to-arrow'
 import { toDestructuring } from './to-destructuring'
 import { toDynamicImport } from './to-dynamic-import'
@@ -30,6 +31,7 @@ export {
   noType,
   noXAbove,
   regex101,
+  reverseIfElse,
   toArrow,
   toDestructuring,
   toDynamicImport,
@@ -54,6 +56,7 @@ export const builtinCommands = [
   noType,
   noXAbove,
   regex101,
+  reverseIfElse,
   toArrow,
   toDestructuring,
   toDynamicImport,
