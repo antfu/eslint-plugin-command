@@ -43,4 +43,23 @@ run(
     `,
     errors: ['command-fix'],
   },
+  // without if
+  {
+    code: $`
+      /// reverse-if-else
+      if (a === 1 || b === 2) {
+        a = 2
+      }
+    `,
+    output: (i) => {
+      expect(i).toMatchInlineSnapshot(`
+        "if (!(a === 1 || b === 2)) {
+        }
+        else {
+          a = 2
+        }"
+      `)
+    },
+    errors: ['command-fix'],
+  },
 )

@@ -10,16 +10,13 @@ export const reverseIfElse: Command = {
     if (!node)
       return ctx.reportError('Cannot find if statement')
 
-    const maybeElseNode = node?.alternate
-    if (!maybeElseNode)
-      return ctx.reportError('Cannot find else statement')
+    const elseNode = node.alternate
 
-    const isElseif = maybeElseNode.type === AST_NODE_TYPES.IfStatement
+    const isElseif = elseNode?.type === AST_NODE_TYPES.IfStatement
     if (isElseif)
       return ctx.reportError('Unable reverse when `else if` statement exist')
 
     const ifNode = node.consequent
-    const elseNode = maybeElseNode
 
     ctx.report({
       loc: node.loc,
@@ -29,7 +26,7 @@ export const reverseIfElse: Command = {
 
         const conditionText = ctx.getTextOf(node.test)
         const ifText = ctx.getTextOf(ifNode)
-        const elseText = ctx.getTextOf(elseNode)
+        const elseText = elseNode ? ctx.getTextOf(elseNode) : '{\n}'
 
         const str = [
           `if (!(${conditionText})) ${elseText}`,
