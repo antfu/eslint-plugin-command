@@ -42,7 +42,7 @@
     "docs:build": "nr -C docs docs:build",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks",
-    "vscode:dev": "nr -C integrations/vscode dev",
+    "vscode:dev": "nr build && nr -C integrations/vscode dev",
     "vscode:update": "nr -C integrations/vscode update"
   },
   "peerDependencies": {
