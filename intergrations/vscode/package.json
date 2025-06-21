@@ -1,0 +1,116 @@
+{
+  "publisher": "antfu",
+  "name": "vscode-eslint-command",
+  "displayName": "ESLint Command",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.12.1",
+  "description": "",
+  "author": "Anthony Fu <anthonyfu117@hotmail.com>",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/antfu",
+  "homepage": "https://github.com/antfu/vscode-eslint-command#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antfu/vscode-eslint-command"
+  },
+  "bugs": {
+    "url": "https://github.com/antfu/vscode-eslint-command/issues"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/antfu"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/index.js",
+  "icon": "res/icon.png",
+  "files": [
+    "LICENSE.md",
+    "dist/*",
+    "res/*"
+  ],
+  "engines": {
+    "vscode": "^1.97.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "eslintCommand.toggleAutoFix",
+        "category": "ESLint Command",
+        "title": "Toggle `autocomplete.autoFix` configuration"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "ESLint Command configuration",
+      "properties": {
+        "eslintCommand.languageIds": {
+          "type": "array",
+          "default": [
+            "typescript",
+            "javascript"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "eslintCommand.autocomplete.autoFix": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto fix code when autocomplete finish",
+          "scope": "application"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsdown src/index.ts --external vscode",
+    "dev": "nr build --watch --sourcemap",
+    "prepare": "nr update",
+    "update": "vscode-ext-gen --output src/generated/meta.ts --scope eslintCommand",
+    "lint": "eslint .",
+    "vscode:prepublish": "nr build",
+    "publish": "vsce publish --no-dependencies",
+    "pack": "vsce package --no-dependencies",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp && nr publish",
+    "up": "nlx taze -I major"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.15.0",
+    "@antfu/ni": "^25.0.0",
+    "@antfu/utils": "^9.2.0",
+    "@types/node": "^24.0.3",
+    "@types/vscode": "^1.101.0",
+    "@vscode/vsce": "^3.5.0",
+    "bumpp": "^10.2.0",
+    "eslint": "^9.29.0",
+    "eslint-plugin-command": "^3.3.0",
+    "esno": "^4.8.0",
+    "lint-staged": "^16.1.2",
+    "pnpm": "^10.12.1",
+    "reactive-vscode": "^0.3.0",
+    "simple-git-hooks": "^2.13.0",
+    "tsdown": "^0.12.8",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4",
+    "vscode-ext-gen": "^1.0.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
