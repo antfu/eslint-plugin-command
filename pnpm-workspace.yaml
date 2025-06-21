@@ -3,10 +3,11 @@ packages:
   - docs
   - integrations/*
   - examples/*
+
 catalog:
   '@antfu/eslint-config': ^4.15.0
   '@antfu/ni': ^25.0.0
-  '@antfu/utils': ^9.2.0
+  '@antfu/utils': 9.2.0
   '@es-joy/jsdoccomment': ^0.50.2
   '@eslint/config-inspector': ^1.1.0
   '@iconify-json/ph': ^1.2.2
@@ -48,6 +49,7 @@ catalog:
   vitest: ^3.2.4
   vscode-ext-gen: ^1.0.2
   vue: ^3.5.17
+
 onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks

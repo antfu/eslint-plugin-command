@@ -13,7 +13,7 @@ catalogs:
       specifier: ^25.0.0
       version: 25.0.0
     '@antfu/utils':
-      specifier: ^9.2.0
+      specifier: 9.2.0
       version: 9.2.0
     '@es-joy/jsdoccomment':
       specifier: ^0.50.2

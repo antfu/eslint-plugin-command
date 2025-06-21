@@ -1,12 +1,21 @@
 import type { Command } from 'eslint-plugin-command/commands'
 import type { CompletionItemProvider, Disposable } from 'vscode'
+import { objectKeys } from '@antfu/utils'
 import { builtinCommands } from 'eslint-plugin-command/commands'
 import { useDisposable } from 'reactive-vscode'
 import { CompletionItem, CompletionItemKind, CompletionList, languages, MarkdownString, SnippetString } from 'vscode'
 import { config } from './config'
 
+const triggerConditionMap = {
+  '@': /\/\//,
+  '/': /\/\/\//,
+}
+
+const triggerChars = objectKeys(triggerConditionMap)
+type TriggerChar = keyof typeof triggerConditionMap
+
 const provider: CompletionItemProvider = {
-  provideCompletionItems(document, position) {
+  provideCompletionItems(document, position, _, { triggerCharacter }) {
     function createCompletion(command: Command): CompletionItem[] {
       const {
         name,
@@ -14,34 +23,23 @@ const provider: CompletionItemProvider = {
       } = command
 
       const genItem = (label: string) => {
-        // eslint-disable-next-line prefer-template
-        const nameAsSnippet = ('${1:' + label + '}') // -> vscode snippet template: ${1: the-command-name}
+        const line = document.lineAt(position.line).text.trim()
+
+        const condition = triggerConditionMap?.[triggerCharacter as TriggerChar]
+        if (!line.match(condition))
+          throw new Error('Not matched')
 
         const completionItem = new CompletionItem(label)
+        completionItem.filterText = label
 
         completionItem.kind = CompletionItemKind.Snippet
         completionItem.detail = name
-
         // TODO: use eslint-plugin-command docs
         completionItem.documentation = new MarkdownString('')
 
-        const line = document.getText(document.lineAt(position).range).trim()
-
-        // TODO: support start with @ --> /^\s*[/:@](.*)/
-        const anyESLintCommandRE = /^\s*\/(.*)/
-
-        if (!line.match(anyESLintCommandRE))
-          throw new Error('Not matched')
-
-        const slashCount = getSlashCount(line)
-
-        completionItem.insertText = new SnippetString(
-          // is in comment
-          slashCount > 2
-            ? nameAsSnippet
-            : `${'/'.repeat(2 - slashCount)}/${nameAsSnippet}`, // `/ to-function` -> `/// to-function`
-        )
-        completionItem.filterText = `/// ${label}`
+        // eslint-disable-next-line prefer-template
+        const snippetLabel = ('${1:' + label + '}') // -> vscode snippet template: ${1: the-command-name}
+        completionItem.insertText = new SnippetString(snippetLabel)
 
         if (config.autocomplete.autoFix)
           completionItem.command = { title: 'fix code', command: 'eslint.executeAutofix' }
@@ -52,7 +50,9 @@ const provider: CompletionItemProvider = {
       return [
         name,
         ...alias,
-      ].map(genItem)
+      ].flatMap(label => [
+        genItem(label),
+      ])
     }
 
     try {
@@ -75,12 +75,6 @@ export function registerAutoComplete() {
   completionDisposable = useDisposable(languages.registerCompletionItemProvider(
     config.languageIds,
     provider,
-    '/',
+    ...triggerChars,
   ))
-}
-
-function getSlashCount(text: string): number {
-  const slashes = text.match(/(\/+)/)
-  const count = slashes ? slashes[1].length : 0
-  return count
 }
