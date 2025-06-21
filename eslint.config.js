@@ -4,6 +4,7 @@ import command from './dist/config.mjs'
 
 export default antfu(
   {
+    pnpm: true,
     ignores: ['vendor'],
   },
 )

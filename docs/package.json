@@ -7,15 +7,15 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "@iconify-json/ph": "^1.2.2",
-    "@iconify-json/svg-spinners": "^1.2.2",
-    "@unocss/reset": "^66.2.3",
-    "@vueuse/core": "^13.4.0",
-    "floating-vue": "^5.2.2",
-    "fuse.js": "^7.1.0",
-    "unocss": "^66.2.3",
-    "unplugin-vue-components": "^28.7.0",
-    "vitepress": "^1.6.3",
-    "vue": "^3.5.17"
+    "@iconify-json/ph": "catalog:",
+    "@iconify-json/svg-spinners": "catalog:",
+    "@unocss/reset": "catalog:",
+    "@vueuse/core": "catalog:",
+    "floating-vue": "catalog:",
+    "fuse.js": "catalog:",
+    "unocss": "catalog:",
+    "unplugin-vue-components": "catalog:",
+    "vitepress": "catalog:",
+    "vue": "catalog:"
   }
 }
