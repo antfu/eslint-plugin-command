@@ -5,14 +5,12 @@
       {
         "match": "package.json",
         "isAsync": true,
-        "cmd": "npm run vscode:update"
+        "cmd": "npm run update"
       }
     ]
   },
-  // Enable the flat config support
-  "eslint.useFlatConfig": true,
 
-  // Disable the default formatter
+  // Disable the default formatter, use eslint instead
   "prettier.enable": false,
   "editor.formatOnSave": false,
 
@@ -24,18 +22,18 @@
 
   // Silent the stylistic rules in you IDE, but still auto fix them
   "eslint.rules.customizations": [
-    { "rule": "@stylistic/*", "severity": "warn" },
-    { "rule": "style*", "severity": "warn" },
-    { "rule": "*-indent", "severity": "warn" },
-    { "rule": "*-spacing", "severity": "warn" },
-    { "rule": "*-spaces", "severity": "warn" },
-    { "rule": "*-order", "severity": "warn" },
-    { "rule": "*-dangle", "severity": "warn" },
-    { "rule": "*-newline", "severity": "warn" },
-    { "rule": "*quotes", "severity": "warn" },
-    { "rule": "*semi", "severity": "warn" }
+    { "rule": "style/*", "severity": "off" },
+    { "rule": "*-indent", "severity": "off" },
+    { "rule": "*-spacing", "severity": "off" },
+    { "rule": "*-spaces", "severity": "off" },
+    { "rule": "*-order", "severity": "off" },
+    { "rule": "*-dangle", "severity": "off" },
+    { "rule": "*-newline", "severity": "off" },
+    { "rule": "*quotes", "severity": "off" },
+    { "rule": "*semi", "severity": "off" }
   ],
 
+  // Enable eslint for all supported languages
   "eslint.validate": [
     "javascript",
     "javascriptreact",

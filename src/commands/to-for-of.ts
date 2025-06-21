@@ -3,6 +3,7 @@ import { FOR_TRAVERSE_IGNORE } from './to-for-each'
 
 export const toForOf: Command = {
   name: 'to-for-of',
+  alias: ['for-of'],
   match: /^\s*[/:@]\s*(?:to-|2)?for-?of$/i,
   action(ctx) {
     const target = ctx.findNodeBelow((node) => {
