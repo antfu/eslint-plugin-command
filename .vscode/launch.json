@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/integrations/vscode",
+        "${workspaceFolder}/integrations/vscode/playground/"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/integrations/vscode/dist/**/*.js"
+      ],
+      "preLaunchTask": "npm: vscode:dev"
+    }
+  ]
+}

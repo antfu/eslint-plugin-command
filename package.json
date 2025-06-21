@@ -41,7 +41,9 @@
     "docs": "nr -C docs docs:dev",
     "docs:build": "nr -C docs docs:build",
     "typecheck": "tsc --noEmit",
-    "prepare": "simple-git-hooks"
+    "prepare": "simple-git-hooks",
+    "vscode:dev": "nr -C integrations/vscode dev",
+    "vscode:update": "nr -C integrations/vscode update"
   },
   "peerDependencies": {
     "eslint": "*"

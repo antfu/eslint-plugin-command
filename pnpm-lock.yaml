@@ -36,6 +36,9 @@ catalogs:
     '@types/semver':
       specifier: ^7.7.0
       version: 7.7.0
+    '@types/vscode':
+      specifier: ^1.101.0
+      version: 1.101.0
     '@typescript-eslint/rule-tester':
       specifier: ^8.34.1
       version: 8.34.1
@@ -51,6 +54,9 @@ catalogs:
     '@vitest/ui':
       specifier: ^3.2.4
       version: 3.2.4
+    '@vscode/vsce':
+      specifier: ^3.5.0
+      version: 3.5.0
     '@vueuse/core':
       specifier: ^13.4.0
       version: 13.4.0
@@ -87,6 +93,9 @@ catalogs:
     pnpm:
       specifier: ^10.12.1
       version: 10.12.1
+    reactive-vscode:
+      specifier: ^0.3.0
+      version: 0.3.0
     rimraf:
       specifier: ^6.0.1
       version: 6.0.1
@@ -96,6 +105,9 @@ catalogs:
     simple-git-hooks:
       specifier: ^2.13.0
       version: 2.13.0
+    tsdown:
+      specifier: ^0.12.8
+      version: 0.12.8
     tsup:
       specifier: ^8.5.0
       version: 8.5.0
@@ -120,6 +132,9 @@ catalogs:
     vitest:
       specifier: ^3.2.4
       version: 3.2.4
+    vscode-ext-gen:
+      specifier: ^1.0.2
+      version: 1.0.2
     vue:
       specifier: ^3.5.17
       version: 3.5.17
@@ -253,64 +268,64 @@ importers:
         specifier: 'catalog:'
         version: 3.5.17(typescript@5.8.3)
 
-  intergrations/vscode:
+  integrations/vscode:
     devDependencies:
       '@antfu/eslint-config':
-        specifier: ^4.15.0
+        specifier: 'catalog:'
         version: 4.15.0(@vue/compiler-sfc@3.5.17)(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)(vitest@3.2.4)
       '@antfu/ni':
-        specifier: ^25.0.0
+        specifier: 'catalog:'
         version: 25.0.0
       '@antfu/utils':
-        specifier: ^9.2.0
+        specifier: 'catalog:'
         version: 9.2.0
       '@types/node':
-        specifier: ^24.0.3
+        specifier: 'catalog:'
         version: 24.0.3
       '@types/vscode':
-        specifier: ^1.101.0
+        specifier: 'catalog:'
         version: 1.101.0
       '@vscode/vsce':
-        specifier: ^3.5.0
+        specifier: 'catalog:'
         version: 3.5.0
       bumpp:
-        specifier: ^10.2.0
+        specifier: 'catalog:'
         version: 10.2.0
       eslint:
-        specifier: ^9.29.0
+        specifier: 'catalog:'
         version: 9.29.0(jiti@2.4.2)
       eslint-plugin-command:
         specifier: workspace:*
         version: link:../..
       esno:
-        specifier: ^4.8.0
+        specifier: 'catalog:'
         version: 4.8.0
       lint-staged:
-        specifier: ^16.1.2
+        specifier: 'catalog:'
         version: 16.1.2
       pnpm:
-        specifier: ^10.12.1
+        specifier: 'catalog:'
         version: 10.12.1
       reactive-vscode:
-        specifier: ^0.3.0
+        specifier: 'catalog:'
         version: 0.3.0(@types/vscode@1.101.0)
       simple-git-hooks:
-        specifier: ^2.13.0
+        specifier: 'catalog:'
         version: 2.13.0
       tsdown:
-        specifier: ^0.12.8
+        specifier: 'catalog:'
         version: 0.12.8(typescript@5.8.3)
       typescript:
-        specifier: ^5.8.3
+        specifier: 'catalog:'
         version: 5.8.3
       vite:
-        specifier: ^6.3.5
+        specifier: 'catalog:'
         version: 6.3.5(@types/node@24.0.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.8.0)
       vitest:
-        specifier: ^3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.0.3)(@vitest/ui@3.2.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.8.0)
       vscode-ext-gen:
-        specifier: ^1.0.2
+        specifier: 'catalog:'
         version: 1.0.2
 
 packages:
@@ -3063,9 +3078,6 @@ packages:
   get-proto@1.0.1:
     resolution: {integrity: sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/+l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==}
     engines: {node: '>= 0.4'}
-
-  get-tsconfig@4.10.0:
-    resolution: {integrity: sha512-kGzZ3LWWQcGIAmg6iWvXn0ei6WDtV26wzHRMwDSzmAbcXrTEXxHy6IehI6/4eT6VRKyMP1eF1VqwrVUmE/LR7A==}
 
   get-tsconfig@4.10.1:
     resolution: {integrity: sha512-auHyJ4AgMz7vgS8Hp3N6HXSmlMdUyhSUrfBF16w153rxtLIEOE+HGqaBppczZvnHLqQJfiHotCYpNhl0lUROFQ==}
@@ -7706,7 +7718,7 @@ snapshots:
       enhanced-resolve: 5.17.1
       eslint: 9.29.0(jiti@2.4.2)
       eslint-plugin-es-x: 7.8.0(eslint@9.29.0(jiti@2.4.2))
-      get-tsconfig: 4.10.0
+      get-tsconfig: 4.10.1
       globals: 15.15.0
       ignore: 5.3.2
       minimatch: 9.0.5
@@ -8056,10 +8068,6 @@ snapshots:
     dependencies:
       dunder-proto: 1.0.1
       es-object-atoms: 1.1.1
-
-  get-tsconfig@4.10.0:
-    dependencies:
-      resolve-pkg-maps: 1.0.0
 
   get-tsconfig@4.10.1:
     dependencies:
@@ -9984,7 +9992,7 @@ snapshots:
   tsx@4.19.2:
     dependencies:
       esbuild: 0.23.1
-      get-tsconfig: 4.10.0
+      get-tsconfig: 4.10.1
     optionalDependencies:
       fsevents: 2.3.3
 

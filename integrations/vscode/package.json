@@ -90,7 +90,7 @@
     "@vscode/vsce": "catalog:",
     "bumpp": "catalog:",
     "eslint": "catalog:",
-    "eslint-plugin-command": "catalog:",
+    "eslint-plugin-command": "workspace:*",
     "esno": "catalog:",
     "lint-staged": "catalog:",
     "pnpm": "catalog:",

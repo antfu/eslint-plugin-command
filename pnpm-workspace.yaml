@@ -1,7 +1,7 @@
 packages:
   - playground
   - docs
-  - intergrations/*
+  - integrations/*
   - examples/*
 catalog:
   '@antfu/eslint-config': ^4.15.0
@@ -24,7 +24,6 @@ catalog:
   '@vueuse/core': ^13.4.0
   bumpp: ^10.2.0
   eslint: ^9.29.0
-  eslint-plugin-command: ^3.3.0
   eslint-vitest-rule-tester: ^2.2.0
   esno: ^4.8.0
   fast-glob: ^3.3.3
