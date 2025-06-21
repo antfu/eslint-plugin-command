@@ -47,12 +47,7 @@ const provider: CompletionItemProvider = {
         return completionItem
       }
 
-      return [
-        name,
-        ...alias,
-      ].flatMap(label => [
-        genItem(label),
-      ])
+      return [name, ...alias].map(genItem)
     }
 
     try {
