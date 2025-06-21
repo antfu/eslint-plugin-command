@@ -41,6 +41,7 @@ const provider: CompletionItemProvider = {
             ? nameAsSnippet
             : `${'/'.repeat(2 - slashCount)}/${nameAsSnippet}`, // `/ to-function` -> `/// to-function`
         )
+        completionItem.filterText = `/// ${label}`
 
         if (config.autocomplete.autoFix)
           completionItem.command = { title: 'fix code', command: 'eslint.executeAutofix' }
