@@ -2,6 +2,7 @@ import type { Command, NodeType, Tree } from '../types'
 
 export const toOneLine: Command = {
   name: 'to-one-line',
+  alias: ['21l', 'tol'],
   match: /^[/@:]\s*(?:to-one-line|21l|tol)$/,
   action(ctx) {
     const node = ctx.findNodeBelow(

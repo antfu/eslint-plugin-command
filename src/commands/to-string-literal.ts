@@ -3,6 +3,7 @@ import { getNodesByIndexes, parseToNumberArray } from './_utils'
 
 export const toStringLiteral: Command = {
   name: 'to-string-literal',
+  alias: ['to-sl', '2string-literal', '2sl'],
   match: /^\s*[/:@]\s*(?:to-|2)?(?:string-literal|sl)\s*(\S.*)?$/,
   action(ctx) {
     const numbers = ctx.matches[1]

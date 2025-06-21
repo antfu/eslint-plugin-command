@@ -7,44 +7,55 @@ import { config } from './config'
 
 const provider: CompletionItemProvider = {
   provideCompletionItems(document, position) {
-    function createCompletion(command: Command): CompletionItem {
-      const { name } = command
-      // eslint-disable-next-line prefer-template
-      const nameAsSnippet = ('${1:' + name + '}') // -> vscode snippet template: ${1: the-command-name}
+    function createCompletion(command: Command): CompletionItem[] {
+      const {
+        name,
+        alias = [],
+      } = command
 
-      const completionItem = new CompletionItem(name)
+      const genItem = (label: string) => {
+        // eslint-disable-next-line prefer-template
+        const nameAsSnippet = ('${1:' + label + '}') // -> vscode snippet template: ${1: the-command-name}
 
-      completionItem.kind = CompletionItemKind.Text
-      // TODO
-      completionItem.detail = ''
-      // TODO: use eslint-plugin-command docs
-      completionItem.documentation = new MarkdownString('')
+        const completionItem = new CompletionItem(label)
 
-      const line = document.getText(document.lineAt(position).range).trim()
+        completionItem.kind = CompletionItemKind.Snippet
+        completionItem.detail = name
 
-      // TODO: support start with @ --> /^\s*[/:@](.*)/
-      const anyESLintCommandRE = /^\s*\/(.*)/
+        // TODO: use eslint-plugin-command docs
+        completionItem.documentation = new MarkdownString('')
 
-      if (!line.match(anyESLintCommandRE))
-        throw new Error('Not matched')
+        const line = document.getText(document.lineAt(position).range).trim()
 
-      const slashCount = getSlashCount(line)
+        // TODO: support start with @ --> /^\s*[/:@](.*)/
+        const anyESLintCommandRE = /^\s*\/(.*)/
 
-      completionItem.insertText = new SnippetString(
-        // is in comment
-        slashCount > 2
-          ? nameAsSnippet
-          : `${'/'.repeat(2 - slashCount)}/${nameAsSnippet}`, // `/ to-function` -> `/// to-function`
-      )
+        if (!line.match(anyESLintCommandRE))
+          throw new Error('Not matched')
 
-      if (config.autocomplete.autoFix)
-        completionItem.command = { title: 'fix code', command: 'eslint.executeAutofix' }
+        const slashCount = getSlashCount(line)
 
-      return completionItem
+        completionItem.insertText = new SnippetString(
+          // is in comment
+          slashCount > 2
+            ? nameAsSnippet
+            : `${'/'.repeat(2 - slashCount)}/${nameAsSnippet}`, // `/ to-function` -> `/// to-function`
+        )
+
+        if (config.autocomplete.autoFix)
+          completionItem.command = { title: 'fix code', command: 'eslint.executeAutofix' }
+
+        return completionItem
+      }
+
+      return [
+        name,
+        ...alias,
+      ].map(genItem)
     }
 
     try {
-      const list = builtinCommands.map(createCompletion)
+      const list = builtinCommands.flatMap(createCompletion)
       return new CompletionList(list, true)
     }
     catch {
@@ -54,7 +65,7 @@ const provider: CompletionItemProvider = {
 }
 
 let completionDisposable: Disposable | null = null
-export function registerProvider() {
+export function registerAutoComplete() {
   if (completionDisposable) {
     completionDisposable.dispose()
     completionDisposable = null

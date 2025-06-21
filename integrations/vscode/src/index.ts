@@ -1,5 +1,5 @@
 import { defineExtension, useCommands } from 'reactive-vscode'
-import { registerProvider } from './autocomplete'
+import { registerAutoComplete } from './autocomplete'
 import { config, watchConfig } from './config'
 import { commands, extensionId } from './generated/meta'
 import { logger } from './utils'
@@ -8,7 +8,7 @@ const { activate, deactivate } = defineExtension(() => {
   logger.info(`${extensionId} activated`)
 
   watchConfig('eslintCommand.languageIds', () => {
-    registerProvider()
+    registerAutoComplete()
   }, { immediate: true })
 
   useCommands({
