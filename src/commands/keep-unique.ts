@@ -10,6 +10,7 @@ const reBlock = /(?:\b|\s)@keep-uni(?:que)?(?:\b|\s|$)/
 
 export const keepUnique: Command = {
   name: 'keep-unique',
+  alias: ['uniq'],
   commentType: 'both',
   match: comment => comment.value.trim().match(comment.type === 'Line' ? reLine : reBlock),
   action(ctx) {
