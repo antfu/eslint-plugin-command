@@ -29,22 +29,29 @@ const provider: CompletionItemProvider = {
         if (!line.match(condition))
           throw new Error('Not matched')
 
-        const completionItem = new CompletionItem(label)
-        completionItem.filterText = label
+        const item = new CompletionItem(label)
+        item.filterText = label
 
-        completionItem.kind = CompletionItemKind.Snippet
-        completionItem.detail = name
+        item.kind = CompletionItemKind.Snippet
+        item.detail = [name, ...alias]
+          .filter(i => i !== label)
+          .sort((a, b) =>
+            label === name
+              ? a.length - b.length // prefer short alias
+              : b.length - a.length, // prefer full name
+          )
+          .join(', ')
         // TODO: use eslint-plugin-command docs
-        completionItem.documentation = new MarkdownString('')
+        item.documentation = new MarkdownString('')
 
         // eslint-disable-next-line prefer-template
         const snippetLabel = ('${1:' + label + '}') // -> vscode snippet template: ${1: the-command-name}
-        completionItem.insertText = new SnippetString(snippetLabel)
+        item.insertText = new SnippetString(snippetLabel)
 
         if (config.autocomplete.autoFix)
-          completionItem.command = { title: 'fix code', command: 'eslint.executeAutofix' }
+          item.command = { title: 'fix code', command: 'eslint.executeAutofix' }
 
-        return completionItem
+        return item
       }
 
       return [name, ...alias].map(genItem)
