@@ -93,14 +93,10 @@ export function defineAlias(command: Command, names: string[]): string[] {
       const tokens = [`/ ${name}`, `@${name}`, `:${name}`]
 
       return tokens.every((token) => {
-        if (isFunction(match)) {
-          const res = !!match(toLineComment(token))
-
-          return res
-        }
-        else {
+        if (isFunction(match))
+          return !!match(toLineComment(token))
+        else
           return token.match(match) !== null
-        }
       })
     }
     const checkBlock = () => {
@@ -111,15 +107,12 @@ export function defineAlias(command: Command, names: string[]): string[] {
         return token.match(match) !== null
     }
 
-    if (commentType === 'line') {
+    if (commentType === 'line')
       return checkLine()
-    }
-    else if (commentType === 'block') {
+    else if (commentType === 'block')
       return checkBlock()
-    }
-    else {
+    else
       return checkLine() && checkBlock()
-    }
   },
   )
     ? names
