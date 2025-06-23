@@ -1,5 +1,5 @@
+import type { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import type { Command } from '../types'
-import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { defineAlias } from '../utils'
 
 export const reverseIfElse: Command = {
@@ -16,7 +16,7 @@ export const reverseIfElse: Command = {
 
     const elseNode = node.alternate
 
-    const isElseif = elseNode?.type === AST_NODE_TYPES.IfStatement
+    const isElseif = elseNode?.type === ('IfStatement' as AST_NODE_TYPES.IfStatement)
     if (isElseif)
       return ctx.reportError('Unable reverse when `else if` statement exist')
 
