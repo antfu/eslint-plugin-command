@@ -42,4 +42,11 @@ export default antfu(
         'style/type-generic-spacing': 'off',
       },
     },
+    {
+      files: ['metadata.json'],
+      rules: {
+        'jsonc/comma-dangle': 'off',
+        'style/eol-last': 'off',
+      },
+    },
   )

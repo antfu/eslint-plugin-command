@@ -12,7 +12,7 @@ const reBlock = /(?:\b|\s)@keep-uni(?:que)?(?:\b|\s|$)/
 export const keepUnique: Command = {
   name: 'keep-unique',
   get alias() {
-    return defineAlias(this, ['uniq'])
+    return defineAlias(this, ['uni'])
   },
   commentType: 'both',
   match: comment => comment.value.trim().match(comment.type === 'Line' ? reLine : reBlock),
