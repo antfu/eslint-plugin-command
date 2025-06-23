@@ -1,8 +1,11 @@
 import type { Command } from '../types'
+import { defineAlias } from '../utils'
 
 export const toArrow: Command = {
   name: 'to-arrow',
-  alias: ['2a'],
+  get alias() {
+    return defineAlias(this, ['2a'])
+  },
   match: /^\s*[/:@]\s*(to-arrow|2a|ta)$/,
   action(ctx) {
     const fn = ctx.findNodeBelow('FunctionDeclaration', 'FunctionExpression')

@@ -1,9 +1,12 @@
 import type { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import type { Command } from '../types'
+import { defineAlias } from '../utils'
 
 export const noShorthand: Command = {
   name: 'no-shorthand',
-  alias: ['nsh'],
+  get alias() {
+    return defineAlias(this, ['nsh'])
+  },
   match: /^\s*[/:@]\s*(no-shorthand|nsh)$/,
   action(ctx) {
     const nodes = ctx.findNodeBelow<AST_NODE_TYPES.Property>({

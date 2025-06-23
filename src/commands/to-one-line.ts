@@ -1,8 +1,11 @@
 import type { Command, NodeType, Tree } from '../types'
+import { defineAlias } from '../utils'
 
 export const toOneLine: Command = {
   name: 'to-one-line',
-  alias: ['21l', 'tol'],
+  get alias() {
+    return defineAlias(this, ['21l', 'tol'])
+  },
   match: /^[/@:]\s*(?:to-one-line|21l|tol)$/,
   action(ctx) {
     const node = ctx.findNodeBelow(

@@ -1,0 +1,133 @@
+{
+  "hoist-regexp": {
+    "alias": [
+      "hoist-regexp",
+      "hreg",
+      "hoist-regex"
+    ],
+    "commentType": "line"
+  },
+  "inline-arrow": {
+    "alias": [
+      "ia"
+    ],
+    "commentType": "line"
+  },
+  "keep-aligned": {
+    "alias": [],
+    "commentType": "line"
+  },
+  "keep-sorted": {
+    "alias": [],
+    "commentType": "both"
+  },
+  "keep-unique": {
+    "alias": [
+      "Error: Have invalid value"
+    ],
+    "commentType": "both"
+  },
+  "no-shorthand": {
+    "alias": [
+      "nsh"
+    ],
+    "commentType": "line"
+  },
+  "no-type": {
+    "alias": [
+      "nt"
+    ],
+    "commentType": "line"
+  },
+  "no-x-above": {
+    "alias": [],
+    "commentType": "line"
+  },
+  "regex101": {
+    "alias": [],
+    "commentType": "both"
+  },
+  "reverse-if-else": {
+    "alias": [
+      "rife",
+      "rif"
+    ],
+    "commentType": "line"
+  },
+  "to-arrow": {
+    "alias": [
+      "2a"
+    ],
+    "commentType": "line"
+  },
+  "to-destructuring": {
+    "alias": [
+      "to-dest",
+      "2destructuring",
+      "2dest"
+    ],
+    "commentType": "line"
+  },
+  "to-dynamic-import": {
+    "alias": [
+      "dynamic-import"
+    ],
+    "commentType": "line"
+  },
+  "to-for-each": {
+    "alias": [
+      "foreach"
+    ],
+    "commentType": "line"
+  },
+  "to-for-of": {
+    "alias": [
+      "for-of"
+    ],
+    "commentType": "line"
+  },
+  "to-function": {
+    "alias": [
+      "to-fn",
+      "2f"
+    ],
+    "commentType": "line"
+  },
+  "to-one-line": {
+    "alias": [
+      "21l",
+      "tol"
+    ],
+    "commentType": "line"
+  },
+  "to-promise-all": {
+    "alias": [
+      "2pa"
+    ],
+    "commentType": "line"
+  },
+  "to-string-literal": {
+    "alias": [
+      "to-sl",
+      "2string-literal",
+      "2sl"
+    ],
+    "commentType": "line"
+  },
+  "to-template-literal": {
+    "alias": [
+      "to-tl",
+      "2template-literal",
+      "2tl"
+    ],
+    "commentType": "line"
+  },
+  "to-ternary": {
+    "alias": [
+      "to-3",
+      "2ternary",
+      "23"
+    ],
+    "commentType": "line"
+  }
+}

@@ -1,8 +1,12 @@
 import type { Command, Tree } from '../types'
+import { defineAlias } from '../utils'
 import { unwrapType } from './_utils'
 
 export const inlineArrow: Command = {
   name: 'inline-arrow',
+  get alias() {
+    return defineAlias(this, ['ia'])
+  },
   match: /^\s*[/:@]\s*(inline-arrow|ia)$/,
   action(ctx) {
     const arrowFn = ctx.findNodeBelow('ArrowFunctionExpression')

@@ -1,8 +1,11 @@
 import type { Command } from '../types'
+import { defineAlias } from '../utils'
 
 export const toDestructuring: Command = {
   name: 'to-destructuring',
-  alias: ['to-dest', '2destructuring', '2dest'],
+  get alias() {
+    return defineAlias(this, ['to-dest', '2destructuring', '2dest'])
+  },
   match: /^\s*[/:@]\s*(?:to-|2)(?:destructuring|dest)$/i,
   action(ctx) {
     const node = ctx.findNodeBelow(

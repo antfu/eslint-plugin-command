@@ -1,6 +1,9 @@
 import type { RuleListener, RuleWithMeta, RuleWithMetaAndName } from '@typescript-eslint/utils/eslint-utils'
 import type { RuleContext } from '@typescript-eslint/utils/ts-eslint'
 import type { Rule } from 'eslint'
+import type { Command, Tree } from './types'
+import { isFunction, last, toArray } from '@antfu/utils'
+import { AST_TOKEN_TYPES } from '@typescript-eslint/utils'
 
 export interface RuleModule<
   T extends readonly unknown[],
@@ -80,4 +83,84 @@ export function warnOnce(message: string) {
     return
   warned.add(message)
   console.warn(message)
+}
+
+export function defineAlias(command: Command, names: string[]): string[] {
+  const { match, commentType = 'line' } = command
+
+  return names.every((name) => {
+    const checkLine = () => {
+      const tokens = [`/ ${name}`, `@${name}`, `:${name}`]
+
+      return tokens.every((token) => {
+        if (isFunction(match)) {
+          const res = !!match(toLineComment(token))
+
+          return res
+        }
+        else {
+          return token.match(match) !== null
+        }
+      })
+    }
+    const checkBlock = () => {
+      const token = `* @${name} `
+      if (isFunction(match))
+        return !!match(toBlockComment(token))
+      else
+        return token.match(match) !== null
+    }
+
+    if (commentType === 'line') {
+      return checkLine()
+    }
+    else if (commentType === 'block') {
+      return checkBlock()
+    }
+    else {
+      return checkLine() && checkBlock()
+    }
+  },
+  )
+    ? names
+    : ['Error: Have invalid value']
+}
+
+export function toLineComment(token: string): Tree.LineComment {
+  return {
+    type: AST_TOKEN_TYPES.Line,
+    value: token.trim(),
+    loc: {
+      start: {
+        column: 0,
+        line: 1,
+      },
+      end: {
+        column: token.length,
+        line: 1,
+      },
+    },
+    range: [0, token.length + 2],
+  }
+}
+
+export function toBlockComment(tokens: string | string[]): Tree.BlockComment {
+  const values = toArray(tokens).map(token => `* ${token} `)
+  const value = values.join('\n').trim()
+
+  return {
+    type: AST_TOKEN_TYPES.Block,
+    value,
+    loc: {
+      start: {
+        column: 0,
+        line: 1,
+      },
+      end: {
+        column: last(values).length,
+        line: values.length,
+      },
+    },
+    range: [0, value.length + 4],
+  }
 }

@@ -1,11 +1,14 @@
 import type { Command, Tree } from '../types'
+import { defineAlias } from '../utils'
 
 type TargetNode = Tree.VariableDeclaration | Tree.ExpressionStatement
 type TargetDeclarator = Tree.VariableDeclarator | Tree.AwaitExpression
 
 export const toPromiseAll: Command = {
   name: 'to-promise-all',
-  alias: ['2pa'],
+  get alias() {
+    return defineAlias(this, ['2pa'])
+  },
   match: /^[/@:]\s*(?:to-|2)(?:promise-all|pa)$/,
   action(ctx) {
     const parent = ctx.getParentBlock()

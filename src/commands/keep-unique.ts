@@ -1,4 +1,5 @@
 import type { Command } from '../types'
+import { defineAlias } from '../utils'
 
 export interface KeepSortedInlineOptions {
   key?: string
@@ -10,7 +11,9 @@ const reBlock = /(?:\b|\s)@keep-uni(?:que)?(?:\b|\s|$)/
 
 export const keepUnique: Command = {
   name: 'keep-unique',
-  alias: ['uniq'],
+  get alias() {
+    return defineAlias(this, ['uniq'])
+  },
   commentType: 'both',
   match: comment => comment.value.trim().match(comment.type === 'Line' ? reLine : reBlock),
   action(ctx) {
