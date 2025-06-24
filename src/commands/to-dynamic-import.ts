@@ -1,11 +1,8 @@
 import type { Command, Tree } from '../types'
-import { defineAlias } from '../utils'
 
 export const toDynamicImport: Command = {
   name: 'to-dynamic-import',
-  get alias() {
-    return defineAlias(this, ['dynamic-import'])
-  },
+  alias: ['dynamic-import'],
   match: /^\s*[/:@]\s*(?:to-|2)?(?:dynamic|d)(?:-?import)?$/i,
   action(ctx) {
     const node = ctx.findNodeBelow('ImportDeclaration')

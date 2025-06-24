@@ -1,5 +1,4 @@
 import type { Command, NodeType, Tree } from '../types'
-import { defineAlias } from '../utils'
 
 export const FOR_TRAVERSE_IGNORE: NodeType[] = [
   'FunctionDeclaration',
@@ -15,9 +14,7 @@ export const FOR_TRAVERSE_IGNORE: NodeType[] = [
 
 export const toForEach: Command = {
   name: 'to-for-each',
-  get alias() {
-    return defineAlias(this, ['foreach'])
-  },
+  alias: ['foreach'],
   match: /^\s*[/:@]\s*(?:to-|2)?for-?each$/i,
   action(ctx) {
     const node = ctx.findNodeBelow('ForInStatement', 'ForOfStatement')

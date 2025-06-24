@@ -23,7 +23,7 @@
   },
   "keep-unique": {
     "alias": [
-      "Error: Have invalid value",
+      "uni",
     ],
     "commentType": "both",
   },

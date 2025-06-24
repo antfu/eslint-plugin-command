@@ -1,11 +1,8 @@
 import type { Command } from '../types'
-import { defineAlias } from '../utils'
 
 export const noType: Command = {
   name: 'no-type',
-  get alias() {
-    return defineAlias(this, ['nt'])
-  },
+  alias: ['nt'],
   match: /^\s*[/:@]\s*(no-type|nt)$/,
   action(ctx) {
     const nodes = ctx.findNodeBelow({

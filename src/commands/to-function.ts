@@ -1,11 +1,8 @@
 import type { Command, Tree } from '../types'
-import { defineAlias } from '../utils'
 
 export const toFunction: Command = {
   name: 'to-function',
-  get alias() {
-    return defineAlias(this, ['to-fn', '2f'])
-  },
+  alias: ['to-fn', '2f'],
   match: /^\s*[/:@]\s*(to-(?:fn|function)|2f|tf)$/,
   action(ctx) {
     const arrowFn = ctx.findNodeBelow('ArrowFunctionExpression')

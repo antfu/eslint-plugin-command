@@ -1,11 +1,8 @@
 import type { Command, Tree } from '../types'
-import { defineAlias } from '../utils'
 
 export const hoistRegExp: Command = {
   name: 'hoist-regexp',
-  get alias() {
-    return defineAlias(this, ['hoist-regexp', 'hreg', 'hoist-regex'])
-  },
+  alias: ['hoist-regexp', 'hreg', 'hoist-regex'],
   match: /^\s*[/:@]\s*(?:hoist-|h)reg(?:exp?)?(?:\s+(\S+)\s*)?$/,
   action(ctx) {
     const regexNode = ctx.findNodeBelow((node): node is Tree.RegExpLiteral => node.type === 'Literal' && 'regex' in node) as Tree.RegExpLiteral

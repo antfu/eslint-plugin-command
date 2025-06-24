@@ -1,5 +1,6 @@
 import type { TSESLint as Linter, TSESTree as Tree } from '@typescript-eslint/utils'
 import type { CommandContext } from './context'
+import { defineAlias } from './utils'
 
 export type { CommandContext, Linter, Tree }
 
@@ -93,7 +94,12 @@ export type CommandReportErrorCauseDescriptor = {
 }
 
 export function defineCommand(command: Command) {
-  return command
+  const alias = defineAlias(command, command.alias ?? [])
+
+  return {
+    ...command,
+    alias,
+  }
 }
 
 export interface FindNodeOptions<Keys extends Tree.Node['type'], All extends boolean | undefined = false> {

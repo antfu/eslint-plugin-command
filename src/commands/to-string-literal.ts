@@ -1,12 +1,9 @@
 import type { Command, Tree } from '../types'
-import { defineAlias } from '../utils'
 import { getNodesByIndexes, parseToNumberArray } from './_utils'
 
 export const toStringLiteral: Command = {
   name: 'to-string-literal',
-  get alias() {
-    return defineAlias(this, ['to-sl', '2string-literal', '2sl'])
-  },
+  alias: ['to-sl', '2string-literal', '2sl'],
   match: /^\s*[/:@]\s*(?:to-|2)?(?:string-literal|sl)\s*(\S.*)?$/,
   action(ctx) {
     const numbers = ctx.matches[1]

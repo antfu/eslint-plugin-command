@@ -116,7 +116,7 @@ export function defineAlias(command: Command, names: string[]): string[] {
   },
   )
     ? names
-    : ['Error: Have invalid value']
+    : []
 }
 
 export function toLineComment(token: string): Tree.LineComment {

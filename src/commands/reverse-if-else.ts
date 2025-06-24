@@ -1,12 +1,9 @@
 import type { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import type { Command } from '../types'
-import { defineAlias } from '../utils'
 
 export const reverseIfElse: Command = {
   name: 'reverse-if-else',
-  get alias() {
-    return defineAlias(this, ['rife', 'rif'])
-  },
+  alias: ['rife', 'rif'],
   match: /^\s*[/:@]\s*(reverse-if-else|rife|rif)$/,
   action(ctx) {
     const node = ctx.findNodeBelow('IfStatement')

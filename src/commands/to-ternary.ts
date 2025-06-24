@@ -1,11 +1,8 @@
 import type { Command, Tree } from '../types'
-import { defineAlias } from '../utils'
 
 export const toTernary: Command = {
   name: 'to-ternary',
-  get alias() {
-    return defineAlias(this, ['to-3', '2ternary', '23'])
-  },
+  alias: ['to-3', '2ternary', '23'],
   match: /^\s*[/:@]\s*(?:to-|2)(?:ternary|3)$/,
   action(ctx) {
     const node = ctx.findNodeBelow('IfStatement')
