@@ -21,6 +21,10 @@ const COMMANDS: DefaultTheme.NavItemWithLink[] = commands.map(file => ({
   link: `/commands/${file.split('/').pop()!.replace('.md', '')}`,
 }))
 
+const INTEGRATIONS: DefaultTheme.NavItemWithLink[] = [
+  { text: 'VS Code Extension', link: '/integrations/vscode' },
+]
+
 const VERSIONS: (DefaultTheme.NavItemWithLink | DefaultTheme.NavItemChildren)[] = [
   { text: `v${version} (current)`, link: '/' },
   { text: `Release Notes`, link: 'https://github.com/antfu/eslint-plugin-command/releases' },
@@ -67,6 +71,10 @@ export default defineConfig({
         items: COMMANDS,
       },
       {
+        text: 'Integrations',
+        items: INTEGRATIONS,
+      },
+      {
         text: `v${version}`,
         items: VERSIONS,
       },
@@ -83,6 +91,10 @@ export default defineConfig({
           {
             text: 'Commands',
             items: COMMANDS,
+          },
+          {
+            text: 'Integrations',
+            items: INTEGRATIONS,
           },
         ],
       },
