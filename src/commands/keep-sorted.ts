@@ -270,7 +270,7 @@ function sort<T extends Tree.Node>(
             const b = nameB[i]
             if (a == null || b == null || a === b)
               continue
-            return a.localeCompare(b)
+            return a.localeCompare(b, 'en', { numeric: true })
           }
           return 0
         }),
