@@ -1,7 +1,52 @@
+catalogMode: prefer
+shellEmulator: true
+trustPolicy: no-downgrade
+
 packages:
   - playground
   - docs
   - examples/*
+catalogs:
+  dev:
+    '@antfu/eslint-config': ^6.6.0
+    '@antfu/ni': ^28.0.0
+    '@antfu/utils': ^9.3.0
+    '@eslint/config-inspector': ^1.4.2
+    '@types/lodash.merge': ^4.6.9
+    '@types/node': ^24.10.2
+    '@types/semver': ^7.7.1
+    '@typescript-eslint/rule-tester': ^8.49.0
+    '@typescript-eslint/typescript-estree': ^8.49.0
+    '@typescript-eslint/utils': ^8.49.0
+    '@vitest/ui': ^4.0.15
+    bumpp: ^10.3.2
+    chokidar: ^5.0.0
+    eslint: ^9.39.1
+    eslint-vitest-rule-tester: ^3.0.0
+    fast-glob: ^3.3.3
+    lint-staged: ^16.2.7
+    lodash.merge: 4.6.2
+    pnpm: ^10.25.0
+    rimraf: ^6.1.2
+    semver: ^7.7.3
+    simple-git-hooks: ^2.13.1
+    tsdown: ^0.17.2
+    typescript: ^5.9.3
+    vite: ^7.2.7
+    vitest: ^4.0.15
+  docs:
+    '@iconify-json/ph': ^1.2.2
+    '@iconify-json/svg-spinners': ^1.2.4
+    '@unocss/reset': ^66.5.10
+    '@vueuse/core': ^14.1.0
+    floating-vue: ^5.2.2
+    fuse.js: ^7.1.0
+    unocss: ^66.5.10
+    unplugin-vue-components: ^30.0.0
+    vitepress: ^1.6.4
+    vue: ^3.5.25
+  prod:
+    '@es-joy/jsdoccomment': ^0.78.0
 onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks

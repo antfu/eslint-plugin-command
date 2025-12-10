@@ -16,7 +16,7 @@ export const STOP = Symbol('stop')
 
 export type TraverseVisitor = (
   path: TraversePath,
-  symbols: { SKIP: symbol, STOP: symbol }
+  symbols: { SKIP: symbol, STOP: symbol },
 ) => symbol | void
 
 export function traverse(
