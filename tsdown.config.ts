@@ -1,15 +1,14 @@
-import { defineBuildConfig } from 'unbuild'
+import { defineConfig } from 'tsdown'
 
-export default defineBuildConfig({
-  entries: [
+export default defineConfig({
+  entry: [
     'src/index',
     'src/config',
     'src/types',
     'src/commands.ts',
   ],
-  declaration: 'node16',
   clean: true,
-  externals: [
+  external: [
     '@typescript-eslint/utils',
   ],
 })
