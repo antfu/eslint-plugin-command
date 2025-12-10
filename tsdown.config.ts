@@ -7,6 +7,7 @@ export default defineConfig({
     'src/types',
     'src/commands.ts',
   ],
+  exports: true,
   clean: true,
   external: [
     '@typescript-eslint/utils',

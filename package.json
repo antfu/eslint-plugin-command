@@ -20,9 +20,10 @@
   "sideEffects": false,
   "exports": {
     ".": "./dist/index.mjs",
-    "./config": "./dist/config.mjs",
     "./commands": "./dist/commands.mjs",
-    "./types": "./dist/types.mjs"
+    "./config": "./dist/config.mjs",
+    "./types": "./dist/types.mjs",
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
@@ -34,8 +35,7 @@
     "build": "tsdown",
     "lint": "tsdown && eslint .",
     "prepublishOnly": "nr build",
-    "release": "bumpp && pnpm publish",
-    "start": "esno src/index.ts",
+    "release": "bumpp",
     "test": "vitest",
     "docs": "nr -C docs docs:dev",
     "docs:build": "nr -C docs docs:build",
