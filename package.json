@@ -53,7 +53,7 @@
     "@antfu/ni": "catalog:dev",
     "@antfu/utils": "catalog:dev",
     "@eslint/config-inspector": "catalog:dev",
-    "@eslint/markdown": "catalog:",
+    "@eslint/markdown": "catalog:dev",
     "@types/lodash.merge": "catalog:dev",
     "@types/node": "catalog:dev",
     "@types/semver": "catalog:dev",
