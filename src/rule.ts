@@ -22,11 +22,7 @@ export function createRuleWithCommands(commands: Command[]) {
     defaultOptions: [],
     create: (context) => {
       const sc = context.sourceCode
-      // Skip if `getAllComments` is not available (e.g. in markdown source code)
-      if (!('getAllComments' in sc)) {
-        return {}
-      }
-      const comments = sc.getAllComments()
+      const comments = sc.getAllComments?.() ?? []
 
       for (const comment of comments) {
         const commandRaw = comment.value

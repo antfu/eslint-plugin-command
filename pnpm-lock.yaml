@@ -5,6 +5,10 @@ settings:
   excludeLinksFromLockfile: false
 
 catalogs:
+  default:
+    '@eslint/markdown':
+      specifier: ^7.5.1
+      version: 7.5.1
   dev:
     '@antfu/eslint-config':
       specifier: ^6.6.0
@@ -141,6 +145,9 @@ importers:
       '@eslint/config-inspector':
         specifier: catalog:dev
         version: 1.4.2(eslint@9.39.1(jiti@2.6.1))
+      '@eslint/markdown':
+        specifier: 'catalog:'
+        version: 7.5.1
       '@types/lodash.merge':
         specifier: catalog:dev
         version: 4.6.9

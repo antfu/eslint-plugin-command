@@ -1,11 +1,16 @@
 catalogMode: prefer
-shellEmulator: true
-trustPolicy: no-downgrade
 
+shellEmulator: true
+
+trustPolicy: no-downgrade
 packages:
   - playground
   - docs
   - examples/*
+
+catalog:
+  '@eslint/markdown': ^7.5.1
+
 catalogs:
   dev:
     '@antfu/eslint-config': ^6.6.0
@@ -47,6 +52,7 @@ catalogs:
     vue: ^3.5.25
   prod:
     '@es-joy/jsdoccomment': ^0.78.0
+
 onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks
