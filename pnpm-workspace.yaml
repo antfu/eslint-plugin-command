@@ -6,7 +6,6 @@ packages:
   - playground
   - docs
   - examples/*
-
 catalogs:
   dev:
     '@antfu/eslint-config': ^6.6.0
@@ -49,7 +48,6 @@ catalogs:
     vue: ^3.5.25
   prod:
     '@es-joy/jsdoccomment': ^0.78.0
-
 onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks
