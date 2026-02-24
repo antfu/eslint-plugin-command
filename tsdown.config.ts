@@ -9,7 +9,5 @@ export default defineConfig({
   ],
   exports: true,
   clean: true,
-  external: [
-    '@typescript-eslint/utils',
-  ],
+  dts: true,
 })
