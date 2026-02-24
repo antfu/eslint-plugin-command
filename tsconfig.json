@@ -6,6 +6,7 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "types": [
+      "@types/node",
       "vitest/globals"
     ],
     "strict": true,

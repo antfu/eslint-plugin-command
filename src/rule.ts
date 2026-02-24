@@ -22,7 +22,7 @@ export function createRuleWithCommands(commands: Command[]) {
     defaultOptions: [],
     create: (context) => {
       const sc = context.sourceCode
-      const comments = sc.getAllComments()
+      const comments = sc.getAllComments?.() ?? []
 
       for (const comment of comments) {
         const commandRaw = comment.value
