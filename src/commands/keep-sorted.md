@@ -31,7 +31,7 @@ const obj = {
 
 Different from the other commands, the comment will not be removed after transformation to keep the sorting.
 
-#### Sort Array of Objects
+### Sort Array of Objects
 
 This command takes an optional inline JSON configuration to specify the keys to sort.
 

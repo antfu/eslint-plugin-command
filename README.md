@@ -60,7 +60,7 @@ Refer to the [documentation](https://eslint-plugin-command.antfu.me/) for more d
 
 <p align="center">
   <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.circles.svg">
-    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.circles.svg'/>
+    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.circles.svg' alt='Sponsors'/>
   </a>
 </p>
 
