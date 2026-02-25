@@ -8,7 +8,7 @@ packages:
   - examples/*
 catalogs:
   dev:
-    '@antfu/eslint-config': ^7.4.3
+    '@antfu/eslint-config': ^7.6.0
     '@antfu/ni': ^28.2.0
     '@antfu/utils': ^9.3.0
     '@eslint/config-inspector': ^1.4.2

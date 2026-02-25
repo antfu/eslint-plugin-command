@@ -9,7 +9,7 @@ run({
   rule: createRuleWithCommands(builtinCommands),
   configs: {
     plugins: {
-      markdown: eslintMarkdown,
+      markdown: eslintMarkdown as any,
     },
     language: 'markdown/gfm',
   },

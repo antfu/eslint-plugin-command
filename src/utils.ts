@@ -58,13 +58,13 @@ function createRule<
     ): RuleListener => {
       const optionsWithDefault = context.options.map((options, index) => {
         return {
-          ...defaultOptions[index] || {},
+          ...(defaultOptions?.[index] || {}),
           ...options || {},
         }
       }) as unknown as TOptions
       return create(context, optionsWithDefault)
     }) as any,
-    defaultOptions,
+    defaultOptions: defaultOptions as TOptions,
     meta: meta as any,
   }
 }
