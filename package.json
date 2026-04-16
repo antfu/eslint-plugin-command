@@ -41,7 +41,6 @@
     "prepare": "simple-git-hooks"
   },
   "peerDependencies": {
-    "@typescript-eslint/rule-tester": "*",
     "@typescript-eslint/typescript-estree": "*",
     "@typescript-eslint/utils": "*",
     "eslint": "*"
