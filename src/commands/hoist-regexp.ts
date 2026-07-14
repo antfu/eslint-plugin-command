@@ -19,7 +19,7 @@ export const hoistRegExp: Command = {
 
     let name = ctx.matches[1]
     if (name) {
-      if (scope.references.find(ref => ref.identifier.name === name))
+      if (scope.references.some(ref => ref.identifier.name === name))
         return ctx.reportError(`Variable '${name}' is already in scope`)
     }
     else {
@@ -30,7 +30,7 @@ export const hoistRegExp: Command = {
 
       let i = 0
       name = `re${baseName}`
-      while (scope.references.find(ref => ref.identifier.name === name)) {
+      while (scope.references.some(ref => ref.identifier.name === name)) {
         i++
         name = `${baseName}${i}`
       }
