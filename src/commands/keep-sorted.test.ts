@@ -427,4 +427,70 @@ run(
     `,
     errors: ['command-fix'],
   },
+  {
+    description: 'export const with as const',
+    code: $`
+      /// keep-sorted
+      export const statusMap = {
+        timeout: 'timeout',
+        rejected: 'rejected',
+        fulfilled: 'fulfilled',
+        pending: 'pending',
+      } as const;
+    `,
+    output: $`
+      /// keep-sorted
+      export const statusMap = {
+        fulfilled: 'fulfilled',
+        pending: 'pending',
+        rejected: 'rejected',
+        timeout: 'timeout',
+      } as const;
+    `,
+    errors: ['command-fix'],
+  },
+  {
+    description: 'const with as const (no export)',
+    code: $`
+      /// keep-sorted
+      const statusMap = {
+        timeout: 'timeout',
+        rejected: 'rejected',
+        fulfilled: 'fulfilled',
+        pending: 'pending',
+      } as const;
+    `,
+    output: $`
+      /// keep-sorted
+      const statusMap = {
+        fulfilled: 'fulfilled',
+        pending: 'pending',
+        rejected: 'rejected',
+        timeout: 'timeout',
+      } as const;
+    `,
+    errors: ['command-fix'],
+  },
+  {
+    description: 'export const with satisfies',
+    code: $`
+      /// keep-sorted
+      export const statusMap = {
+        timeout: 'timeout',
+        rejected: 'rejected',
+        fulfilled: 'fulfilled',
+        pending: 'pending',
+      } satisfies Record<string, string>;
+    `,
+    output: $`
+      /// keep-sorted
+      export const statusMap = {
+        fulfilled: 'fulfilled',
+        pending: 'pending',
+        rejected: 'rejected',
+        timeout: 'timeout',
+      } satisfies Record<string, string>;
+    `,
+    errors: ['command-fix'],
+  },
 )
