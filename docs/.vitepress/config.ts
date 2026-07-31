@@ -1,31 +1,32 @@
 import type { DefaultTheme } from 'vitepress'
 import { fileURLToPath } from 'node:url'
-import fg from 'fast-glob'
+import { glob } from 'tinyglobby'
 import { defineConfig } from 'vitepress'
 import { version } from '../../package.json'
 import vite from './vite.config'
 
 const root = fileURLToPath(new URL('../../', import.meta.url))
 
-const commands = fg.sync('src/commands/*.md', {
+// eslint-disable-next-line antfu/no-top-level-await
+const commands = await glob('src/commands/*.md', {
   cwd: root,
 })
 
-const GUIDES: DefaultTheme.NavItemWithLink[] = [
+const GUIDES: (DefaultTheme.NavItemWithLink & DefaultTheme.SidebarItem)[] = [
   { text: 'Getting Started', link: '/guide/' },
   { text: 'Installation', link: '/guide/install' },
 ]
 
-const COMMANDS: DefaultTheme.NavItemWithLink[] = commands.map(file => ({
+const COMMANDS: (DefaultTheme.NavItemWithLink & DefaultTheme.SidebarItem)[] = commands.map(file => ({
   text: file.split('/').pop()!.replace('.md', ''),
   link: `/commands/${file.split('/').pop()!.replace('.md', '')}`,
 }))
 
-const INTEGRATIONS: DefaultTheme.NavItemWithLink[] = [
+const INTEGRATIONS: (DefaultTheme.NavItemWithLink & DefaultTheme.SidebarItem)[] = [
   { text: 'VS Code Extension', link: '/integrations/vscode' },
 ]
 
-const VERSIONS: (DefaultTheme.NavItemWithLink | DefaultTheme.NavItemChildren)[] = [
+const VERSIONS: (DefaultTheme.NavItemWithLink & DefaultTheme.SidebarItem)[] = [
   { text: `v${version} (current)`, link: '/' },
   { text: `Release Notes`, link: 'https://github.com/antfu/eslint-plugin-command/releases' },
   { text: `Contributing`, link: 'https://github.com/antfu/eslint-plugin-command/blob/main/CONTRIBUTING.md' },
@@ -80,8 +81,7 @@ export default defineConfig({
       },
     ],
 
-    sidebar: Object.assign(
-      {},
+    sidebar:
       {
         '/': [
           {
@@ -98,7 +98,6 @@ export default defineConfig({
           },
         ],
       },
-    ),
 
     editLink: {
       pattern: 'https://github.com/antfu/eslint-plugin-command/edit/main/:path',

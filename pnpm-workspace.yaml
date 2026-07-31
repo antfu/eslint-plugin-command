@@ -29,12 +29,11 @@ catalogs:
     chokidar: ^5.0.0
     eslint: ^10.8.0
     eslint-vitest-rule-tester: ^3.1.0
-    fast-glob: ^3.3.3
     lint-staged: ^17.2.0
     lodash.merge: 4.6.2
     pnpm: ^11.18.0
-    rimraf: ^6.1.3
     simple-git-hooks: ^2.13.1
+    tinyglobby: ^0.2.17
     tsdown: ^0.22.14
     typescript: ^6.0.3
     vite: ^8.2.0
@@ -52,10 +51,7 @@ catalogs:
     vue: ^3.5.40
   prod:
     '@es-joy/jsdoccomment': ^0.92.0
-onlyBuiltDependencies:
-  - esbuild
-  - simple-git-hooks
-  - unrs-resolver
+
 allowBuilds:
-  esbuild: set this to true or false
+  esbuild: false
   simple-git-hooks: true
