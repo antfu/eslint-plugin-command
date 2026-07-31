@@ -2,7 +2,7 @@
   "name": "eslint-plugin-command",
   "type": "module",
   "version": "3.5.3",
-  "packageManager": "pnpm@11.15.1",
+  "packageManager": "pnpm@11.18.0",
   "description": "Comment-as-command for one-off codemod with ESLint",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
   "license": "MIT",

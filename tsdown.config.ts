@@ -2,12 +2,10 @@ import { defineConfig } from 'tsdown'
 
 export default defineConfig({
   entry: [
-    'src/index',
-    'src/config',
-    'src/types',
+    'src/index.ts',
+    'src/config.ts',
+    'src/types.ts',
     'src/commands.ts',
   ],
   exports: true,
-  clean: true,
-  dts: true,
 })
