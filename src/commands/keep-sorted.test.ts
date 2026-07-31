@@ -493,4 +493,28 @@ run(
     `,
     errors: ['command-fix'],
   },
+  {
+    description: 'Class property with array',
+    code: $`
+      class Foo {
+        /// keep-sorted
+        protected _tags: ItemTag[] = [
+          ItemTag.Foo,
+          ItemTag.Bar,
+          ItemTag.Apple,
+        ];
+      }
+    `,
+    output: $`
+      class Foo {
+        /// keep-sorted
+        protected _tags: ItemTag[] = [
+          ItemTag.Apple,
+          ItemTag.Bar,
+          ItemTag.Foo,
+        ];
+      }
+    `,
+    errors: ['command-fix'],
+  },
 )

@@ -34,6 +34,7 @@ export const keepSorted: Command = {
       'ExportNamedDeclaration',
       'TSInterfaceDeclaration',
       'VariableDeclaration',
+      'PropertyDefinition',
     )
 
     if (node?.type === 'TSInterfaceDeclaration') {
@@ -53,6 +54,14 @@ export const keepSorted: Command = {
         if (node && node.type !== 'ObjectExpression' && node.type !== 'ArrayExpression' && node.type !== 'TSSatisfiesExpression' && node.type !== 'TSAsExpression')
           node = undefined
       }
+    }
+
+    if (node?.type === 'PropertyDefinition') {
+      const value = node.value
+      if (value?.type === 'ObjectExpression' || value?.type === 'ArrayExpression' || value?.type === 'TSSatisfiesExpression' || value?.type === 'TSAsExpression')
+        node = value
+      else
+        node = undefined
     }
 
     // Unwrap TSSatisfiesExpression / TSAsExpression (e.g. `satisfies`, `as const`)
@@ -307,5 +316,14 @@ function getString(node: Tree.Node): string | null {
     return node.name
   if (node.type === 'Literal')
     return String(node.raw)
+  if (node.type === 'MemberExpression') {
+    const object = getString(node.object)
+    const property = node.computed
+      ? (node.property.type === 'Literal' ? String(node.property.raw) : null)
+      : getString(node.property)
+    if (object == null || property == null)
+      return null
+    return `${object}.${property}`
+  }
   return null
 }
