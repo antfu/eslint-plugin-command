@@ -78,10 +78,6 @@
     "vite": "catalog:dev",
     "vitest": "catalog:dev"
   },
-  "resolutions": {
-    "chokidar": "catalog:dev",
-    "eslint-plugin-command": "workspace:*"
-  },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },

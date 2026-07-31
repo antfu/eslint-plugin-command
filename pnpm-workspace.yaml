@@ -10,6 +10,10 @@ packages:
   - playground
   - docs
   - examples/*
+
+overrides:
+  eslint-plugin-command: 'workspace:*'
+
 catalogs:
   dev:
     '@antfu/eslint-config': ^9.2.0
@@ -26,7 +30,6 @@ catalogs:
     '@typescript-eslint/utils': ^8.65.0
     '@vitest/ui': ^4.1.10
     bumpp: ^12.1.1
-    chokidar: ^5.0.0
     eslint: ^10.8.0
     eslint-vitest-rule-tester: ^3.1.0
     lint-staged: ^17.2.0
