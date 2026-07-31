@@ -29,6 +29,9 @@
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": "^22.22.2 || >=24.15.0"
+  },
   "scripts": {
     "build": "tsdown",
     "lint": "tsdown && eslint .",

@@ -11,6 +11,8 @@ minimumReleaseAgeExclude:
   - '@typescript-eslint/visitor-keys@8.64.0'
   - fuse.js@7.5.0
   - pnpm@11.15.1
+  - '@es-joy/jsdoccomment@0.92.0'
+  - jsdoc-type-pratt-parser@9.0.0
 shellEmulator: true
 trustPolicy: no-downgrade
 
@@ -59,7 +61,7 @@ catalogs:
     vitepress: ^2.0.0-alpha.18
     vue: ^3.5.39
   prod:
-    '@es-joy/jsdoccomment': ^0.88.0
+    '@es-joy/jsdoccomment': ^0.92.0
 onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks
