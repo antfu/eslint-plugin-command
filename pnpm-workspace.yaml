@@ -21,7 +21,6 @@ catalogs:
     '@antfu/utils': ^9.3.0
     '@eslint/config-inspector': ^3.1.0
     '@eslint/markdown': ^8.0.3
-    '@types/lodash.merge': ^4.6.9
     '@types/node': ^26.1.2
     '@typescript-eslint/parser': ^8.65.0
     '@typescript-eslint/rule-tester': ^8.65.0
@@ -33,7 +32,6 @@ catalogs:
     eslint: ^10.8.0
     eslint-vitest-rule-tester: ^3.1.0
     lint-staged: ^17.2.0
-    lodash.merge: 4.6.2
     pnpm: ^11.18.0
     simple-git-hooks: ^2.13.1
     tinyglobby: ^0.2.17
